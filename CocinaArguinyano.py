@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 
 # Configuración de rutas
-EXCEL_PATH = Path(r'C:\Users\halva\Desktop\CocinaArguiñano\CocinaArguiñano.xlsx')
+EXCEL_PATH = Path(r'.\CocinaArguiñano.xlsx')
+EXCEL_URL = "https://raw.githubusercontent.com/usuario/repo/main/CocinaArguiñano.xlsx"
 
 # Generamos el diccionario de platos deseados
 DESIRED_PLATES = {
@@ -18,7 +19,8 @@ DESIRED_PLATES = {
 # Definimos la función principal
 def main():
     # Cargamos el excel
-    df_excel = pd.read_excel(EXCEL_PATH, sheet_name=None)
+    #df_excel = pd.read_excel(EXCEL_PATH, sheet_name=None)
+    df_excel = pd.read_excel(EXCEL_URL, sheet_name=None)
 
     # Mostramos el tipo de platos disponibles
     '''
