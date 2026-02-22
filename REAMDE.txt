@@ -1,0 +1,1 @@
+Esta herramienta pretende servir para la selección automática de recetas de uno de los libros de Karlos Arguiñano (más las que se introduzcan posteriormente) con intención de devolver tanto el nombre de cada una de las recetas seleccioandas como la lista de la compra que debe hacerse para poder cocinar todas las recetas obtenidas. 
