@@ -4,10 +4,16 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
+import requests
+from io import BytesIO
 
 # Configuración de rutas
-EXCEL_PATH = Path(r'.\CocinaArguiñano.xlsx')
-EXCEL_URL = "https://raw.githubusercontent.com/usuario/repo/main/CocinaArguiñano.xlsx"
+EXCEL_URL = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/main/CocinaArguinyano.xlsx"
+
+response = requests.get(EXCEL_URL)
+print(f"Status: {response.status_code}")
+print(f"URL probada: {EXCEL_URL}")
+print(f"Primeros 100 bytes: {response.content[:100]}")
 
 # Generamos el diccionario de platos deseados
 DESIRED_PLATES = {
@@ -16,11 +22,22 @@ DESIRED_PLATES = {
     'Verduras': 3,
 }
 
+def load_excel_github():
+    """Lee XLSX directamente desde GitHub raw URL"""
+    try:
+        # Método 1: directo con pandas (funciona muchas veces)
+        return pd.read_excel(EXCEL_URL, sheet_name=None)
+    except:
+        # Método 2: requests + BytesIO (100% fiable para XLSX)
+        response = requests.get(EXCEL_URL)
+        response.raise_for_status()  # Lanza error si falla
+        return pd.read_excel(BytesIO(response.content), sheet_name=None)
+    
 # Definimos la función principal
 def main():
     # Cargamos el excel
     #df_excel = pd.read_excel(EXCEL_PATH, sheet_name=None)
-    df_excel = pd.read_excel(EXCEL_URL, sheet_name=None)
+    df_excel = load_excel_github()
 
     # Mostramos el tipo de platos disponibles
     '''
@@ -29,7 +46,7 @@ def main():
         if sheet not in ('Ingredientes', 'Unidades'):
             print(f'- {sheet}')
     '''
-
+    
     # Acumulador para todos los ingredientes y platos seleccionados
     all_ingredients = []
     selected_dishes = []
