@@ -15,6 +15,7 @@ class CocinaArguinyano:
         print(f"Primeros 100 bytes: {response.content[:100]}")
 
         self.recipes_table = self.load_recipes()
+        self.selected_dishes = {}
     
         self.master = master
         master.title("Cocina Arguinyano")
@@ -50,6 +51,14 @@ class CocinaArguinyano:
         self.delete_button = tk.Button(self.button_frame, text="Eliminar", command=self.delete_recipe)
         self.delete_button.pack(side=tk.LEFT, padx=5)
 
+        tk.Label(master, text="Generar listas:").pack(pady=5)
+        self.generate_button = tk.Button(master, text="Recetas", command=self.generate_list)
+        self.generate_button.pack(side=tk.LEFT, pady=10, padx=5)
+        self.generate_button = tk.Button(master, text="Compra", command=self.generate_list)
+        self.generate_button.pack(side=tk.RIGHT, pady=10, padx=5)
+        self.generate_button = tk.Button(master, text="Ambas", command=self.generate_list)
+        self.generate_button.pack(pady=10)
+
     def load_recipes(self):
         print("Cargando recetas...")
         """Lee XLSX directamente desde GitHub raw URL"""
@@ -79,8 +88,6 @@ class CocinaArguinyano:
                     self.tree.insert("", "end", values=(row['Nombre'], row['Ingredientes']))
 
     def add_recipe(self):
-        print("Añadiendo receta...")
-        # Abrimos una ventana para seleccionar receta y cantidad
         add_window = tk.Toplevel(self.master)
         add_window.title("Añadir Receta")
         add_window.geometry("400x200")
@@ -103,6 +110,7 @@ class CocinaArguinyano:
                     cantidad = int(cantidad)
                     self.tree.insert("", "end", values=(recipe_type, cantidad, ""))
                     add_window.destroy()
+                    self.selected_dishes[recipe_type] = cantidad
                 except ValueError:
                     print("Por favor, ingresa un número válido")
             else:
@@ -112,9 +120,6 @@ class CocinaArguinyano:
         save_button.pack(pady=10)
 
     def edit_recipe(self):
-        print("Editando receta...")
-        # Editamos la receta seleccionada con una ventana idéntica a la generada en la función Añadir
-        
         selected = self.tree.selection()
         if not selected:
             print("No hay receta seleccionada para editar")
@@ -127,29 +132,25 @@ class CocinaArguinyano:
         edit_window.title("Editar Receta")
         edit_window.geometry("400x300")
 
-        tk.Label(edit_window, text="Nombre:").pack(pady=5)
-        nombre_entry = tk.Entry(edit_window, width=40)
-        nombre_entry.pack(pady=5)
-        nombre_entry.insert(0, values[0])
-
-        tk.Label(edit_window, text="Ingredientes:").pack(pady=5)
-        ingredientes_entry = tk.Entry(edit_window, width=40)
-        ingredientes_entry.pack(pady=5)
-        ingredientes_entry.insert(0, values[1])
-
-        tk.Label(edit_window, text="Instrucciones:").pack(pady=5)
-        instrucciones_entry = tk.Entry(edit_window, width=40)
-        instrucciones_entry.pack(pady=5)
-        instrucciones_entry.insert(0, values[2])
+        tk.Label(edit_window, text="Tipo de Receta:").pack(pady=5)
+        recipe_types = [sheet for sheet in self.recipes_table.keys() if sheet not in ('Ingredientes', 'Unidades')]
+        recipe_combo = ttk.Combobox(edit_window, values=recipe_types, width=37)
+        recipe_combo.pack(pady=5)
+        recipe_combo.set(values[0])  # Prellenar con el valor actual
+        
+        tk.Label(edit_window, text="Número de platos:").pack(pady=5)
+        cantidad_entry = tk.Entry(edit_window, width=40)
+        cantidad_entry.pack(pady=5)
+        cantidad_entry.insert(0, values[1])  # Prellenar con la cantidad actual
 
         def update_recipe():
-            nombre = nombre_entry.get()
-            ingredientes = ingredientes_entry.get()
-            instrucciones = instrucciones_entry.get()
+            nombre = recipe_combo.get()
+            cantidad = cantidad_entry.get()
 
-            if nombre and ingredientes and instrucciones:
+            if nombre and cantidad:
                 self.tree.delete(selected[0])
-                self.tree.insert("", "end", values=(nombre, ingredientes, instrucciones))
+                self.tree.insert("", "end", values=(nombre, cantidad, ""))
+                self.selected_dishes[nombre] = cantidad
                 edit_window.destroy()
             else:
                 print("Por favor, completa todos los campos")
@@ -158,13 +159,99 @@ class CocinaArguinyano:
         update_button.pack(pady=10)
 
     def delete_recipe(self):
-        print("Eliminando receta...")
         # Eliminamos la receta seleccionada
         selected = self.tree.selection()
         if not selected:
             print("No hay receta seleccionada para eliminar")
             return
         self.tree.delete(selected[0])
+
+    def generate_list(self):
+        df_excel = self.recipes_table
+
+        # Mostramos el tipo de platos disponibles
+        '''
+        print('Tipos de platos disponibles:')
+        for sheet in df_excel.keys():
+            if sheet not in ('Ingredientes', 'Unidades'):
+                print(f'- {sheet}')
+        '''
+        
+        # Acumulador para todos los ingredientes y platos seleccionados
+        all_ingredients = []
+        selected_dishes = []
+
+        # Recorremos el diccionario de platos deseados
+        for plate_type, desired_num in self.selected_dishes.items():
+            # Verificamos si el tipo de plato existe
+            if plate_type not in df_excel:
+                print(f'No se han encontrado recetas de {plate_type}')
+                continue
+            
+            # Verificamos que se solicite al menos un plato
+            if desired_num <= 0:
+                print(f'No se han solicitado platos de tipo {plate_type}')
+                continue
+
+            # Cargamos el tipo de platos solicitado
+            df_plate = df_excel[plate_type].copy()
+            
+            # Rellenamos valores NaN en la columna 'Plato' antes de procesar
+            df_plate['Plato'] = df_plate['Plato'].ffill()
+            
+            # Extraemos platos únicos disponibles
+            platos = df_plate['Plato'].drop_duplicates().dropna()
+
+            # Ajustamos la cantidad de platos si es necesario
+            plate_num = min(len(platos), desired_num)
+
+            # Comprobamos si hay platos disponibles
+            if plate_num == 0:
+                print(f'No hay platos disponibles de tipo {plate_type}')
+                continue
+
+            print(f'\nSeleccionando {plate_num} platos de tipo {plate_type}...\n')
+
+            # Extraemos platos al azar
+            try:
+                selected_plates = np.random.choice(platos.values, plate_num, replace=False)
+            except ValueError as e:
+                print(f'Error al seleccionar platos de {plate_type}: {e}')
+                continue
+
+            # Filtramos por platos seleccionados
+            mask = df_plate['Plato'].isin(selected_plates)
+            df_selected = df_plate[mask]
+            
+            # Obtenemos información única de cada plato seleccionado
+            page_col = 'Página' if 'Página' in df_selected.columns else 'Pagina'
+            plate_info = df_selected.groupby('Plato', as_index=False).first()
+            
+            # Almacenamos información de los platos seleccionados (más eficiente que iterrows)
+            plate_info['Tipo'] = plate_type
+            plate_info['Página'] = plate_info[page_col].astype('Int64')  # Int64 admite NaN
+            selected_dishes.extend(plate_info[['Tipo', 'Plato', 'Página']].to_dict('records'))
+
+            # Extraemos ingredientes
+            ingredients_df = df_selected[['Ingredientes', 'Cantidades', 'Unidades']].copy()
+            all_ingredients.append(ingredients_df)
+
+        # Consolidamos todos los ingredientes
+        if not all_ingredients:
+            ingredients_result = pd.DataFrame(columns=['Ingredientes', 'Cantidades', 'Unidades'])
+        else:
+            combined_df = pd.concat(all_ingredients, ignore_index=True)
+            # Agrupamos por ingrediente y sumamos cantidades
+            ingredients_result = combined_df.groupby('Ingredientes', as_index=False).agg({
+                'Cantidades': 'sum',
+                'Unidades': 'first'  # Asumimos que las unidades son consistentes por ingrediente
+            })
+
+        # Creamos dataframe de platos seleccionados
+        dishes_result = pd.DataFrame(selected_dishes)
+
+        return ingredients_result, dishes_result
+
         
 if __name__ == "__main__":
     root = tk.Tk()
