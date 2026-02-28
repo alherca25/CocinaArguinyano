@@ -48,14 +48,17 @@ class CocinaArguinyano:
     
     def add_recipe(self):
         print("Añadiendo receta...")
+# Abrimos una ventana para añadir el Tipo de recetas y la cantidad, con un botón de guardado como en el código de CFD
         pass
 
     def edit_recipe(self):
         print("Editando receta...")
+# Misma funcionalidad que en CFD
         pass
 
     def delete_recipe(self):
         print("Eliminando receta...")
+# Misma funcionalidad que en CFD
         pass
 
 if __name__ == "__main__":
