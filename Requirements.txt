@@ -1,4 +1,7 @@
-pathlib
-numpy
+tkinter
 pandas
-openpyxl
+requests
+io
+warnings
+numpy
+reportlab

@@ -1,9 +1,15 @@
+# PyInterface.py
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
 import requests
 from io import BytesIO
 import warnings
+import numpy as np
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
 
 class CocinaArguinyano:
     def __init__(self, master):
@@ -16,11 +22,12 @@ class CocinaArguinyano:
 
         self.recipes_table = self.load_recipes()
         self.selected_dishes = {}
+        self.actual_date = pd.Timestamp.now().strftime("%Y-%m-%d")
     
         self.master = master
-        master.title("Cocina Arguinyano")
+        master.title("Cocina Rápida")
 
-        self.label = tk.Label(master, text="¡Bienvenido a la Cocina Arguinyano!")
+        self.label = tk.Label(master, text="¡Bienvenid@ a la Cocina Rápida!")
         self.label.pack()
         
         # Create frame for table
@@ -52,12 +59,18 @@ class CocinaArguinyano:
         self.delete_button.pack(side=tk.LEFT, padx=5)
 
         tk.Label(master, text="Generar listas:").pack(pady=5)
-        self.generate_button = tk.Button(master, text="Recetas", command=self.generate_list)
-        self.generate_button.pack(side=tk.LEFT, pady=10, padx=5)
-        self.generate_button = tk.Button(master, text="Compra", command=self.generate_list)
-        self.generate_button.pack(side=tk.RIGHT, pady=10, padx=5)
-        self.generate_button = tk.Button(master, text="Ambas", command=self.generate_list)
-        self.generate_button.pack(pady=10)
+
+        # Frame para los botones de Recetas y Compra en la misma fila
+        self.list_buttons_frame = tk.Frame(master)
+        self.list_buttons_frame.pack(pady=5)
+        self.generate_recipes = tk.Button(self.list_buttons_frame, text="Recetas", command=lambda: self.get_selected_dishes(True))
+        self.generate_recipes.pack(side=tk.LEFT, padx=5)
+        self.generate_shopping = tk.Button(self.list_buttons_frame, text="Compra", command=self.get_ingredients_from_dishes)
+        self.generate_shopping.pack(side=tk.LEFT, padx=5)
+
+        # Botón Ambas en la siguiente fila, centrado
+        self.generate_both = tk.Button(master, text="Ambas", command=self.generate_list)
+        self.generate_both.pack(pady=10)
 
     def load_recipes(self):
         print("Cargando recetas...")
@@ -166,90 +179,130 @@ class CocinaArguinyano:
             return
         self.tree.delete(selected[0])
 
-    def generate_list(self):
-        df_excel = self.recipes_table
+    def generate_pdf(self, from_df, title):
+        # Generamos un PDF a partir de un DataFrame (placeholder)
+        # Create PDF document
+        pdf_file = fr".\{title}.pdf"
+        doc = SimpleDocTemplate(pdf_file, pagesize=letter)
+        elements = []
 
-        # Mostramos el tipo de platos disponibles
-        '''
-        print('Tipos de platos disponibles:')
-        for sheet in df_excel.keys():
-            if sheet not in ('Ingredientes', 'Unidades'):
-                print(f'- {sheet}')
-        '''
-        
-        # Acumulador para todos los ingredientes y platos seleccionados
-        all_ingredients = []
+        # Convert DataFrame to table data
+        data = [from_df.columns.tolist()] + from_df.values.tolist()
+        table = Table(data)
+
+        # Style the table
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 14),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+
+        elements.append(table)
+        doc.build(elements)
+        print(f"PDF generado: {pdf_file}")
+
+    def generate_list(self):
+        # Generamos ambas listas
+        ingredients_result, dishes_result = self.get_ingredients_and_dishes()
+
+        # Almacenamos ambas listas
+        self.generate_pdf(dishes_result, f"Recetas-{self.actual_date}")
+        self.generate_pdf(ingredients_result, f"Compra-{self.actual_date}")
+
+        return ingredients_result, dishes_result
+
+    def get_selected_dishes(self, saving_dishes=False):
+        """Selecciona y retorna los platos basados en selected_dishes"""
+        df_excel = self.recipes_table
         selected_dishes = []
 
-        # Recorremos el diccionario de platos deseados
         for plate_type, desired_num in self.selected_dishes.items():
-            # Verificamos si el tipo de plato existe
             if plate_type not in df_excel:
                 print(f'No se han encontrado recetas de {plate_type}')
                 continue
             
-            # Verificamos que se solicite al menos un plato
             if desired_num <= 0:
                 print(f'No se han solicitado platos de tipo {plate_type}')
                 continue
 
-            # Cargamos el tipo de platos solicitado
             df_plate = df_excel[plate_type].copy()
-            
-            # Rellenamos valores NaN en la columna 'Plato' antes de procesar
             df_plate['Plato'] = df_plate['Plato'].ffill()
-            
-            # Extraemos platos únicos disponibles
             platos = df_plate['Plato'].drop_duplicates().dropna()
-
-            # Ajustamos la cantidad de platos si es necesario
             plate_num = min(len(platos), desired_num)
 
-            # Comprobamos si hay platos disponibles
             if plate_num == 0:
                 print(f'No hay platos disponibles de tipo {plate_type}')
                 continue
 
             print(f'\nSeleccionando {plate_num} platos de tipo {plate_type}...\n')
 
-            # Extraemos platos al azar
             try:
                 selected_plates = np.random.choice(platos.values, plate_num, replace=False)
             except ValueError as e:
                 print(f'Error al seleccionar platos de {plate_type}: {e}')
                 continue
 
-            # Filtramos por platos seleccionados
             mask = df_plate['Plato'].isin(selected_plates)
             df_selected = df_plate[mask]
-            
-            # Obtenemos información única de cada plato seleccionado
             page_col = 'Página' if 'Página' in df_selected.columns else 'Pagina'
             plate_info = df_selected.groupby('Plato', as_index=False).first()
             
-            # Almacenamos información de los platos seleccionados (más eficiente que iterrows)
             plate_info['Tipo'] = plate_type
-            plate_info['Página'] = plate_info[page_col].astype('Int64')  # Int64 admite NaN
+            plate_info['Página'] = plate_info[page_col].astype('Int64')
             selected_dishes.extend(plate_info[['Tipo', 'Plato', 'Página']].to_dict('records'))
 
-            # Extraemos ingredientes
+        # Almacenamos los platos seleccionados
+        dishes_result = pd.DataFrame(selected_dishes) if selected_dishes else pd.DataFrame()
+        if saving_dishes:
+            self.generate_pdf(dishes_result, f"Recetas-{self.actual_date}")
+        return dishes_result
+
+    def get_ingredients_from_dishes(self):
+        """Extrae y retorna los ingredientes de los platos seleccionados"""
+        df_excel = self.recipes_table
+        dishes_df = self.get_selected_dishes(False)
+
+        all_ingredients = []
+
+        for plate_type, desired_num in self.selected_dishes.items():
+            if plate_type not in df_excel:
+                continue
+            
+            if desired_num <= 0:
+                continue
+
+            df_plate = df_excel[plate_type].copy()
+            df_plate['Plato'] = df_plate['Plato'].ffill()
+            
+            selected_plate_names = dishes_df[dishes_df['Tipo'] == plate_type]['Plato'].values
+            mask = df_plate['Plato'].isin(selected_plate_names)
+            df_selected = df_plate[mask]
+            
             ingredients_df = df_selected[['Ingredientes', 'Cantidades', 'Unidades']].copy()
             all_ingredients.append(ingredients_df)
 
-        # Consolidamos todos los ingredientes
         if not all_ingredients:
-            ingredients_result = pd.DataFrame(columns=['Ingredientes', 'Cantidades', 'Unidades'])
-        else:
-            combined_df = pd.concat(all_ingredients, ignore_index=True)
-            # Agrupamos por ingrediente y sumamos cantidades
-            ingredients_result = combined_df.groupby('Ingredientes', as_index=False).agg({
-                'Cantidades': 'sum',
-                'Unidades': 'first'  # Asumimos que las unidades son consistentes por ingrediente
-            })
+            return pd.DataFrame(columns=['Ingredientes', 'Cantidades', 'Unidades'])
+        
+        combined_df = pd.concat(all_ingredients, ignore_index=True)
+        ingredients_result = combined_df.groupby('Ingredientes', as_index=False).agg({
+            'Cantidades': 'sum',
+            'Unidades': 'first'
+        })
+        
+        # Almacenamos los ingredientes seleccionados
+        self.generate_pdf(ingredients_result, f"Compra-{self.actual_date}")
+        return ingredients_result
 
-        # Creamos dataframe de platos seleccionados
-        dishes_result = pd.DataFrame(selected_dishes)
-
+    def get_ingredients_and_dishes(self):
+        """Retorna tanto los platos como sus ingredientes"""
+        dishes_result = self.get_selected_dishes(True)
+        ingredients_result = self.get_ingredients_from_dishes()
         return ingredients_result, dishes_result
 
         
