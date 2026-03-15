@@ -249,17 +249,19 @@ class CocinaArguinyano:
 
             mask = df_plate['Plato'].isin(selected_plates)
             df_selected = df_plate[mask]
-            print(df_selected.columns)
             elaboration_col = 'Elaboración' if 'Elaboración' in df_selected.columns else 'Elaboracion'
             plate_info = df_selected.groupby('Plato', as_index=False).first()
             
             plate_info['Tipo'] = plate_type
-            plate_info['Elaboración'] = plate_info[elaboration_col].astype('Int64')
+            plate_info['Elaboración'] = plate_info[elaboration_col].astype('string')
             selected_dishes.extend(plate_info[['Tipo', 'Plato', 'Elaboración']].to_dict('records'))
 
         # Almacenamos los platos seleccionados
         dishes_result = pd.DataFrame(selected_dishes) if selected_dishes else pd.DataFrame()
         if saving_dishes:
+            '''
+            Debería ajustar el formato del texto de la elaboración de las recetas para que se vea mejor en el PDF
+            '''
             self.generate_pdf(dishes_result, f"Recetas-{self.actual_date}")
         return dishes_result
 
