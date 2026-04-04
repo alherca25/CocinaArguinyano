@@ -7,9 +7,16 @@ from io import BytesIO
 import warnings
 import numpy as np
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, PageBreak
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
+import os
+
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+from reportlab.lib.enums import TA_LEFT
+
+from tkinter import messagebox
 
 class CocinaArguinyano:
     def __init__(self, master):
@@ -114,7 +121,7 @@ class CocinaArguinyano:
         cantidad_entry = tk.Entry(add_window, width=40)
         cantidad_entry.pack(pady=5)
         
-        def save_recipe():
+        '''def save_recipe():
             recipe_type = recipe_combo.get()
             cantidad = cantidad_entry.get()
             
@@ -127,7 +134,24 @@ class CocinaArguinyano:
                 except ValueError:
                     print("Por favor, ingresa un número válido")
             else:
+                print("Por favor, completa todos los campos")'''
+        def save_recipe():
+            recipe_type = recipe_combo.get()
+            cantidad = cantidad_entry.get()
+
+            if not recipe_type or not cantidad:
                 print("Por favor, completa todos los campos")
+                return
+
+            valid, result = self.validate_recipe_amount(recipe_type, cantidad)
+            if not valid:
+                print(result)
+                return
+
+            cantidad = result
+            self.tree.insert("", "end", values=(recipe_type, cantidad, ""))
+            self.selected_dishes[recipe_type] = cantidad
+            add_window.destroy()
         
         save_button = tk.Button(add_window, text="Guardar", command=save_recipe)
         save_button.pack(pady=10)
@@ -156,9 +180,9 @@ class CocinaArguinyano:
         cantidad_entry.pack(pady=5)
         cantidad_entry.insert(0, values[1])  # Prellenar con la cantidad actual
 
-        def update_recipe():
+        '''def update_recipe():
             nombre = recipe_combo.get()
-            cantidad = cantidad_entry.get()
+            cantidad = int(cantidad_entry.get())
 
             if nombre and cantidad:
                 self.tree.delete(selected[0])
@@ -166,10 +190,55 @@ class CocinaArguinyano:
                 self.selected_dishes[nombre] = cantidad
                 edit_window.destroy()
             else:
+                print("Por favor, completa todos los campos")'''
+        def update_recipe():
+            nombre = recipe_combo.get()
+            cantidad = cantidad_entry.get()
+
+            if not nombre or not cantidad:
                 print("Por favor, completa todos los campos")
+                return
+
+            valid, result = self.validate_recipe_amount(nombre, cantidad)
+            if not valid:
+                print(result)
+                return
+
+            cantidad = result
+            self.tree.delete(selected[0])
+            self.tree.insert("", "end", values=(nombre, cantidad, ""))
+            self.selected_dishes[nombre] = cantidad
+            edit_window.destroy()
 
         update_button = tk.Button(edit_window, text="Actualizar", command=update_recipe)
         update_button.pack(pady=10)
+
+    # Comprobación de la cantidad de recetas solicitadas y existentes, en caso de que se hayan solicitado más de las existentes se limita la cantidad devuelta
+    def validate_recipe_amount(self, recipe_type, cantidad):
+        if recipe_type not in self.recipes_table:
+            return False, f"No existe el tipo de receta '{recipe_type}'"
+
+        try:
+            cantidad = int(cantidad)
+        except ValueError:
+            return False, "Por favor, ingresa un número válido"
+
+        if cantidad < 1:
+            return False, "La cantidad debe ser mayor que 0"
+
+        df_plate = self.recipes_table[recipe_type].copy()
+        df_plate["Plato"] = df_plate["Plato"].ffill()
+        max_recetas = df_plate["Plato"].drop_duplicates().dropna().shape[0]
+
+        if cantidad > max_recetas:
+            messagebox.showwarning(
+                "Cantidad ajustada",
+                f"Se están solicitando {cantidad} platos y solo existen {max_recetas} platos almacenados. "
+                f"Se aplicará la cantidad máxima existente a su selección."
+            )
+            return True, max_recetas
+
+        return True, cantidad
 
     def delete_recipe(self):
         # Eliminamos la receta seleccionada
@@ -179,7 +248,8 @@ class CocinaArguinyano:
             return
         self.tree.delete(selected[0])
 
-    def generate_pdf(self, from_df, title):
+    # Esta función genera un pdf en formato tabla, concretamente para la lista de ingredientes
+    def generate_tabled_pdf(self, from_df, title):          
         # Generamos un PDF a partir de un DataFrame (placeholder)
         # Create PDF document
         pdf_file = fr".\{title}.pdf"
@@ -205,14 +275,120 @@ class CocinaArguinyano:
         elements.append(table)
         doc.build(elements)
         print(f"PDF generado: {pdf_file}")
+    
+    def register_calibri(self):
+        candidates = [
+            r"C:\Windows\Fonts\calibri.ttf",
+            r"C:\Windows\Fonts\calibrib.ttf",
+        ]
+
+        regular = candidates[0]
+        bold = candidates[1]
+
+        if os.path.exists(regular):
+            pdfmetrics.registerFont(TTFont("Calibri", regular))
+        if os.path.exists(bold):
+            pdfmetrics.registerFont(TTFont("Calibri-Bold", bold))
+
+    # Esta función genera un PDF con formato de receta, incluyendo ingredientes y elaboración    
+    def generate_recipes_pdf(self, dishes_df, title):
+        pdf_file = fr".\{title}.pdf"
+        self.register_calibri()
+
+        doc = SimpleDocTemplate(
+            pdf_file,
+            pagesize=letter,
+            leftMargin=50,
+            rightMargin=50,
+            topMargin=50,
+            bottomMargin=50
+        )
+
+        styles = getSampleStyleSheet()
+
+        title_style = ParagraphStyle(
+            name="RecipeTitle",
+            parent=styles["Heading1"],
+            fontName="Calibri-Bold",
+            fontSize=16,
+            leading=20,
+            spaceAfter=12,
+            alignment=TA_LEFT
+        )
+
+        subtitle_style = ParagraphStyle(
+            name="RecipeSubtitle",
+            parent=styles["Heading2"],
+            fontName="Calibri",
+            fontSize=14,
+            leading=18,
+            spaceBefore=8,
+            spaceAfter=6,
+            alignment=TA_LEFT
+        )
+
+        body_style = ParagraphStyle(
+            name="RecipeBody",
+            parent=styles["BodyText"],
+            fontName="Calibri",
+            fontSize=12,
+            leading=16,
+            spaceAfter=8,
+            alignment=TA_LEFT
+        )
+
+        story = []
+
+        for i, row in dishes_df.iterrows():
+            recipe_name = str(row.get("Plato", "")).strip()
+            elaboration = str(row.get("Elaboración", "")).strip()
+
+            plate_type = str(row.get("Tipo", "")).strip()
+            df_plate = self.recipes_table[plate_type].copy()
+            df_plate["Plato"] = df_plate["Plato"].ffill()
+
+            from xml.sax.saxutils import escape
+            import pandas as pd
+
+            recipe_rows = df_plate[df_plate["Plato"] == recipe_name].copy()
+
+            ingredient_lines = []
+            for _, ing_row in recipe_rows[["Ingredientes", "Cantidades", "Unidades"]].iterrows():
+                ingrediente = "" if pd.isna(ing_row["Ingredientes"]) else str(ing_row["Ingredientes"]).strip()
+                cantidad = "" if pd.isna(ing_row["Cantidades"]) else str(ing_row["Cantidades"]).strip()
+                unidad = "" if pd.isna(ing_row["Unidades"]) else f"[{str(ing_row['Unidades']).strip()}] "
+
+                if not ingrediente:
+                    continue
+
+                partes = [p for p in [cantidad, unidad, ingrediente] if p]
+                ingredient_lines.append(f"• {' '.join(partes)}")
+
+            ingredients_text = "<br/>".join(escape(line) for line in ingredient_lines)
+
+            story.append(Paragraph(recipe_name, title_style))
+            story.append(Spacer(1, 8))
+
+            story.append(Paragraph("Ingredientes", subtitle_style))
+            story.append(Paragraph(ingredients_text if ingredients_text else "Sin ingredientes.", body_style))
+            story.append(Spacer(1, 10))
+
+            story.append(Paragraph("Elaboración", subtitle_style))
+            story.append(Paragraph(elaboration if elaboration else "Sin elaboración.", body_style))
+
+            if i < len(dishes_df) - 1:
+                story.append(PageBreak())
+
+        doc.build(story)
+        print(f"PDF generado: {pdf_file}")
 
     def generate_list(self):
         # Generamos ambas listas
         ingredients_result, dishes_result = self.get_ingredients_and_dishes()
 
         # Almacenamos ambas listas
-        self.generate_pdf(dishes_result, f"Recetas-{self.actual_date}")
-        self.generate_pdf(ingredients_result, f"Compra-{self.actual_date}")
+        self.generate_recipes_pdf(dishes_result, f"Recetas-{self.actual_date}")
+        self.generate_tabled_pdf(ingredients_result, f"Compra-{self.actual_date}")
 
         return ingredients_result, dishes_result
 
@@ -262,7 +438,7 @@ class CocinaArguinyano:
             '''
             Debería ajustar el formato del texto de la elaboración de las recetas para que se vea mejor en el PDF
             '''
-            self.generate_pdf(dishes_result, f"Recetas-{self.actual_date}")
+            self.generate_recipes_pdf(dishes_result, f"Recetas-{self.actual_date}")
         return dishes_result
 
     def get_ingredients_from_dishes(self):
@@ -299,7 +475,7 @@ class CocinaArguinyano:
         })
         
         # Almacenamos los ingredientes seleccionados
-        self.generate_pdf(ingredients_result, f"Compra-{self.actual_date}")
+        self.generate_tabled_pdf(ingredients_result, f"Compra-{self.actual_date}")
         return ingredients_result
 
     def get_ingredients_and_dishes(self):
