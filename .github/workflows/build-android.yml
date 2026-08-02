@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev python3-pip zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
-          pip install --upgrade Cython buildozer virtualenv
+          pip install --upgrade Cython buildozer "virtualenv==20.21.0"
           
       - name: Build with Buildozer
         run: |
@@ -60,7 +60,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev python3-pip zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
-          pip install --upgrade Cython buildozer virtualenv
+          pip install --upgrade Cython buildozer "virtualenv==20.21.0"
           
       - name: Build with Buildozer
         run: |
