@@ -7,10 +7,23 @@ ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 import os
+import sys
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-# Ahora la base de datos local está en la carpeta clonada BaseDatosRecetas
-JSON_FILE = os.path.join(os.path.dirname(script_dir), "..", "BaseDatosRecetas", "CocinaArguinyano.json")
+if getattr(sys, 'frozen', False):
+    # Si se ejecuta como .exe compilado, sys.executable es la ruta al .exe
+    base_dir = os.path.dirname(sys.executable)
+else:
+    # Si se ejecuta como script .py, usamos la ruta del script
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Asumimos que la carpeta BaseDatosRecetas está al mismo nivel que CocinaArguinyano (o al mismo nivel que el .exe)
+# Si el exe está en CocinaArguinyano/dist, entonces base_dir es dist.
+# Si queremos que funcione tanto en dist como fuera, lo mejor es buscar BaseDatosRecetas
+# Si base_dir es 'dist', subimos un nivel.
+if os.path.basename(base_dir).lower() == "dist":
+    base_dir = os.path.dirname(base_dir)
+
+JSON_FILE = os.path.join(os.path.dirname(base_dir), "BaseDatosRecetas", "CocinaArguinyano.json")
 class IngredientRow(ctk.CTkFrame):
     def __init__(self, master, delete_callback, init_data=None, **kwargs):
         super().__init__(master, **kwargs)
