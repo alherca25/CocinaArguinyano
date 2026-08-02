@@ -119,7 +119,13 @@ class RecipeManager(ctk.CTk):
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo guardar la base de datos: {e}")
 
+    def show_help(self):
+        messagebox.showinfo("Ayuda / Soporte", "En caso de necesitar ayuda/soporte o tener alguna sugerencia, mande un correo a alherca25@gmail.com")
+
     def setup_ui(self):
+        self.help_btn = ctk.CTkButton(self, text="?", width=30, height=30, corner_radius=15, font=("Arial", 16, "bold"), command=self.show_help)
+        self.help_btn.place(relx=0.95, rely=0.02, anchor="ne")
+
         # Top Bar
         self.top_frame = ctk.CTkFrame(self)
         self.top_frame.pack(fill="x", padx=10, pady=10)

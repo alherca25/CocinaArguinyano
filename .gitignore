@@ -5,7 +5,9 @@ venv/
 
 # PyInstaller / Build
 build/
-dist/
+#dist/
+RecipeManager.exe
+RecipeManager.py
 *.spec
 
 # Caché de Python

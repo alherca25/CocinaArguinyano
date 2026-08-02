@@ -71,7 +71,8 @@ class CocinaArguinyano(ctk.CTk):
             except Exception as e:
                 print(f"Error al cargar logo ico: {e}")
                 
-        self.JSON_URL = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/main/CocinaArguinyano.json"
+        self.JSON_MAIN_URL = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/main/CocinaArguinyano.json"
+        self.JSON_DEV_URL = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/_dev/data/CocinaArguinyano.json"
         
         self.recipes_table = self.load_recipes()
         self.selected_dishes = {}
@@ -82,7 +83,13 @@ class CocinaArguinyano(ctk.CTk):
 
         self.setup_ui()
         
+    def show_help(self):
+        messagebox.showinfo("Ayuda / Soporte", "En caso de necesitar ayuda/soporte o tener alguna sugerencia, mande un correo a alherca25@gmail.com")
+        
     def setup_ui(self):
+        self.help_btn = ctk.CTkButton(self, text="?", width=30, height=30, corner_radius=15, font=("Arial", 16, "bold"), command=self.show_help)
+        self.help_btn.place(relx=0.95, rely=0.02, anchor="ne")
+
         self.title_lbl = ctk.CTkLabel(self, text="¡Bienvenid@ a la Cocina Rápida!", font=("Arial", 20, "bold"))
         self.title_lbl.pack(pady=20)
         
@@ -166,7 +173,10 @@ class CocinaArguinyano(ctk.CTk):
         # 1. Intentar descargar de GitHub
         try:
             print("Intentando descargar de GitHub...")
-            recipes = functions.load_recipes(self.JSON_URL, is_local=False)
+            try:
+                recipes = functions.load_recipes(self.JSON_MAIN_URL, is_local=False)
+            except:
+                recipes = functions.load_recipes(self.JSON_DEV_URL, is_local=False)
             if cache_path:
                 try:
                     with open(cache_path, "w", encoding='utf-8') as f:
