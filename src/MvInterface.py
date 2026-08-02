@@ -3,14 +3,14 @@
 # Compatible con Buildozer (python-for-android).
 
 import os
+import os
 import random
 import threading
-import warnings
 from datetime import datetime
-from io import BytesIO
+import json
 
 import requests
-from openpyxl import load_workbook
+import functions
 
 # ---------------------------------------------------------------------------
 # Kivy imports
@@ -35,17 +35,29 @@ from kivy.uix.widget import Widget
 try:
     from fpdf import FPDF
     _FPDF_AVAILABLE = True
-except ImportError:
+    _FPDF_ERROR = ""
+except ImportError as e:
     _FPDF_AVAILABLE = False
+    _FPDF_ERROR = str(e)
 
 # ---------------------------------------------------------------------------
 # Directorio de salida para los PDF
 # ---------------------------------------------------------------------------
-try:
-    from android.storage import app_storage_path  # type: ignore
-    PDF_DIR = app_storage_path()
-except Exception:
-    PDF_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
+from kivy.utils import platform
+
+LOCAL_PDF_DIR = os.path.join(os.path.expanduser("~"), "Documents")
+if platform == 'android':
+    try:
+        from android.storage import app_storage_path
+        LOCAL_PDF_DIR = app_storage_path()
+    except Exception:
+        LOCAL_PDF_DIR = "."
+else:
+    LOCAL_PDF_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
+    if not os.path.exists(LOCAL_PDF_DIR):
+        LOCAL_PDF_DIR = os.path.join(os.path.expanduser("~"), "Documents")
+    if not os.path.exists(LOCAL_PDF_DIR):
+        LOCAL_PDF_DIR = "."
 
 
 # ===========================================================================
@@ -55,108 +67,88 @@ except Exception:
 class CocinaArguinyanoLogic:
     """Lógica pura: carga de recetas, selección aleatoria, generación de PDF."""
 
-    EXCEL_URL = (
+    JSON_URL = (
         "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/"
-        "main/CocinaArguinyano.xlsx"
+        "main/CocinaArguinyano.json"
     )
-    _EXCLUDED_SHEETS = ("Ingredientes", "Unidades")
 
     def __init__(self):
-        self.recipes_table: dict = {}      # {sheet_name: [row_dict, ...]}
+        self.recipes_table: dict = {}      
         self.selected_dishes: dict = {}    # {tipo: cantidad}
+        self.active_filter: str = "Todo"
         self.actual_date: str = datetime.now().strftime("%Y-%m-%d")
 
-    # ------------------------------------------------------------------
-    # Carga de datos
-    # ------------------------------------------------------------------
+    def get_cache_path(self) -> str:
+        try:
+            from kivy.app import App
+            app = App.get_running_app()
+            if app and app.user_data_dir:
+                os.makedirs(app.user_data_dir, exist_ok=True)
+                return os.path.join(app.user_data_dir, "CocinaArguinyano.json")
+        except Exception as e:
+            print(f"Error al obtener ruta de caché: {e}")
+        return None
 
     def load_recipes(self) -> str:
-        """Carga el Excel desde GitHub. Devuelve "" si OK, mensaje de error si falla."""
+        """Carga el JSON desde GitHub o caché/local."""
+        cache_path = self.get_cache_path()
+
         try:
-            resp = requests.get(self.EXCEL_URL, timeout=20)
-            resp.raise_for_status()
-
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                workbook = load_workbook(
-                    filename=BytesIO(resp.content),
-                    data_only=True
-                )
-
-            self.recipes_table = self._workbook_to_dict(workbook)
+            self.recipes_table = functions.load_recipes(self.JSON_URL, is_local=False)
+            if cache_path:
+                try:
+                    with open(cache_path, "w", encoding="utf-8") as f:
+                        json.dump(self.recipes_table, f, ensure_ascii=False)
+                except Exception:
+                    pass
             return ""
-
         except Exception as exc:
-            return f"No se pudo cargar el Excel:\n{exc}"
+            print(f"Descarga fallida: {exc}")
+            
+        if cache_path and os.path.exists(cache_path):
+            try:
+                self.recipes_table = functions.load_recipes(cache_path, is_local=True)
+                return ""
+            except Exception:
+                pass
 
-    def _workbook_to_dict(self, workbook) -> dict:
-        """Convierte el workbook a un diccionario por hojas con filas tipo dict."""
-        sheets_data = {}
+        try:
+            local_file = "CocinaArguinyano.json"
+            if not os.path.exists(local_file):
+                script_dir = os.path.dirname(os.path.abspath(__file__))
+                local_file = os.path.join(script_dir, "CocinaArguinyano.json")
 
-        for sheet_name in workbook.sheetnames:
-            ws = workbook[sheet_name]
-            rows = list(ws.iter_rows(values_only=True))
-
-            if not rows:
-                sheets_data[sheet_name] = []
-                continue
-
-            headers = []
-            for header in rows[0]:
-                header_text = "" if header is None else str(header).strip()
-                headers.append(header_text)
-
-            clean_rows = []
-            for row in rows[1:]:
-                row_dict = {}
-                has_any_value = False
-
-                for idx, value in enumerate(row):
-                    key = headers[idx] if idx < len(headers) else f"Col{idx + 1}"
-                    if not key:
-                        key = f"Col{idx + 1}"
-
-                    if value is not None and str(value).strip() != "":
-                        has_any_value = True
-
-                    row_dict[key] = value
-
-                if has_any_value:
-                    clean_rows.append(row_dict)
-
-            sheets_data[sheet_name] = clean_rows
-
-        return sheets_data
-
-    # ------------------------------------------------------------------
-    # Tipos de receta disponibles
-    # ------------------------------------------------------------------
+            if os.path.exists(local_file):
+                self.recipes_table = functions.load_recipes(local_file, is_local=True)
+                return ""
+            else:
+                return f"No se encontró JSON local ni en GitHub."
+        except Exception as local_exc:
+            return f"Fallo descarga y fallo lectura local ({local_exc})"
 
     def get_recipe_types(self) -> list:
-        return [
-            sheet_name
-            for sheet_name in self.recipes_table.keys()
-            if sheet_name not in self._EXCLUDED_SHEETS
-        ]
-
-    # ------------------------------------------------------------------
-    # CRUD sobre selected_dishes
-    # ------------------------------------------------------------------
+        return list(self.recipes_table.keys())
 
     def add_dish(self, dish_type: str, quantity: str) -> str:
         if not dish_type or dish_type == "—":
             return "Selecciona un tipo de receta."
-
         try:
             qty = int(quantity)
-        except (TypeError, ValueError):
+        except ValueError:
             return "La cantidad debe ser un número entero."
-
         if qty <= 0:
             return "La cantidad debe ser mayor que 0."
 
+        adjusted_msg = ""
+        if dish_type in self.recipes_table:
+            valid_recipes = functions.filter_recipes(self.recipes_table[dish_type], self.active_filter)
+            max_recetas = len(valid_recipes)
+            if qty > max_recetas:
+                qty = max_recetas
+                adjusted_msg = f"Ajustado: Con el filtro '{self.active_filter}', solo hay {max_recetas} platos disponibles."
+
         self.selected_dishes[dish_type] = qty
-        return ""
+        return adjusted_msg
 
     def edit_dish(self, old_type: str, new_type: str, new_quantity: str) -> str:
         self.selected_dishes.pop(old_type, None)
@@ -165,197 +157,98 @@ class CocinaArguinyanoLogic:
     def remove_dish(self, dish_type: str):
         self.selected_dishes.pop(dish_type, None)
 
-    # ------------------------------------------------------------------
-    # Helpers de datos
-    # ------------------------------------------------------------------
-
-    def _normalize_text(self, value) -> str:
-        if value is None:
-            return ""
-        return str(value).strip()
-
-    def _normalize_number(self, value) -> float:
-        if value is None:
-            return 0.0
-
-        if isinstance(value, (int, float)):
-            return float(value)
-
-        text = str(value).strip().replace(",", ".")
-        if not text:
-            return 0.0
-
-        try:
-            return float(text)
-        except ValueError:
-            return 0.0
-
-    def _format_number(self, value) -> str:
-        if isinstance(value, int):
-            return str(value)
-
-        if isinstance(value, float):
-            if value.is_integer():
-                return str(int(value))
-            return f"{value:.2f}".rstrip("0").rstrip(".")
-
-        return str(value)
-
-    def _fill_forward_plate(self, rows: list) -> list:
-        """Replica el comportamiento de ffill() sobre la columna Plato."""
-        current_plate = ""
-
-        for row in rows:
-            plate = self._normalize_text(row.get("Plato"))
-            if plate:
-                current_plate = plate
-            else:
-                row["Plato"] = current_plate
-
-        return rows
-
-    # ------------------------------------------------------------------
-    # Selección aleatoria de platos
-    # ------------------------------------------------------------------
-
-    def get_selected_dishes(self, save_pdf: bool = False) -> list:
+    def get_selected_dishes(self, save_pdf: bool = False):
         result = []
-
         for plate_type, desired_num in self.selected_dishes.items():
-            if plate_type not in self.recipes_table or desired_num <= 0:
-                continue
+            if desired_num <= 0: continue
+            
+            dishes, limited = functions.select_random_dishes(
+                self.recipes_table, plate_type, desired_num, self.active_filter
+            )
+            
+            for d in dishes:
+                d_copy = d.copy()
+                d_copy["Tipo"] = plate_type
+                result.append(d_copy)
 
-            rows = [dict(item) for item in self.recipes_table.get(plate_type, [])]
-            if not rows:
-                continue
+        if not result:
+            raise RuntimeError("No se pudo seleccionar ningún plato.")
 
-            rows = self._fill_forward_plate(rows)
-
-            unique_dishes = []
-            seen = set()
-
-            for row in rows:
-                plate_name = self._normalize_text(row.get("Plato"))
-                if plate_name and plate_name not in seen:
-                    seen.add(plate_name)
-                    unique_dishes.append(plate_name)
-
-            n = min(len(unique_dishes), desired_num)
-            if n == 0:
-                continue
-
-            try:
-                chosen = random.sample(unique_dishes, n)
-            except ValueError:
-                continue
-
-            for dish_name in chosen:
-                first_row = None
-
-                for row in rows:
-                    if self._normalize_text(row.get("Plato")) == dish_name:
-                        first_row = row
-                        break
-
-                if first_row is None:
-                    continue
-
-                page_value = first_row.get("Página", first_row.get("Pagina", ""))
-
-                result.append({
-                    "Tipo": plate_type,
-                    "Plato": dish_name,
-                    "Página": "" if page_value is None else str(page_value),
-                })
-
-        if save_pdf and result:
-            self.generate_pdf(result, f"Recetas-{self.actual_date}")
+        if save_pdf:
+            return self.generate_recipes_pdf(result, f"Recetas-{self.actual_date}")
 
         return result
 
-    # ------------------------------------------------------------------
-    # Extracción de ingredientes
-    # ------------------------------------------------------------------
-
-    def get_ingredients_from_dishes(self, save_pdf: bool = True) -> list:
-        dishes_list = self.get_selected_dishes(save_pdf=False)
-
+    def get_ingredients_from_dishes(self, save_pdf: bool = True, dishes_list: list = None):
+        if dishes_list is None:
+            dishes_list = self.get_selected_dishes(save_pdf=False)
         if not dishes_list:
-            return []
-
-        selected_by_type = {}
-        for item in dishes_list:
-            dish_type = item.get("Tipo", "")
-            dish_name = item.get("Plato", "")
-            selected_by_type.setdefault(dish_type, set()).add(dish_name)
+            raise RuntimeError("No hay platos seleccionados.")
 
         grouped = {}
-
-        for plate_type in self.selected_dishes:
-            if plate_type not in self.recipes_table:
-                continue
-
-            rows = [dict(item) for item in self.recipes_table.get(plate_type, [])]
-            if not rows:
-                continue
-
-            rows = self._fill_forward_plate(rows)
-            selected_names = selected_by_type.get(plate_type, set())
-
-            for row in rows:
-                dish_name = self._normalize_text(row.get("Plato"))
-                if dish_name not in selected_names:
-                    continue
-
-                ingredient = self._normalize_text(row.get("Ingredientes"))
-                if not ingredient:
-                    continue
-
-                quantity = self._normalize_number(row.get("Cantidades"))
-                unit = self._normalize_text(row.get("Unidades"))
-
-                if ingredient not in grouped:
-                    grouped[ingredient] = {
-                        "Ingredientes": ingredient,
-                        "Cantidades": 0.0,
-                        "Unidades": unit,
+        for recipe in dishes_list:
+            for ing in recipe.get("ingredientes", []):
+                nombre = str(ing.get("nombre", "")).strip()
+                if not nombre: continue
+                key = nombre.lower()
+                
+                unidad = str(ing.get("unidad", "")).strip()
+                cantidad_str = str(ing.get("cantidad", "")).strip()
+                
+                cantidad_val = 0.0
+                is_numeric = False
+                try:
+                    if cantidad_str and cantidad_str.lower() != 'nan':
+                        cantidad_val = float(cantidad_str)
+                        is_numeric = True
+                except ValueError:
+                    pass
+                
+                full_key = (key, unidad)
+                if full_key not in grouped:
+                    grouped[full_key] = {
+                        "Ingredientes": nombre,
+                        "Cantidades": cantidad_val if is_numeric else cantidad_str,
+                        "Unidades": unidad,
+                        "is_numeric": is_numeric
                     }
-
-                grouped[ingredient]["Cantidades"] += quantity
-
-                if not grouped[ingredient]["Unidades"] and unit:
-                    grouped[ingredient]["Unidades"] = unit
+                else:
+                    if is_numeric and grouped[full_key]["is_numeric"]:
+                        grouped[full_key]["Cantidades"] += cantidad_val
 
         result = list(grouped.values())
-
-        result.sort(key=lambda x: self._normalize_text(x.get("Ingredientes")).lower())
+        result.sort(key=lambda x: x["Ingredientes"].lower())
 
         for item in result:
-            item["Cantidades"] = self._format_number(item.get("Cantidades", 0))
+            cant = item["Cantidades"]
+            if item["is_numeric"] and float(cant).is_integer():
+                cant = int(float(cant))
+            item["Cantidades"] = str(cant)
+            
+        if not result:
+            raise RuntimeError("No hay ingredientes.")
 
-        if save_pdf and result:
-            self.generate_pdf(result, f"Compra-{self.actual_date}")
-
+        if save_pdf:
+            return self.generate_pdf(result, f"Compra-{self.actual_date}")
         return result
 
-    def generate_all(self):
-        """Genera ambas listas (recetas + compra) y sus PDF."""
-        self.get_selected_dishes(save_pdf=True)
-        self.get_ingredients_from_dishes(save_pdf=True)
-
-    # ------------------------------------------------------------------
-    # Generación de PDF (fpdf2)
-    # ------------------------------------------------------------------
+    def generate_all(self) -> str:
+        dishes = self.get_selected_dishes(save_pdf=False)
+        msg1 = self.generate_recipes_pdf(dishes, f"Recetas-{self.actual_date}")
+        ingredients = self.get_ingredients_from_dishes(save_pdf=False, dishes_list=dishes)
+        msg2 = self.generate_pdf(ingredients, f"Compra-{self.actual_date}")
+        return f"Recetas:\n{msg1}\n\nCompra:\n{msg2}"
 
     def generate_pdf(self, rows: list, title: str) -> str:
         if not _FPDF_AVAILABLE:
-            return "fpdf2 no está instalado."
+            raise RuntimeError(f"fpdf2 no está instalado. Detalle: {_FPDF_ERROR}")
 
         if not rows:
-            return "Sin datos para generar el PDF."
+            raise RuntimeError("Sin datos para generar el PDF.")
 
-        os.makedirs(PDF_DIR, exist_ok=True)
-        pdf_path = os.path.join(PDF_DIR, f"{title}.pdf")
+        os.makedirs(LOCAL_PDF_DIR, exist_ok=True)
+        pdf_name = f"{title}.pdf"
+        local_path = os.path.join(LOCAL_PDF_DIR, pdf_name)
 
         pdf = FPDF(orientation="P", unit="mm", format="A4")
         pdf.set_auto_page_break(auto=True, margin=15)
@@ -366,7 +259,7 @@ class CocinaArguinyanoLogic:
         pdf.cell(0, 12, title, align="C")
         pdf.ln(12)
 
-        headers = list(rows[0].keys())
+        headers = ["Ingrediente", "Cantidad", "Unidad"]
         effective_page_width = pdf.w - pdf.l_margin - pdf.r_margin
         ncols = max(1, len(headers))
         col_w = effective_page_width / ncols
@@ -385,14 +278,142 @@ class CocinaArguinyanoLogic:
         pdf.set_text_color(0, 0, 0)
 
         for row in rows:
-            for header in headers:
-                value = row.get(header, "")
+            values = [row.get("Ingredientes", ""), row.get("Cantidades", ""), row.get("Unidades", "")]
+            for value in values:
                 text = "" if value is None else str(value)
                 pdf.cell(col_w, 8, text[:30], border=1, align="C")
             pdf.ln()
 
-        pdf.output(pdf_path)
-        return pdf_path
+        pdf.output(local_path)
+
+        # Copiar al almacenamiento compartido si estamos en Android
+        if platform == 'android':
+            try:
+                from androidstorage4kivy import SharedStorage
+                shared = SharedStorage()
+                shared_uri = shared.copy_to_shared(local_path, filepath=pdf_name)
+                return f"Guardado en la carpeta 'Documentos' del dispositivo.\nURI: {shared_uri}"
+            except Exception as e:
+                # Fallback al almacenamiento externo privado de la app
+                try:
+                    from jnius import autoclass
+                    PythonActivity = autoclass('org.kivy.android.PythonActivity')
+                    context = PythonActivity.mActivity.getApplicationContext()
+                    ext_dir = context.getExternalFilesDir(None)
+                    if ext_dir:
+                        ext_path = os.path.join(ext_dir.getAbsolutePath(), pdf_name)
+                        import shutil
+                        shutil.copy(local_path, ext_path)
+                        return f"Guardado en almacenamiento externo privado:\n{ext_path}\n(Fallo SharedStorage: {e})"
+                except Exception:
+                    pass
+                return f"Guardado localmente (privado) debido a un fallo al compartir:\n{local_path}\nError: {e}"
+
+        return local_path
+
+    def generate_recipes_pdf(self, dishes: list, title: str) -> str:
+        if not _FPDF_AVAILABLE:
+            raise RuntimeError(f"fpdf2 no está instalado. Detalle: {_FPDF_ERROR}")
+
+        if not dishes:
+            raise RuntimeError("Sin platos seleccionados para generar el PDF.")
+
+        os.makedirs(LOCAL_PDF_DIR, exist_ok=True)
+        pdf_name = f"{title}.pdf"
+        local_path = os.path.join(LOCAL_PDF_DIR, pdf_name)
+
+        pdf = FPDF(orientation="P", unit="mm", format="A4")
+        pdf.set_auto_page_break(auto=True, margin=15)
+
+        for dish in dishes:
+            pdf.add_page()
+            
+            dish_name = dish.get("nombre", dish.get("Plato", ""))
+            plate_type = dish.get("Tipo", "")
+            elaboration = dish.get("elaboracion", dish.get("Elaboración", ""))
+            page_val = dish.get("pagina", dish.get("Página", ""))
+
+            ingredient_lines = []
+            for ing in dish.get("ingredientes", []):
+                formatted_ing = functions.format_ingredient(ing)
+                if formatted_ing:
+                    ingredient_lines.append(f"- {formatted_ing}")
+
+            # Limpiar textos para evitar problemas de codificación latin-1
+            def clean(text):
+                if not text: return ""
+                replacements = {
+                    "\u2013": "-", "\u2014": "-", "\u2018": "'", "\u2019": "'",
+                    "\u201c": '"', "\u201d": '"', "\u2022": "-",
+                    "\u00bd": "1/2", "\u00bc": "1/4", "\u00be": "3/4",
+                    "\u2026": "..."
+                }
+                for orig, rep in replacements.items():
+                    text = text.replace(orig, rep)
+                return text.encode('latin-1', 'replace').decode('latin-1')
+
+            # Renderizar
+            # Título del plato
+            pdf.set_font("Helvetica", "B", 16)
+            pdf.x = pdf.l_margin
+            pdf.cell(pdf.epw, 10, clean(dish_name), align="L")
+            pdf.ln(10)
+            
+            # Categoría y Página (si existe)
+            meta_text = f"Categoría: {plate_type}"
+            if page_val:
+                meta_text += f" | Página: {page_val}"
+            pdf.set_font("Helvetica", "I", 10)
+            pdf.x = pdf.l_margin
+            pdf.cell(pdf.epw, 6, clean(meta_text), align="L")
+            pdf.ln(8)
+
+            # Sección Ingredientes
+            pdf.set_font("Helvetica", "B", 12)
+            pdf.x = pdf.l_margin
+            pdf.cell(pdf.epw, 8, clean("Ingredientes"), align="L")
+            pdf.ln(8)
+            pdf.set_font("Helvetica", "", 10)
+            for line in ingredient_lines:
+                pdf.x = pdf.l_margin
+                pdf.multi_cell(pdf.epw, 6, clean(line), align="L")
+            pdf.ln(5)
+
+            # Sección Elaboración
+            pdf.set_font("Helvetica", "B", 12)
+            pdf.x = pdf.l_margin
+            pdf.cell(pdf.epw, 8, clean("Elaboración"), align="L")
+            pdf.ln(8)
+            pdf.set_font("Helvetica", "", 10)
+            pdf.x = pdf.l_margin
+            pdf.multi_cell(pdf.epw, 6, clean(elaboration if elaboration else "Sin elaboración."), align="L")
+
+        pdf.output(local_path)
+
+        # Copiar al almacenamiento compartido si estamos en Android
+        if platform == 'android':
+            try:
+                from androidstorage4kivy import SharedStorage
+                shared = SharedStorage()
+                shared_uri = shared.copy_to_shared(local_path, filepath=pdf_name)
+                return f"Guardado en la carpeta 'Documentos' del dispositivo.\nURI: {shared_uri}"
+            except Exception as e:
+                # Fallback al almacenamiento externo privado de la app
+                try:
+                    from jnius import autoclass
+                    PythonActivity = autoclass('org.kivy.android.PythonActivity')
+                    context = PythonActivity.mActivity.getApplicationContext()
+                    ext_dir = context.getExternalFilesDir(None)
+                    if ext_dir:
+                        ext_path = os.path.join(ext_dir.getAbsolutePath(), pdf_name)
+                        import shutil
+                        shutil.copy(local_path, ext_path)
+                        return f"Guardado en almacenamiento externo privado:\n{ext_path}\n(Fallo SharedStorage: {e})"
+                except Exception:
+                    pass
+                return f"Guardado localmente (privado) debido a un fallo al compartir:\n{local_path}\nError: {e}"
+
+        return local_path
 
 
 # ===========================================================================
@@ -756,6 +777,24 @@ class MainScreen(BoxLayout):
         )
         self.add_widget(self.lbl_status)
 
+        # --- Filtro ---
+        filter_layout = BoxLayout(size_hint_y=None, height=dp(40), spacing=dp(5), padding=(0, 0, 0, dp(5)))
+        filter_lbl = Label(
+            text="Filtro:", size_hint_x=0.2, halign="right", valign="middle"
+        )
+        filter_lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
+        self.filter_spinner = Spinner(
+            text="Todo",
+            values=["Todo", "Vegetariano", "Gluten Free"],
+            size_hint_x=0.8,
+            height=dp(36),
+            background_color=(0.2, 0.2, 0.3, 1)
+        )
+        self.filter_spinner.bind(text=self.on_filter_change)
+        filter_layout.add_widget(filter_lbl)
+        filter_layout.add_widget(self.filter_spinner)
+        self.add_widget(filter_layout)
+
         # --- Cabecera de la tabla ---
         self.add_widget(HeaderRow())
 
@@ -846,6 +885,9 @@ class MainScreen(BoxLayout):
             row = SelectableRow(dtype, qty, self._on_row_selected)
             self.list_container.add_widget(row)
 
+    def on_filter_change(self, spinner, text):
+        self.logic.active_filter = text
+
     def _on_row_selected(self, row: SelectableRow):
         # Des-seleccionar anterior si es distinto
         if self._selected_row and self._selected_row is not row:
@@ -868,7 +910,11 @@ class MainScreen(BoxLayout):
     def _confirm_add(self, dish_type: str, qty: str):
         err = self.logic.add_dish(dish_type, qty)
         if err:
-            self._show_info("Error", err)
+            if err.startswith("Ajustado:"):
+                self._show_info("Cantidad ajustada", err)
+                self.refresh_list()
+            else:
+                self._show_info("Error", err)
         else:
             self.refresh_list()
 
@@ -888,7 +934,12 @@ class MainScreen(BoxLayout):
     def _confirm_edit(self, old_type: str, new_type: str, new_qty: str):
         err = self.logic.edit_dish(old_type, new_type, new_qty)
         if err:
-            self._show_info("Error", err)
+            if err.startswith("Ajustado:"):
+                self._show_info("Cantidad ajustada", err)
+                self._selected_row = None
+                self.refresh_list()
+            else:
+                self._show_info("Error", err)
         else:
             self._selected_row = None
             self.refresh_list()
@@ -907,14 +958,17 @@ class MainScreen(BoxLayout):
     # Acciones de generación (ejecutadas en hilo secundario)
     # ------------------------------------------------------------------
 
-    def _run_in_thread(self, fn, success_msg: str):
-        """Ejecuta fn() en un hilo y muestra popup al terminar."""
+    def _run_in_thread(self, fn):
+        """Ejecuta fn() en un hilo y muestra popup con el mensaje devuelto al terminar."""
 
         def worker():
             try:
-                fn()
+                msg = fn()
+                # Si retorna una lista u otro objeto que no sea string, ponemos un mensaje genérico
+                if not isinstance(msg, str):
+                    msg = "Operación completada con éxito."
                 Clock.schedule_once(
-                    lambda _: self._show_info("Listo", success_msg), 0
+                    lambda _: self._show_info("Listo", str(msg)), 0
                 )
             except Exception as exc:
                 msg = str(exc)
@@ -930,8 +984,7 @@ class MainScreen(BoxLayout):
             return
 
         self._run_in_thread(
-            lambda: self.logic.get_selected_dishes(save_pdf=True),
-            f"PDF de recetas guardado en:\n{PDF_DIR}",
+            lambda: self.logic.get_selected_dishes(save_pdf=True)
         )
 
     def on_gen_shopping(self, *_):
@@ -940,8 +993,7 @@ class MainScreen(BoxLayout):
             return
 
         self._run_in_thread(
-            lambda: self.logic.get_ingredients_from_dishes(save_pdf=True),
-            f"PDF de compra guardado en:\n{PDF_DIR}",
+            lambda: self.logic.get_ingredients_from_dishes(save_pdf=True)
         )
 
     def on_gen_both(self, *_):
@@ -950,8 +1002,7 @@ class MainScreen(BoxLayout):
             return
 
         self._run_in_thread(
-            self.logic.generate_all,
-            f"PDFs de recetas y compra guardados en:\n{PDF_DIR}",
+            self.logic.generate_all
         )
 
     # ------------------------------------------------------------------

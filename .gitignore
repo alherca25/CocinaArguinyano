@@ -1,4 +1,19 @@
-# No publicamos el env
+# Entornos virtuales
 venvArguinyano/
 venvArguiñano/
 venv/
+
+# PyInstaller / Build
+build/
+dist/
+*.spec
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Logs y otros
+*.log
+.buildozer/
+bin/
+.vscode/

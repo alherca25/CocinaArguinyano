@@ -1,7 +1,4 @@
-tkinter
-pandas
 requests
-io
-warnings
-numpy
 reportlab
+customtkinter
+fpdf2
