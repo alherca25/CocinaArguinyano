@@ -43,7 +43,7 @@ class ManagerLogic:
     def load_db(self):
         import requests
         try:
-            url = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/main/data/CocinaArguinyano.json"
+            url = "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/main/CocinaArguinyano.json"
             resp = requests.get(url)
             if resp.status_code == 200:
                 self.db = resp.json()
@@ -69,9 +69,9 @@ class ManagerLogic:
         import requests
         import base64
         
-        repo = "alherca25/CocinaArguinyano"
-        path = "data/CocinaArguinyano.json"
-        branch = "main" # o _dev, si prefieres subir a _dev
+        repo = "alherca25/BaseDatosRecetas"
+        path = "CocinaArguinyano.json"
+        branch = "main" # BaseDatosRecetas solo tendra la rama main
         url = f"https://api.github.com/repos/{repo}/contents/{path}?ref={branch}"
         
         headers = {

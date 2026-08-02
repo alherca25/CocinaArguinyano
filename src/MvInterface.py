@@ -68,7 +68,7 @@ class CocinaArguinyanoLogic:
     """Lógica pura: carga de recetas, selección aleatoria, generación de PDF."""
 
     JSON_URL = (
-        "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/"
+        "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/"
         "main/CocinaArguinyano.json"
     )
 

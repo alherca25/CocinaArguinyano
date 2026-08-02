@@ -71,10 +71,8 @@ class CocinaArguinyano(ctk.CTk):
             except Exception as e:
                 print(f"Error al cargar logo ico: {e}")
                 
-        self.JSON_MAIN_URL = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/main/CocinaArguinyano.json"
-        self.JSON_DEV_URL = "https://raw.githubusercontent.com/alherca25/CocinaArguinyano/_dev/data/CocinaArguinyano.json"
-        
         self.recipes_table = self.load_recipes()
+
         self.selected_dishes = {}
         self.actual_date = datetime.now().strftime("%Y-%m-%d")
     
@@ -173,10 +171,14 @@ class CocinaArguinyano(ctk.CTk):
         # 1. Intentar descargar de GitHub
         try:
             print("Intentando descargar de GitHub...")
+            # URL para la bbdd de recetas (ahora en el repo público BaseDatosRecetas)
+            JSON_MAIN_URL = "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/main/CocinaArguinyano.json"
+            JSON_DEV_URL = "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/_dev/CocinaArguinyano.json"
+            
             try:
-                recipes = functions.load_recipes(self.JSON_MAIN_URL, is_local=False)
+                recipes = functions.load_recipes(JSON_MAIN_URL, is_local=False)
             except:
-                recipes = functions.load_recipes(self.JSON_DEV_URL, is_local=False)
+                recipes = functions.load_recipes(JSON_DEV_URL, is_local=False)
             if cache_path:
                 try:
                     with open(cache_path, "w", encoding='utf-8') as f:

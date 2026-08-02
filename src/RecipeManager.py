@@ -9,7 +9,8 @@ ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-JSON_FILE = os.path.join(os.path.dirname(script_dir), "data", "CocinaArguinyano.json")
+# Ahora la base de datos local está en la carpeta clonada BaseDatosRecetas
+JSON_FILE = os.path.join(os.path.dirname(script_dir), "..", "BaseDatosRecetas", "CocinaArguinyano.json")
 class IngredientRow(ctk.CTkFrame):
     def __init__(self, master, delete_callback, init_data=None, **kwargs):
         super().__init__(master, **kwargs)
