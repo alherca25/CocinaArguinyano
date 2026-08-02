@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Prepare Interface Build
         run: |
@@ -18,7 +18,7 @@ jobs:
           cp buildozer_interface.spec buildozer.spec
 
       - name: Setup Java 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -31,7 +31,7 @@ jobs:
           buildozer_version: master
 
       - name: Upload Interface APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Recetario_APK
           path: bin/*.apk
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Prepare Manager Build
         run: |
@@ -48,7 +48,7 @@ jobs:
           cp buildozer_manager.spec buildozer.spec
 
       - name: Setup Java 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -61,7 +61,7 @@ jobs:
           buildozer_version: master
 
       - name: Upload Manager APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: RecipeManager_APK
           path: bin/*.apk
