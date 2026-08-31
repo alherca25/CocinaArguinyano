@@ -30,15 +30,8 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget
 
 # ---------------------------------------------------------------------------
-# PDF backend: fpdf2 (compatible con Android a través de python-for-android)
+# Exportador nativo a TXT (reemplazo de FPDF)
 # ---------------------------------------------------------------------------
-try:
-    from fpdf import FPDF
-    _FPDF_AVAILABLE = True
-    _FPDF_ERROR = ""
-except ImportError as e:
-    _FPDF_AVAILABLE = False
-    _FPDF_ERROR = str(e)
 
 # ---------------------------------------------------------------------------
 # Directorio de salida para los PDF
@@ -242,150 +235,75 @@ class CocinaArguinyanoLogic:
         return f"Recetas:\n{msg1}\n\nCompra:\n{msg2}"
 
     def generate_pdf(self, rows: list, title: str) -> str:
-        if not _FPDF_AVAILABLE:
-            raise RuntimeError(f"fpdf2 no está instalado. Detalle: {_FPDF_ERROR}")
-
         if not rows:
-            raise RuntimeError("Sin datos para generar el PDF.")
+            raise RuntimeError("Sin datos para generar el documento.")
 
         pdf_dir = get_local_pdf_dir()
         os.makedirs(pdf_dir, exist_ok=True)
-        pdf_name = f"{title}.pdf"
-        local_path = os.path.join(pdf_dir, pdf_name)
+        txt_name = f"{title}.txt"
+        local_path = os.path.join(pdf_dir, txt_name)
 
-        pdf = FPDF(orientation="P", unit="mm", format="A4")
-        pdf.set_auto_page_break(auto=True, margin=15)
-        pdf.add_page()
+        with open(local_path, "w", encoding="utf-8") as f:
+            f.write(f"--- {title.upper()} ---\n\n")
+            f.write(f"{'Ingrediente':<30} | {'Cantidad':<10} | {'Unidad':<15}\n")
+            f.write("-" * 60 + "\n")
+            for row in rows:
+                ing = str(row.get("Ingredientes", ""))[:30]
+                cant = str(row.get("Cantidades", ""))[:10]
+                unid = str(row.get("Unidades", ""))[:15]
+                f.write(f"{ing:<30} | {cant:<10} | {unid:<15}\n")
+            f.write("\n" + "-" * 60 + "\n")
 
-        # Título
-        pdf.set_font("Helvetica", "B", 16)
-        pdf.cell(0, 12, title, align="C")
-        pdf.ln(12)
-
-        headers = ["Ingrediente", "Cantidad", "Unidad"]
-        effective_page_width = pdf.w - pdf.l_margin - pdf.r_margin
-        ncols = max(1, len(headers))
-        col_w = effective_page_width / ncols
-
-        # Cabecera de la tabla
-        pdf.set_font("Helvetica", "B", 10)
-        pdf.set_fill_color(80, 80, 80)
-        pdf.set_text_color(255, 255, 255)
-
-        for col in headers:
-            pdf.cell(col_w, 9, str(col)[:30], border=1, align="C", fill=True)
-        pdf.ln()
-
-        # Filas
-        pdf.set_font("Helvetica", "", 9)
-        pdf.set_text_color(0, 0, 0)
-
-        for row in rows:
-            values = [row.get("Ingredientes", ""), row.get("Cantidades", ""), row.get("Unidades", "")]
-            for value in values:
-                text = "" if value is None else str(value)
-                pdf.cell(col_w, 8, text[:30], border=1, align="C")
-            pdf.ln()
-
-        pdf.output(local_path)
-
-        # Compartir el PDF mediante menú nativo si estamos en Android
+        # Compartir el TXT mediante menú nativo si estamos en Android
         if platform == 'android':
             try:
                 from plyer import share
-                share.share(local_path, title=pdf_name)
-                return f"PDF generado. Abre el menú para compartirlo/guardarlo."
+                share.share(local_path, title=txt_name)
+                return f"Lista generada. Abre el menú para compartirla/guardarla."
             except Exception as e:
                 return f"Guardado internamente debido a un fallo al compartir:\n{local_path}\nError: {e}"
 
         return local_path
 
     def generate_recipes_pdf(self, dishes: list, title: str) -> str:
-        if not _FPDF_AVAILABLE:
-            raise RuntimeError(f"fpdf2 no está instalado. Detalle: {_FPDF_ERROR}")
-
         if not dishes:
-            raise RuntimeError("Sin platos seleccionados para generar el PDF.")
+            raise RuntimeError("Sin platos seleccionados para generar el documento.")
 
         pdf_dir = get_local_pdf_dir()
         os.makedirs(pdf_dir, exist_ok=True)
-        pdf_name = f"{title}.pdf"
-        local_path = os.path.join(pdf_dir, pdf_name)
+        txt_name = f"{title}.txt"
+        local_path = os.path.join(pdf_dir, txt_name)
 
-        pdf = FPDF(orientation="P", unit="mm", format="A4")
-        pdf.set_auto_page_break(auto=True, margin=15)
+        with open(local_path, "w", encoding="utf-8") as f:
+            f.write(f"=== {title.upper()} ===\n\n")
+            for dish in dishes:
+                dish_name = dish.get("nombre", dish.get("Plato", ""))
+                plate_type = dish.get("Tipo", "")
+                elaboration = dish.get("elaboracion", dish.get("Elaboración", ""))
+                page_val = dish.get("pagina", dish.get("Página", ""))
 
-        for dish in dishes:
-            pdf.add_page()
-            
-            dish_name = dish.get("nombre", dish.get("Plato", ""))
-            plate_type = dish.get("Tipo", "")
-            elaboration = dish.get("elaboracion", dish.get("Elaboración", ""))
-            page_val = dish.get("pagina", dish.get("Página", ""))
+                f.write(f"PLATILLO: {dish_name}\n")
+                meta = f"Categoría: {plate_type}"
+                if page_val:
+                    meta += f" | Página: {page_val}"
+                f.write(f"{meta}\n\n")
 
-            ingredient_lines = []
-            for ing in dish.get("ingredientes", []):
-                formatted_ing = functions.format_ingredient(ing)
-                if formatted_ing:
-                    ingredient_lines.append(f"- {formatted_ing}")
+                f.write("INGREDIENTES:\n")
+                for ing in dish.get("ingredientes", []):
+                    formatted_ing = functions.format_ingredient(ing)
+                    if formatted_ing:
+                        f.write(f" - {formatted_ing}\n")
+                
+                f.write("\nELABORACIÓN:\n")
+                f.write(f"{elaboration if elaboration else 'Sin elaboración.'}\n")
+                f.write("\n" + "=" * 40 + "\n\n")
 
-            # Limpiar textos para evitar problemas de codificación latin-1
-            def clean(text):
-                if not text: return ""
-                replacements = {
-                    "\u2013": "-", "\u2014": "-", "\u2018": "'", "\u2019": "'",
-                    "\u201c": '"', "\u201d": '"', "\u2022": "-",
-                    "\u00bd": "1/2", "\u00bc": "1/4", "\u00be": "3/4",
-                    "\u2026": "..."
-                }
-                for orig, rep in replacements.items():
-                    text = text.replace(orig, rep)
-                return text.encode('latin-1', 'replace').decode('latin-1')
-
-            # Renderizar
-            # Título del plato
-            pdf.set_font("Helvetica", "B", 16)
-            pdf.x = pdf.l_margin
-            pdf.cell(pdf.epw, 10, clean(dish_name), align="L")
-            pdf.ln(10)
-            
-            # Categoría y Página (si existe)
-            meta_text = f"Categoría: {plate_type}"
-            if page_val:
-                meta_text += f" | Página: {page_val}"
-            pdf.set_font("Helvetica", "I", 10)
-            pdf.x = pdf.l_margin
-            pdf.cell(pdf.epw, 6, clean(meta_text), align="L")
-            pdf.ln(8)
-
-            # Sección Ingredientes
-            pdf.set_font("Helvetica", "B", 12)
-            pdf.x = pdf.l_margin
-            pdf.cell(pdf.epw, 8, clean("Ingredientes"), align="L")
-            pdf.ln(8)
-            pdf.set_font("Helvetica", "", 10)
-            for line in ingredient_lines:
-                pdf.x = pdf.l_margin
-                pdf.multi_cell(pdf.epw, 6, clean(line), align="L")
-            pdf.ln(5)
-
-            # Sección Elaboración
-            pdf.set_font("Helvetica", "B", 12)
-            pdf.x = pdf.l_margin
-            pdf.cell(pdf.epw, 8, clean("Elaboración"), align="L")
-            pdf.ln(8)
-            pdf.set_font("Helvetica", "", 10)
-            pdf.x = pdf.l_margin
-            pdf.multi_cell(pdf.epw, 6, clean(elaboration if elaboration else "Sin elaboración."), align="L")
-
-        pdf.output(local_path)
-
-        # Compartir el PDF mediante menú nativo si estamos en Android
+        # Compartir el TXT mediante menú nativo si estamos en Android
         if platform == 'android':
             try:
                 from plyer import share
-                share.share(local_path, title=pdf_name)
-                return f"PDF generado. Abre el menú para compartirlo/guardarlo."
+                share.share(local_path, title=txt_name)
+                return f"Recetas generadas. Abre el menú para compartir/guardar."
             except Exception as e:
                 return f"Guardado internamente debido a un fallo al compartir:\n{local_path}\nError: {e}"
 
