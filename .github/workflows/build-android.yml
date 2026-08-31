@@ -29,6 +29,9 @@ jobs:
           sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev python3-pip zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
           pip install --upgrade Cython buildozer "virtualenv==20.21.0"
           
+      - name: Clean stale buildozer cache
+        run: rm -rf .buildozer/android/platform/build-* || true
+
       - name: Build with Buildozer
         run: |
           yes | buildozer android debug
@@ -62,6 +65,9 @@ jobs:
           sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev python3-pip zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
           pip install --upgrade Cython buildozer "virtualenv==20.21.0"
           
+      - name: Clean stale buildozer cache
+        run: rm -rf .buildozer/android/platform/build-* || true
+
       - name: Build with Buildozer
         run: |
           yes | buildozer android debug
