@@ -45,19 +45,21 @@ except ImportError as e:
 # ---------------------------------------------------------------------------
 from kivy.utils import platform
 
-LOCAL_PDF_DIR = os.path.join(os.path.expanduser("~"), "Documents")
-if platform == 'android':
-    try:
-        from android.storage import app_storage_path
-        LOCAL_PDF_DIR = app_storage_path()
-    except Exception:
-        LOCAL_PDF_DIR = "."
-else:
-    LOCAL_PDF_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
-    if not os.path.exists(LOCAL_PDF_DIR):
-        LOCAL_PDF_DIR = os.path.join(os.path.expanduser("~"), "Documents")
-    if not os.path.exists(LOCAL_PDF_DIR):
-        LOCAL_PDF_DIR = "."
+def get_local_pdf_dir():
+    if platform == 'android':
+        try:
+            from kivy.app import App
+            app = App.get_running_app()
+            if app and app.user_data_dir:
+                return app.user_data_dir
+        except Exception:
+            pass
+        return "."
+    else:
+        docs = os.path.join(os.path.expanduser("~"), "Documents")
+        if not os.path.exists(docs):
+            docs = "."
+        return docs
 
 
 # ===========================================================================
@@ -246,9 +248,10 @@ class CocinaArguinyanoLogic:
         if not rows:
             raise RuntimeError("Sin datos para generar el PDF.")
 
-        os.makedirs(LOCAL_PDF_DIR, exist_ok=True)
+        pdf_dir = get_local_pdf_dir()
+        os.makedirs(pdf_dir, exist_ok=True)
         pdf_name = f"{title}.pdf"
-        local_path = os.path.join(LOCAL_PDF_DIR, pdf_name)
+        local_path = os.path.join(pdf_dir, pdf_name)
 
         pdf = FPDF(orientation="P", unit="mm", format="A4")
         pdf.set_auto_page_break(auto=True, margin=15)
@@ -286,28 +289,14 @@ class CocinaArguinyanoLogic:
 
         pdf.output(local_path)
 
-        # Copiar al almacenamiento compartido si estamos en Android
+        # Compartir el PDF mediante menú nativo si estamos en Android
         if platform == 'android':
             try:
-                from androidstorage4kivy import SharedStorage
-                shared = SharedStorage()
-                shared_uri = shared.copy_to_shared(local_path, filepath=pdf_name)
-                return f"Guardado en la carpeta 'Documentos' del dispositivo.\nURI: {shared_uri}"
+                from plyer import share
+                share.share(local_path, title=pdf_name)
+                return f"PDF generado. Abre el menú para compartirlo/guardarlo."
             except Exception as e:
-                # Fallback al almacenamiento externo privado de la app
-                try:
-                    from jnius import autoclass
-                    PythonActivity = autoclass('org.kivy.android.PythonActivity')
-                    context = PythonActivity.mActivity.getApplicationContext()
-                    ext_dir = context.getExternalFilesDir(None)
-                    if ext_dir:
-                        ext_path = os.path.join(ext_dir.getAbsolutePath(), pdf_name)
-                        import shutil
-                        shutil.copy(local_path, ext_path)
-                        return f"Guardado en almacenamiento externo privado:\n{ext_path}\n(Fallo SharedStorage: {e})"
-                except Exception:
-                    pass
-                return f"Guardado localmente (privado) debido a un fallo al compartir:\n{local_path}\nError: {e}"
+                return f"Guardado internamente debido a un fallo al compartir:\n{local_path}\nError: {e}"
 
         return local_path
 
@@ -318,9 +307,10 @@ class CocinaArguinyanoLogic:
         if not dishes:
             raise RuntimeError("Sin platos seleccionados para generar el PDF.")
 
-        os.makedirs(LOCAL_PDF_DIR, exist_ok=True)
+        pdf_dir = get_local_pdf_dir()
+        os.makedirs(pdf_dir, exist_ok=True)
         pdf_name = f"{title}.pdf"
-        local_path = os.path.join(LOCAL_PDF_DIR, pdf_name)
+        local_path = os.path.join(pdf_dir, pdf_name)
 
         pdf = FPDF(orientation="P", unit="mm", format="A4")
         pdf.set_auto_page_break(auto=True, margin=15)
@@ -390,28 +380,14 @@ class CocinaArguinyanoLogic:
 
         pdf.output(local_path)
 
-        # Copiar al almacenamiento compartido si estamos en Android
+        # Compartir el PDF mediante menú nativo si estamos en Android
         if platform == 'android':
             try:
-                from androidstorage4kivy import SharedStorage
-                shared = SharedStorage()
-                shared_uri = shared.copy_to_shared(local_path, filepath=pdf_name)
-                return f"Guardado en la carpeta 'Documentos' del dispositivo.\nURI: {shared_uri}"
+                from plyer import share
+                share.share(local_path, title=pdf_name)
+                return f"PDF generado. Abre el menú para compartirlo/guardarlo."
             except Exception as e:
-                # Fallback al almacenamiento externo privado de la app
-                try:
-                    from jnius import autoclass
-                    PythonActivity = autoclass('org.kivy.android.PythonActivity')
-                    context = PythonActivity.mActivity.getApplicationContext()
-                    ext_dir = context.getExternalFilesDir(None)
-                    if ext_dir:
-                        ext_path = os.path.join(ext_dir.getAbsolutePath(), pdf_name)
-                        import shutil
-                        shutil.copy(local_path, ext_path)
-                        return f"Guardado en almacenamiento externo privado:\n{ext_path}\n(Fallo SharedStorage: {e})"
-                except Exception:
-                    pass
-                return f"Guardado localmente (privado) debido a un fallo al compartir:\n{local_path}\nError: {e}"
+                return f"Guardado internamente debido a un fallo al compartir:\n{local_path}\nError: {e}"
 
         return local_path
 

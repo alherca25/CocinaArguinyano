@@ -32,10 +32,13 @@ class ManagerLogic:
     def get_json_path(self):
         if platform == 'android':
             try:
-                from android.storage import app_storage_path
-                return os.path.join(app_storage_path(), "token.txt")
+                from kivy.app import App
+                app = App.get_running_app()
+                if app and app.user_data_dir:
+                    return os.path.join(app.user_data_dir, "token.txt")
             except Exception:
-                return "token.txt"
+                pass
+            return "token.txt"
         else:
             script_dir = os.path.dirname(os.path.abspath(__file__))
             return os.path.join(os.path.dirname(script_dir), "token.txt")
