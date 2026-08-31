@@ -44,14 +44,16 @@ class ManagerLogic:
             return os.path.join(os.path.dirname(script_dir), "token.txt")
 
     def load_db(self):
-        import requests
+        import urllib.request
+        import json
         try:
             url = "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/main/CocinaArguinyano.json"
-            resp = requests.get(url)
-            if resp.status_code == 200:
-                self.db = resp.json()
-            else:
-                self.db = {}
+            req = urllib.request.Request(url)
+            with urllib.request.urlopen(req) as resp:
+                if resp.status == 200:
+                    self.db = json.loads(resp.read().decode('utf-8'))
+                else:
+                    self.db = {}
         except Exception as e:
             print(f"Error cargando BD desde GitHub: {e}")
             self.db = {}
@@ -69,7 +71,9 @@ class ManagerLogic:
             f.write(token.strip())
 
     def save_db_to_github(self, token):
-        import requests
+        import urllib.request
+        import urllib.error
+        import json
         import base64
         
         repo = "alherca25/BaseDatosRecetas"
@@ -79,14 +83,19 @@ class ManagerLogic:
         
         headers = {
             "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json"
+            "Accept": "application/vnd.github.v3+json",
+            "User-Agent": "MvRecipeManager"
         }
         
         # 1. Obtener el SHA actual del archivo
-        resp = requests.get(url, headers=headers)
         sha = ""
-        if resp.status_code == 200:
-            sha = resp.json().get("sha", "")
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req) as resp:
+                if resp.status == 200:
+                    sha = json.loads(resp.read().decode('utf-8')).get("sha", "")
+        except Exception as e:
+            pass
         
         # 2. Subir el nuevo archivo
         content_str = json.dumps(self.db, indent=4, ensure_ascii=False)
@@ -101,12 +110,21 @@ class ManagerLogic:
             data["sha"] = sha
             
         put_url = f"https://api.github.com/repos/{repo}/contents/{path}"
-        put_resp = requests.put(put_url, headers=headers, json=data)
-        
-        if put_resp.status_code in [200, 201]:
-            return True, "¡Recetas guardadas en GitHub exitosamente!"
-        else:
-            return False, f"Error al guardar en GitHub: {put_resp.json().get('message', 'Desconocido')}"
+        try:
+            put_req = urllib.request.Request(put_url, headers=headers, data=json.dumps(data).encode('utf-8'), method='PUT')
+            with urllib.request.urlopen(put_req) as put_resp:
+                if put_resp.status in [200, 201]:
+                    return True, "¡Recetas guardadas en GitHub exitosamente!"
+                else:
+                    return False, f"Error al guardar en GitHub: {put_resp.status}"
+        except urllib.error.HTTPError as e:
+            try:
+                error_msg = json.loads(e.read().decode('utf-8')).get('message', 'Desconocido')
+            except:
+                error_msg = str(e)
+            return False, f"Error al guardar en GitHub: {error_msg}"
+        except Exception as e:
+            return False, f"Error de red: {e}"
 
 
 class InfoPopup(Popup):

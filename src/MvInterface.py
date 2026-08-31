@@ -9,7 +9,6 @@ import threading
 from datetime import datetime
 import json
 
-import requests
 import functions
 
 # ---------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 import json
-import requests
+import urllib.request
 import random
 import os
 
@@ -13,9 +13,9 @@ def load_recipes(source_path, is_local=False):
         with open(source_path, 'r', encoding='utf-8') as f:
             return json.load(f)
     else:
-        response = requests.get(source_path)
-        response.raise_for_status()
-        return response.json()
+        req = urllib.request.Request(source_path)
+        with urllib.request.urlopen(req) as response:
+            return json.loads(response.read().decode('utf-8'))
 
 def filter_recipes(recipes_list, active_filter):
     """
