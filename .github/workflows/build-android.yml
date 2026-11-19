@@ -55,7 +55,7 @@ jobs:
           path: |
             ~/.buildozer
             android_build/${{ matrix.app }}/.buildozer
-          key: buildozer-${{ matrix.app }}-${{ hashFiles(format('buildozer_{0}.spec', matrix.app)) }}
+          key: buildozer-${{ matrix.app }}-${{ hashFiles('buildozer_*.spec') }}
 
       - name: Build with Buildozer
         working-directory: android_build/${{ matrix.app }}
