@@ -1,429 +1,556 @@
-# MvRecipeManager.py
-# Gestor de recetas para móvil (Kivy).
-# Permite añadir, editar y eliminar recetas del archivo JSON local.
+"""
+Gestor de Recetas «Cocina Rápida» — app móvil del administrador (Kivy / Android).
 
+Lee la base de datos de alherca25/BaseDatosRecetas y guarda los cambios
+directamente en GitHub con un token personal (permiso «Contents: write»).
+
+Seguridad de los datos:
+  - No se puede guardar nada hasta haber cargado la BD correctamente.
+  - Cada guardado usa el «sha» de la versión cargada: si alguien la cambió
+    entretanto, GitHub lo rechaza y la app pide recargar (no se pisa nada).
+  - Los cambios se aplican sobre una copia; si la subida falla, no se pierden
+    ni se quedan a medias.
+"""
+import copy
 import os
-import json
+import threading
+
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.graphics import Color, Rectangle
-from kivy.metrics import dp
+from kivy.metrics import dp, sp
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
-from kivy.uix.popup import Popup
+from kivy.uix.modalview import ModalView
 from kivy.uix.scrollview import ScrollView
-from kivy.uix.spinner import Spinner
-from kivy.uix.textinput import TextInput
-from kivy.uix.checkbox import CheckBox
-from kivy.utils import platform
+from kivy.uix.widget import Widget
 
+import functions
+from mobile_ui import (AppBar, AutoLabel, Busy, C, Card, Chip, Dialog, Field, IconButton,
+                       RoundButton, TabBar, TickBox, Toast, asset_path, confirm, empty_state,
+                       muted_label, setup_window, show_info, spacer, tag_row, title_label,
+                       user_dir)
+
+LOGO = "icon_edit.png"
+UNIT_CHOICES = [""] + functions.UNITS
+
+
+# ===========================================================================
+# LÓGICA
+# ===========================================================================
 class ManagerLogic:
-    def __init__(self):
-        self.db = {}
-        self.load_db()
-        self.categories = list(self.db.keys())
-        if not self.categories:
-            self.categories = ["Sopas", "Cremas", "Verduras", "Legumbres", "Huevos", "Arroces", "Pastas", "Carnes", "Pescados", "Postres", "Panes"]
-            for cat in self.categories:
-                self.db[cat] = []
+    def __init__(self, data_dir):
+        self.data_dir = data_dir
+        self.db = None          # None = no cargada todavía (no se permite guardar)
+        self.sha = None
 
-    def get_json_path(self):
-        if platform == 'android':
-            try:
-                from kivy.app import App
-                app = App.get_running_app()
-                if app and app.user_data_dir:
-                    return os.path.join(app.user_data_dir, "token.txt")
-            except Exception:
-                pass
-            return "token.txt"
-        else:
-            script_dir = os.path.dirname(os.path.abspath(__file__))
-            return os.path.join(os.path.dirname(script_dir), "token.txt")
-
-    def load_db(self):
-        import urllib.request
-        import json
-        try:
-            url = "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/main/CocinaArguinyano.json"
-            req = urllib.request.Request(url)
-            with urllib.request.urlopen(req) as resp:
-                if resp.status == 200:
-                    self.db = json.loads(resp.read().decode('utf-8'))
-                else:
-                    self.db = {}
-        except Exception as e:
-            print(f"Error cargando BD desde GitHub: {e}")
-            self.db = {}
+    # --- token ------------------------------------------------------------
+    @property
+    def token_path(self):
+        return os.path.join(self.data_dir, "token.txt")
 
     def get_token(self):
-        path = self.get_json_path()
-        if os.path.exists(path):
-            with open(path, "r") as f:
+        try:
+            with open(self.token_path, "r", encoding="utf-8") as f:
                 return f.read().strip()
-        return ""
+        except OSError:
+            return ""
 
     def save_token(self, token):
-        path = self.get_json_path()
-        with open(path, "w") as f:
+        with open(self.token_path, "w", encoding="utf-8") as f:
             f.write(token.strip())
 
-    def save_db_to_github(self, token):
-        import urllib.request
-        import urllib.error
-        import json
-        import base64
-        
-        repo = "alherca25/BaseDatosRecetas"
-        path = "CocinaArguinyano.json"
-        branch = "main" # BaseDatosRecetas solo tendra la rama main
-        url = f"https://api.github.com/repos/{repo}/contents/{path}?ref={branch}"
-        
-        headers = {
-            "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json",
-            "User-Agent": "MvRecipeManager"
-        }
-        
-        # 1. Obtener el SHA actual del archivo
-        sha = ""
-        try:
-            req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req) as resp:
-                if resp.status == 200:
-                    sha = json.loads(resp.read().decode('utf-8')).get("sha", "")
-        except Exception as e:
-            pass
-        
-        # 2. Subir el nuevo archivo
-        content_str = json.dumps(self.db, indent=4, ensure_ascii=False)
-        content_b64 = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
-        
-        data = {
-            "message": "Actualización de recetas desde MvRecipeManager (App Móvil)",
-            "content": content_b64,
-            "branch": branch
-        }
-        if sha:
-            data["sha"] = sha
-            
-        put_url = f"https://api.github.com/repos/{repo}/contents/{path}"
-        try:
-            put_req = urllib.request.Request(put_url, headers=headers, data=json.dumps(data).encode('utf-8'), method='PUT')
-            with urllib.request.urlopen(put_req) as put_resp:
-                if put_resp.status in [200, 201]:
-                    return True, "¡Recetas guardadas en GitHub exitosamente!"
-                else:
-                    return False, f"Error al guardar en GitHub: {put_resp.status}"
-        except urllib.error.HTTPError as e:
-            try:
-                error_msg = json.loads(e.read().decode('utf-8')).get('message', 'Desconocido')
-            except:
-                error_msg = str(e)
-            return False, f"Error al guardar en GitHub: {error_msg}"
-        except Exception as e:
-            return False, f"Error de red: {e}"
+    # --- base de datos ---------------------------------------------------------
+    @property
+    def loaded(self):
+        return self.db is not None and bool(self.sha)
+
+    @property
+    def categories(self):
+        cats = list(self.db.keys()) if self.db else []
+        return cats or list(functions.DEFAULT_CATEGORIES)
+
+    @property
+    def total(self):
+        return sum(len(v) for v in self.db.values()) if self.db else 0
+
+    def load(self):
+        data, sha = functions.github_get_json(self.get_token() or None)
+        if not isinstance(data, dict):
+            raise ValueError("El archivo de recetas no tiene el formato esperado.")
+        self.db = {cat: [functions.normalize_recipe(r) for r in recipes]
+                   for cat, recipes in data.items()}
+        self.sha = sha
+
+    def _require_loaded(self):
+        if not self.loaded:
+            raise functions.GitHubError("La base de datos no está cargada.")
+
+    def _commit(self, new_db, message):
+        self._require_loaded()
+        new_sha = functions.github_put_json(self.get_token(), new_db, self.sha, message)
+        self.db, self.sha = new_db, new_sha
+
+    def find_duplicate(self, category, name, ignore=None):
+        for i, r in enumerate(self.db.get(category, [])):
+            if (category, i) != ignore and r["nombre"].strip().lower() == name.strip().lower():
+                return True
+        return False
+
+    def add(self, category, recipe):
+        self._require_loaded()
+        new_db = copy.deepcopy(self.db)
+        new_db.setdefault(category, []).append(recipe)
+        self._commit(new_db, f"Añadir receta: {recipe['nombre']} ({category})")
+
+    def update(self, old_category, index, new_category, recipe):
+        self._require_loaded()
+        new_db = copy.deepcopy(self.db)
+        if new_category == old_category:
+            new_db[old_category][index] = recipe
+        else:
+            del new_db[old_category][index]
+            new_db.setdefault(new_category, []).append(recipe)
+        self._commit(new_db, f"Editar receta: {recipe['nombre']} ({new_category})")
+
+    def delete(self, category, index):
+        self._require_loaded()
+        new_db = copy.deepcopy(self.db)
+        name = new_db[category][index]["nombre"]
+        del new_db[category][index]
+        self._commit(new_db, f"Eliminar receta: {name} ({category})")
 
 
-class InfoPopup(Popup):
-    def __init__(self, title_text, msg_text, **kwargs):
-        super().__init__(title=title_text, size_hint=(0.8, 0.4), **kwargs)
-        layout = BoxLayout(orientation="vertical", padding=dp(10), spacing=dp(10))
-        lbl = Label(text=msg_text, text_size=(self.width, None), halign="center")
-        lbl.bind(width=lambda *x: lbl.setter('text_size')(lbl, (lbl.width, None)))
-        layout.add_widget(lbl)
-        btn = Button(text="OK", size_hint_y=None, height=dp(40))
-        btn.bind(on_release=self.dismiss)
-        layout.add_widget(btn)
-        self.content = layout
+def validate_recipe(name, page, ingredients):
+    """Devuelve (receta_normalizada_parcial, lista_de_errores)."""
+    errors = []
+    if not name.strip():
+        errors.append("El nombre del plato es obligatorio.")
+    if page.strip() and not page.strip().isdigit():
+        errors.append("La página debe ser un número.")
+    clean = []
+    for i, ing in enumerate(ingredients, 1):
+        if not ing["nombre"]:
+            if ing["cantidad"] or ing["unidad"]:
+                errors.append(f"Ingrediente {i}: falta el nombre.")
+            continue
+        qty = ing["cantidad"].replace(",", ".")
+        if qty and functions.parse_quantity(qty) is None:
+            errors.append(f"«{ing['nombre']}»: la cantidad debe ser un número (ej. 2 o 0.5).")
+        clean.append({"nombre": ing["nombre"], "cantidad": qty, "unidad": ing["unidad"]})
+    if not clean and not errors:
+        errors.append("Añade al menos un ingrediente.")
+    return clean, errors
+
+
+# ===========================================================================
+# WIDGETS
+# ===========================================================================
+class UnitButton(RoundButton):
+    """Botón que va cambiando entre las unidades disponibles al pulsarlo."""
+
+    def __init__(self, unit="", **kwargs):
+        super().__init__(variant="secondary", size_hint=(None, None), size=(dp(64), dp(48)),
+                         font_size=sp(14), **kwargs)
+        # Una unidad antigua que no esté en la lista se conserva como opción extra.
+        self.choices = UNIT_CHOICES + ([unit] if unit and unit not in UNIT_CHOICES else [])
+        self.unit = unit or ""
+        self._paint()
+        self.bind(on_release=self._next)
+
+    def _next(self, *_):
+        self.unit = self.choices[(self.choices.index(self.unit) + 1) % len(self.choices)]
+        self._paint()
+
+    def _paint(self):
+        self.text = self.unit or "-"
+
+    def value(self):
+        return self.unit
 
 
 class IngredientRow(BoxLayout):
-    def __init__(self, remove_callback, init_data=None, **kwargs):
-        super().__init__(orientation="horizontal", size_hint_y=None, height=dp(40), spacing=dp(5), **kwargs)
-        self.remove_callback = remove_callback
-        
-        self.name_input = TextInput(hint_text="Nombre", multiline=False)
-        self.qty_input = TextInput(hint_text="Cant.", multiline=False, size_hint_x=0.5)
-        self.unit_input = TextInput(hint_text="Unid.", multiline=False, size_hint_x=0.5)
-        self.del_btn = Button(text="X", size_hint_x=0.3, background_color=(0.8, 0.2, 0.2, 1))
-        self.del_btn.bind(on_release=self.on_delete)
-        
-        self.add_widget(self.name_input)
-        self.add_widget(self.qty_input)
-        self.add_widget(self.unit_input)
-        self.add_widget(self.del_btn)
-        
-        if init_data:
-            self.name_input.text = init_data.get("nombre", "")
-            self.qty_input.text = str(init_data.get("cantidad", ""))
-            self.unit_input.text = str(init_data.get("unidad", ""))
+    def __init__(self, on_remove, data=None, **kwargs):
+        super().__init__(size_hint_y=None, height=dp(48), spacing=dp(6), **kwargs)
+        data = data or {}
+        self.name = Field(hint_text="Ingrediente", text=data.get("nombre", ""))
+        self.qty = Field(hint_text="Cant.", text=functions.format_quantity(data.get("cantidad", "")),
+                         size_hint_x=None, width=dp(70), input_filter="float")
+        self.unit = UnitButton(data.get("unidad", ""))
+        rm = IconButton("x", variant="danger", size=dp(40), pos_hint={"center_y": 0.5})
+        rm.bind(on_release=lambda *_: on_remove(self))
+        for w in (self.name, self.qty, self.unit, rm):
+            self.add_widget(w)
 
-    def on_delete(self, instance):
-        self.remove_callback(self)
-
-    def get_data(self):
-        return {
-            "nombre": self.name_input.text.strip(),
-            "cantidad": self.qty_input.text.strip(),
-            "unidad": self.unit_input.text.strip()
-        }
+    def get(self):
+        return {"nombre": self.name.text.strip(), "cantidad": self.qty.text.strip(),
+                "unidad": self.unit.value()}
 
 
+class RecipePicker(ModalView):
+    """Diálogo para buscar y elegir la receta que se va a editar."""
+
+    def __init__(self, logic, on_pick, **kwargs):
+        super().__init__(size_hint=(0.94, 0.86), background="", background_color=(0, 0, 0, 0),
+                         overlay_color=(0.13, 0.09, 0.06, 0.55), **kwargs)
+        self.logic, self.on_pick = logic, on_pick
+        card = Card(padding=dp(16), spacing=dp(10))
+        head = BoxLayout(size_hint_y=None, height=dp(42))
+        head.add_widget(title_label("Elegir receta", size=19))
+        close = IconButton("x", size=dp(40))
+        close.bind(on_release=lambda *_: self.dismiss())
+        head.add_widget(close)
+        card.add_widget(head)
+        self.search = Field(hint_text="Buscar por nombre...")
+        self.search.bind(text=lambda *_: self.refresh())
+        card.add_widget(self.search)
+        scroll = ScrollView(do_scroll_x=False, bar_width=dp(4))
+        self.list = BoxLayout(orientation="vertical", size_hint_y=None, spacing=dp(6))
+        self.list.bind(minimum_height=self.list.setter("height"))
+        scroll.add_widget(self.list)
+        card.add_widget(scroll)
+        self.add_widget(card)
+        self.refresh()
+
+    def refresh(self):
+        q = self.search.text.strip().lower()
+        self.list.clear_widgets()
+        for cat, recipes in self.logic.db.items():
+            matches = [(i, r) for i, r in enumerate(recipes) if q in r["nombre"].lower()]
+            if not matches:
+                continue
+            self.list.add_widget(AutoLabel(text=cat.upper(), bold=True, font_size=sp(12),
+                                           color=C.ACCENT, height=dp(26)))
+            for i, r in matches:
+                btn = RoundButton(text=r["nombre"], variant="ghost", height=dp(46), bold=False,
+                                  halign="left", valign="middle", shorten=True,
+                                  padding=[dp(14), 0])
+                btn.bind(size=lambda b, s: setattr(b, "text_size", s))
+                btn.bind(on_release=lambda *_b, c=cat, idx=i: self._pick(c, idx))
+                self.list.add_widget(btn)
+
+    def _pick(self, cat, idx):
+        self.dismiss()
+        self.on_pick(cat, idx)
+
+
+# ===========================================================================
+# PANTALLA PRINCIPAL
+# ===========================================================================
 class ManagerScreen(BoxLayout):
-    def __init__(self, logic: ManagerLogic, **kwargs):
-        super().__init__(orientation="vertical", spacing=dp(10), padding=dp(10), **kwargs)
-        self.logic = logic
-        
-        with self.canvas.before:
-            Color(0.1, 0.1, 0.15, 1)
-            self._bg = Rectangle(pos=self.pos, size=self.size)
-        self.bind(pos=self._update_bg, size=self._update_bg)
-        
+    def __init__(self, app, **kwargs):
+        super().__init__(orientation="vertical", **kwargs)
+        self.app = app
+        self.logic = app.logic
         self.mode = "add"
-        self.current_edit_index = -1
-        
-        # Header Tabs
-        self.tabs = BoxLayout(size_hint_y=None, height=dp(40))
-        self.add_tab_btn = Button(text="Añadir Receta", background_color=(0.2, 0.6, 1, 1))
-        self.add_tab_btn.bind(on_release=lambda x: self.change_mode("add"))
-        self.edit_tab_btn = Button(text="Editar Receta", background_color=(0.3, 0.3, 0.3, 1))
-        self.edit_tab_btn.bind(on_release=lambda x: self.change_mode("edit"))
-        self.tabs.add_widget(self.add_tab_btn)
-        self.tabs.add_widget(self.edit_tab_btn)
+        self.editing = None      # (categoría, índice) en modo edición
+        self.category = ""
+
+        btn_settings = RoundButton(text="Token", variant="secondary", size_hint_x=None,
+                                   width=dp(84), height=dp(40), font_size=sp(14))
+        btn_settings.bind(on_release=lambda *_: self.show_settings())
+        self.bar = AppBar("Gestor de Recetas", "Cargando...", logo=LOGO, actions=[btn_settings])
+        self.add_widget(self.bar)
+
+        self.tabs = TabBar(["Nueva receta", "Editar receta"], self._on_tab, group="mgr_tabs",
+                           padding=[dp(16), 0])
+        self.add_widget(spacer(dp(12)))
         self.add_widget(self.tabs)
-        
-        # Token Input
-        self.token_frame = BoxLayout(orientation="horizontal", size_hint_y=None, height=dp(40), spacing=dp(5))
-        self.token_frame.add_widget(Label(text="GitHub Token:", size_hint_x=0.3))
-        self.token_input = TextInput(hint_text="Pega aquí tu token", password=True, multiline=False, size_hint_x=0.7)
-        self.token_input.text = self.logic.get_token()
-        self.token_input.bind(text=self.on_token_change)
-        self.token_frame.add_widget(self.token_input)
-        self.add_widget(self.token_frame)
-        
-        # Edit Selectors (hidden in add mode)
-        self.edit_frame = BoxLayout(orientation="horizontal", size_hint_y=None, height=dp(40), spacing=dp(5))
-        self.cat_spinner = Spinner(text="--Categoría--", values=self.logic.categories)
-        self.cat_spinner.bind(text=self.on_edit_category_change)
-        self.recipe_spinner = Spinner(text="--Receta--", values=[])
-        self.recipe_spinner.bind(text=self.on_edit_recipe_change)
-        self.edit_frame.add_widget(self.cat_spinner)
-        self.edit_frame.add_widget(self.recipe_spinner)
-        
-        # Main Form Scroll
-        self.scroll = ScrollView()
-        self.form = BoxLayout(orientation="vertical", size_hint_y=None, spacing=dp(10), padding=dp(10))
+
+        self.scroll = ScrollView(do_scroll_x=False, bar_width=dp(4))
+        self.form = BoxLayout(orientation="vertical", size_hint_y=None, spacing=dp(12),
+                              padding=[dp(16), dp(14), dp(16), dp(30)])
         self.form.bind(minimum_height=self.form.setter("height"))
-        
-        self.form_cat = Spinner(text=self.logic.categories[0], values=self.logic.categories, size_hint_y=None, height=dp(40))
-        self.form.add_widget(Label(text="Categoría:", size_hint_y=None, height=dp(30)))
-        self.form.add_widget(self.form_cat)
-        
-        self.name_input = TextInput(hint_text="Nombre del Plato", multiline=False, size_hint_y=None, height=dp(40))
-        self.form.add_widget(self.name_input)
-        
-        self.page_input = TextInput(hint_text="Página (opcional)", multiline=False, size_hint_y=None, height=dp(40))
-        self.form.add_widget(self.page_input)
-        
-        # Filters (CheckBoxes)
-        filters = BoxLayout(size_hint_y=None, height=dp(40))
-        self.veg_chk = CheckBox(size_hint_x=0.2)
-        filters.add_widget(self.veg_chk)
-        filters.add_widget(Label(text="Vegetariano", size_hint_x=0.3))
-        self.gf_chk = CheckBox(size_hint_x=0.2)
-        filters.add_widget(self.gf_chk)
-        filters.add_widget(Label(text="Gluten Free", size_hint_x=0.3))
-        self.form.add_widget(filters)
-        
-        self.elab_input = TextInput(hint_text="Elaboración", multiline=True, size_hint_y=None, height=dp(150))
-        self.form.add_widget(self.elab_input)
-        
-        self.form.add_widget(Label(text="Ingredientes", size_hint_y=None, height=dp(30)))
-        
-        self.ings_layout = BoxLayout(orientation="vertical", size_hint_y=None, spacing=dp(5))
-        self.ings_layout.bind(minimum_height=self.ings_layout.setter("height"))
-        self.form.add_widget(self.ings_layout)
-        
-        add_ing_btn = Button(text="+ Añadir Ingrediente", size_hint_y=None, height=dp(40))
-        add_ing_btn.bind(on_release=lambda x: self.add_ingredient_row())
-        self.form.add_widget(add_ing_btn)
-        
         self.scroll.add_widget(self.form)
         self.add_widget(self.scroll)
-        
-        # Action Buttons
-        actions = BoxLayout(size_hint_y=None, height=dp(50), spacing=dp(10))
-        self.save_btn = Button(text="Guardar Receta", background_color=(0.2, 0.8, 0.2, 1))
-        self.save_btn.bind(on_release=self.save_recipe)
-        self.del_btn = Button(text="Eliminar Receta", background_color=(0.8, 0.2, 0.2, 1))
-        self.del_btn.bind(on_release=self.delete_recipe)
-        
-        actions.add_widget(self.save_btn)
-        self.add_widget(actions)
-        
-        self.add_ingredient_row()
 
-    def _update_bg(self, *args):
-        self._bg.pos = self.pos
-        self._bg.size = self.size
+        self.bottom = BoxLayout(size_hint_y=None, height=dp(76), padding=[dp(16), dp(12)],
+                                spacing=dp(10))
+        from kivy.graphics import Color, Rectangle
+        with self.bottom.canvas.before:
+            Color(*C.SURFACE)
+            self._bb = Rectangle()
+        self.bottom.bind(pos=lambda *_: setattr(self._bb, "pos", self.bottom.pos),
+                         size=lambda *_: setattr(self._bb, "size", self.bottom.size))
+        self.btn_secondary = RoundButton(text="Limpiar", variant="ghost", size_hint_x=0.4)
+        self.btn_secondary.bind(on_release=lambda *_: self._secondary())
+        self.btn_save = RoundButton(text="Guardar receta")
+        self.btn_save.bind(on_release=lambda *_: self.save())
+        self.bottom.add_widget(self.btn_secondary)
+        self.bottom.add_widget(self.btn_save)
+        self.add_widget(self.bottom)
+        self.show_message("Cargando la base de datos...")
 
-    def add_ingredient_row(self, init_data=None):
-        row = IngredientRow(self.remove_ingredient_row, init_data)
-        self.ings_layout.add_widget(row)
+    # --- estados -----------------------------------------------------------
+    def show_message(self, text, retry=False):
+        self.form.clear_widgets()
+        self.form.add_widget(empty_state(text, LOGO))
+        if retry:
+            btn = RoundButton(text="Reintentar", variant="ghost")
+            btn.bind(on_release=lambda *_: self.app.load_data())
+            self.form.add_widget(btn)
+        self.btn_save.disabled = True
+        self.btn_secondary.disabled = True
 
-    def remove_ingredient_row(self, row):
-        self.ings_layout.remove_widget(row)
+    def refresh_header(self):
+        token = "token configurado" if self.logic.get_token() else "sin token"
+        self.bar.set_subtitle(f"{self.logic.total} recetas · {token}")
+
+    # --- pestañas ----------------------------------------------------------
+    def _on_tab(self, name):
+        self.change_mode("add" if name.startswith("Nueva") else "edit")
 
     def change_mode(self, mode):
         self.mode = mode
+        self.tabs.select("Nueva receta" if mode == "add" else "Editar receta")
+        self.editing = None
         if mode == "add":
-            self.add_tab_btn.background_color = (0.2, 0.6, 1, 1)
-            self.edit_tab_btn.background_color = (0.3, 0.3, 0.3, 1)
-            if self.edit_frame in self.children:
-                self.remove_widget(self.edit_frame)
-            if self.del_btn.parent:
-                self.save_btn.parent.remove_widget(self.del_btn)
-            self.form_cat.disabled = False
-            self.clear_form()
+            self.btn_secondary.text = "Limpiar"
+            self.btn_save.text = "Guardar receta"
+            self.build_form()
         else:
-            self.edit_tab_btn.background_color = (0.2, 0.6, 1, 1)
-            self.add_tab_btn.background_color = (0.3, 0.3, 0.3, 1)
-            if self.edit_frame not in self.children:
-                self.add_widget(self.edit_frame, index=2)
-            if not self.del_btn.parent:
-                self.save_btn.parent.add_widget(self.del_btn)
-            self.form_cat.disabled = True
-            self.clear_form()
+            self.btn_secondary.text = "Eliminar"
+            self.btn_save.text = "Guardar cambios"
+            self.build_edit_start()
 
-    def clear_form(self):
-        self.name_input.text = ""
-        self.page_input.text = ""
-        self.veg_chk.active = False
-        self.gf_chk.active = False
-        self.elab_input.text = ""
-        self.ings_layout.clear_widgets()
-        self.current_edit_index = -1
-        self.add_ingredient_row()
+    def build_edit_start(self):
+        self.form.clear_widgets()
+        self.form.add_widget(empty_state("Elige la receta que quieres modificar.", LOGO))
+        btn = RoundButton(text="Buscar receta")
+        btn.bind(on_release=lambda *_: self.pick())
+        self.form.add_widget(btn)
+        self.btn_save.disabled = True
+        self.btn_secondary.disabled = True
 
-    def on_edit_category_change(self, spinner, text):
-        if text in self.logic.categories:
-            recipes = self.logic.db.get(text, [])
-            names = [r.get("nombre", f"Receta {i}") for i, r in enumerate(recipes)]
-            self.recipe_spinner.values = names
-            if names:
-                self.recipe_spinner.text = names[0]
-            else:
-                self.recipe_spinner.text = "--No hay recetas--"
-                self.clear_form()
+    def pick(self):
+        if self.logic.loaded:
+            RecipePicker(self.logic, self.load_recipe).open()
 
-    def on_edit_recipe_change(self, spinner, text):
-        cat = self.cat_spinner.text
-        if cat not in self.logic.categories: return
-        recipes = self.logic.db.get(cat, [])
-        try:
-            idx = spinner.values.index(text)
-            self.current_edit_index = idx
-            r = recipes[idx]
-            self.load_recipe_into_form(r, cat)
-        except ValueError:
-            pass
+    def load_recipe(self, category, index):
+        self.editing = (category, index)
+        self.build_form(self.logic.db[category][index], category)
 
-    def load_recipe_into_form(self, r, cat):
-        self.clear_form()
-        self.form_cat.text = cat
-        self.name_input.text = r.get("nombre", "")
-        self.page_input.text = str(r.get("pagina", ""))
-        self.veg_chk.active = r.get("vegetariano", False)
-        self.gf_chk.active = r.get("gluten_free", False)
-        self.elab_input.text = r.get("elaboracion", "")
-        self.ings_layout.clear_widgets()
-        for ing in r.get("ingredientes", []):
-            self.add_ingredient_row(ing)
-        if not self.ings_layout.children:
-            self.add_ingredient_row()
+    # --- formulario ----------------------------------------------------------
+    def build_form(self, recipe=None, category=None):
+        recipe = recipe or {}
+        f = self.form
+        f.clear_widgets()
+        self.btn_save.disabled = not self.logic.loaded
+        self.btn_secondary.disabled = False
 
-    def on_token_change(self, instance, value):
-        self.logic.save_token(value)
+        if self.mode == "edit":
+            head = BoxLayout(size_hint_y=None, height=dp(44), spacing=dp(8))
+            head.add_widget(AutoLabel(text=f"Editando: {recipe.get('nombre', '')}", bold=True,
+                                      color=C.ACCENT, shorten=True))
+            other = RoundButton(text="Cambiar", variant="ghost", size_hint_x=None,
+                                width=dp(96), height=dp(40), font_size=sp(14))
+            other.bind(on_release=lambda *_: self.pick())
+            head.add_widget(other)
+            f.add_widget(head)
 
-    def save_recipe(self, instance):
-        name = self.name_input.text.strip()
-        if not name:
-            InfoPopup("Error", "El nombre del plato no puede estar vacío.").open()
-            return
-            
-        cat = self.form_cat.text
-        if cat not in self.logic.categories:
-            InfoPopup("Error", "Categoría inválida.").open()
-            return
-            
-        token = self.token_input.text.strip()
-        if not token:
-            InfoPopup("Error", "Debes configurar un GitHub Token para poder guardar recetas.").open()
-            return
+        # Categoría
+        self.category = category or self.category or self.logic.categories[0]
+        f.add_widget(title_label("Categoría", size=15))
+        cat_scroll = ScrollView(do_scroll_y=False, size_hint_y=None, height=dp(40), bar_width=0)
+        row = BoxLayout(size_hint_x=None, spacing=dp(8))
+        row.bind(minimum_width=row.setter("width"))
+        for cat in self.logic.categories:
+            chip = Chip(text=cat, group="mgr_cat", size_hint_x=None,
+                        state="down" if cat == self.category else "normal")
+            chip.texture_update()
+            chip.width = chip.texture_size[0] + dp(28)
+            chip.bind(on_release=lambda c: setattr(self, "category", c.text))
+            row.add_widget(chip)
+        cat_scroll.add_widget(row)
+        f.add_widget(cat_scroll)
 
-        ings = []
-        for row in self.ings_layout.children:
-            if isinstance(row, IngredientRow):
-                data = row.get_data()
-                if data["nombre"]:
-                    ings.append(data)
-        ings.reverse()
+        # Datos básicos
+        card = Card(size_hint_y=None, spacing=dp(10))
+        card.bind(minimum_height=card.setter("height"))
+        card.add_widget(title_label("Datos del plato", size=15))
+        self.f_name = Field(hint_text="Nombre del plato", text=recipe.get("nombre", ""))
+        self.f_page = Field(hint_text="Página del libro (opcional)", input_filter="int",
+                            text=functions.format_page(recipe.get("pagina", "")))
+        card.add_widget(self.f_name)
+        card.add_widget(self.f_page)
+        filtros = recipe.get("filtros") or {}
+        flt = BoxLayout(size_hint_y=None, height=dp(40), spacing=dp(10))
+        self.f_veg = TickBox(active=bool(filtros.get("vegetariano")), pos_hint={"center_y": 0.5})
+        self.f_gf = TickBox(active=bool(filtros.get("gluten_free")), pos_hint={"center_y": 0.5})
+        flt.add_widget(self.f_veg)
+        flt.add_widget(AutoLabel(text="Vegetariano", pos_hint={"center_y": 0.5}))
+        flt.add_widget(self.f_gf)
+        flt.add_widget(AutoLabel(text="Sin gluten", pos_hint={"center_y": 0.5}))
+        card.add_widget(flt)
+        f.add_widget(card)
 
-        recipe_data = {
-            "nombre": name,
-            "pagina": self.page_input.text.strip(),
-            "vegetariano": self.veg_chk.active,
-            "gluten_free": self.gf_chk.active,
-            "elaboracion": self.elab_input.text.strip(),
-            "ingredientes": ings
+        # Ingredientes
+        ing_card = Card(size_hint_y=None, spacing=dp(8))
+        ing_card.bind(minimum_height=ing_card.setter("height"))
+        ing_card.add_widget(title_label("Ingredientes", size=15))
+        ing_card.add_widget(muted_label("Pulsa la unidad para cambiarla: uds, g, mL, cuch."))
+        self.ing_box = BoxLayout(orientation="vertical", size_hint_y=None, spacing=dp(8))
+        self.ing_box.bind(minimum_height=self.ing_box.setter("height"))
+        ing_card.add_widget(self.ing_box)
+        for ing in recipe.get("ingredientes", []) or [None]:
+            self.add_ingredient(ing)
+        add = RoundButton(text="+ Añadir ingrediente", variant="secondary", height=dp(44))
+        add.bind(on_release=lambda *_: self.add_ingredient())
+        ing_card.add_widget(add)
+        f.add_widget(ing_card)
+
+        # Elaboración
+        el = Card(size_hint_y=None, spacing=dp(10))
+        el.bind(minimum_height=el.setter("height"))
+        el.add_widget(title_label("Elaboración", size=15))
+        self.f_elab = Field(hint_text="Pasos de la receta...", multiline=True, height=dp(220),
+                            text=recipe.get("elaboracion", ""))
+        el.add_widget(self.f_elab)
+        f.add_widget(el)
+        self.scroll.scroll_y = 1
+
+    def add_ingredient(self, data=None):
+        self.ing_box.add_widget(IngredientRow(self.remove_ingredient, data))
+
+    def remove_ingredient(self, row):
+        self.ing_box.remove_widget(row)
+        if not self.ing_box.children:
+            self.add_ingredient()
+
+    def collect(self):
+        ings = [row.get() for row in reversed(self.ing_box.children)]
+        clean, errors = validate_recipe(self.f_name.text, self.f_page.text, ings)
+        recipe = {
+            "nombre": self.f_name.text.strip(),
+            "pagina": self.f_page.text.strip(),
+            "elaboracion": self.f_elab.text.strip(),
+            "filtros": {"vegetariano": self.f_veg.active, "gluten_free": self.f_gf.active},
+            "ingredientes": clean,
         }
+        return recipe, errors
 
+    # --- acciones ------------------------------------------------------------
+    def _secondary(self):
         if self.mode == "add":
-            self.logic.db[cat].append(recipe_data)
+            confirm("¿Limpiar el formulario?", "Se borrará lo que has escrito.",
+                    lambda: self.build_form(), yes_text="Limpiar")
+        elif self.editing:
+            cat, idx = self.editing
+            name = self.logic.db[cat][idx]["nombre"]
+            confirm("¿Eliminar receta?",
+                    f"Se eliminará «{name}» de {cat} en GitHub. No se puede deshacer.",
+                    lambda: self.app.run_remote(lambda: self.logic.delete(cat, idx),
+                                                "Receta eliminada", self._after_delete),
+                    yes_text="Eliminar")
+
+    def _after_delete(self):
+        self.change_mode("edit")
+
+    def save(self):
+        if not self.logic.loaded:
+            show_info("Sin datos", "Primero hay que cargar la base de datos.")
+            return
+        if not self.logic.get_token():
+            self.show_settings("Para guardar en GitHub necesitas configurar un token.")
+            return
+        recipe, errors = self.collect()
+        if errors:
+            show_info("Revisa la receta", "\n".join(errors))
+            return
+        cat = self.category
+        if self.mode == "add":
+            if self.logic.find_duplicate(cat, recipe["nombre"]):
+                show_info("Receta repetida", f"Ya existe «{recipe['nombre']}» en {cat}.")
+                return
+            self.app.run_remote(lambda: self.logic.add(cat, recipe), "Receta añadida",
+                                lambda: self.build_form())
         else:
-            if self.current_edit_index >= 0 and self.current_edit_index < len(self.logic.db[cat]):
-                self.logic.db[cat][self.current_edit_index] = recipe_data
-            else:
-                InfoPopup("Error", "Selecciona una receta válida para editar.").open()
+            if not self.editing:
+                return
+            old_cat, idx = self.editing
+            if self.logic.find_duplicate(cat, recipe["nombre"], ignore=(old_cat, idx)):
+                show_info("Receta repetida", f"Ya existe «{recipe['nombre']}» en {cat}.")
                 return
 
-        # Intentamos subir a GitHub
-        success, msg = self.logic.save_db_to_github(token)
-        if success:
-            InfoPopup("Éxito", msg).open()
-            if self.mode == "edit":
-                self.on_edit_category_change(self.cat_spinner, cat)
-            else:
-                self.clear_form()
-        else:
-            InfoPopup("Error", msg).open()
+            def done():
+                new_idx = idx if cat == old_cat else len(self.logic.db[cat]) - 1
+                self.load_recipe(cat, new_idx)
+            self.app.run_remote(lambda: self.logic.update(old_cat, idx, cat, recipe),
+                                "Cambios guardados", done)
 
-    def delete_recipe(self, instance):
-        if self.mode != "edit" or self.current_edit_index < 0: return
-        cat = self.cat_spinner.text
-        token = self.token_input.text.strip()
-        if not token:
-            InfoPopup("Error", "Debes configurar un GitHub Token para poder eliminar recetas.").open()
-            return
-            
-        if cat in self.logic.categories:
-            del self.logic.db[cat][self.current_edit_index]
-            success, msg = self.logic.save_db_to_github(token)
-            if success:
-                InfoPopup("Eliminada", "Receta eliminada y cambios subidos a GitHub.").open()
-                self.on_edit_category_change(self.cat_spinner, cat)
-            else:
-                InfoPopup("Error", msg).open()
+    def show_settings(self, message=""):
+        content = BoxLayout(orientation="vertical", size_hint_y=None, height=dp(120), spacing=dp(8))
+        field = Field(hint_text="ghp_... o github_pat_...", password=True,
+                      text=self.logic.get_token())
+        content.add_widget(field)
+        content.add_widget(muted_label(
+            "Token personal de GitHub con permiso «Contents: Read and write» sobre "
+            "alherca25/BaseDatosRecetas. Se guarda sólo en este dispositivo."))
+
+        def save():
+            self.logic.save_token(field.text)
+            self.refresh_header()
+            Toast.show("Token guardado")
+        Dialog("Token de GitHub", message, content=content,
+               buttons=(("Cancelar", "ghost", None), ("Guardar", "primary", save))).open()
 
 
 class MvRecipeApp(App):
+    title = "Gestor de Recetas"
+
     def build(self):
-        self.title = "Gestor de Recetas (Móvil)"
-        logic = ManagerLogic()
-        return ManagerScreen(logic)
+        setup_window()
+        self.icon = asset_path(LOGO)
+        self.logic = ManagerLogic(user_dir())
+        self.screen = ManagerScreen(self)
+        self.load_data()
+        return self.screen
+
+    def load_data(self):
+        self.screen.show_message("Cargando la base de datos...")
+        self._run(self.logic.load, self._loaded, self._load_failed, busy=False)
+
+    def _loaded(self):
+        self.screen.refresh_header()
+        self.screen.change_mode(self.screen.mode)
+
+    def _load_failed(self, msg, _exc=None):
+        self.screen.bar.set_subtitle("Sin conexión")
+        self.screen.show_message(f"No se pudo cargar la base de datos.\n{msg}\n\n"
+                                 "Por seguridad no se puede editar sin ella.", retry=True)
+
+    def run_remote(self, action, ok_text, after=None):
+        """Ejecuta una operación contra GitHub en segundo plano."""
+        def ok():
+            self.screen.refresh_header()
+            Toast.show(ok_text)
+            if after:
+                after()
+
+        def fail(msg, exc=None):
+            if isinstance(exc, functions.GitHubConflict):
+                confirm("Cambios en GitHub", msg + "\n\nTu cambio no se ha guardado.",
+                        self.load_data, yes_text="Recargar", variant="primary")
+            else:
+                show_info("No se pudo guardar", msg)
+        self._run(action, ok, fail)
+
+    def _run(self, action, on_ok, on_fail, busy=True):
+        spinner = Busy("Conectando con GitHub...") if busy else None
+        if spinner:
+            spinner.open()
+
+        def worker():
+            try:
+                action()
+                Clock.schedule_once(lambda *_: (spinner and spinner.dismiss(), on_ok()), 0)
+            except Exception as exc:
+                msg, err = str(exc), exc
+                def report(*_):
+                    if spinner:
+                        spinner.dismiss()
+                    on_fail(msg, err)
+                Clock.schedule_once(report, 0)
+        threading.Thread(target=worker, daemon=True).start()
+
 
 if __name__ == "__main__":
     MvRecipeApp().run()

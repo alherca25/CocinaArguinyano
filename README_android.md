@@ -1,109 +1,40 @@
-# 📱 Guía de compilación Android — Cocina Rápida
+# 📱 Compilar los APK — Cocina Rápida
 
-## Archivos generados
+Hay dos APK, cada uno con su archivo de configuración:
 
-| Archivo | Propósito |
-|---|---|
-| `MvInterface.py` | Toda la lógica e interfaz Kivy (ya existía) |
-| `main.py` | Punto de entrada requerido por Buildozer |
-| `buildozer.spec` | Configuración del build Android |
-| `logo.png` | Icono de la app (ya existía) |
+| App | Spec | Código | Icono |
+|---|---|---|---|
+| Recetario (usuarios) | `buildozer_interface.spec` | `src/MvInterface.py` | `assets/icon_main.png` |
+| Gestor de Recetas (admin) | `buildozer_manager.spec` | `src/MvRecipeManager.py` | `assets/icon_edit.png` |
 
----
+Buildozer necesita una carpeta con un `main.py` y todos sus módulos. `tools/stage_android.py` la prepara en `android_build/<app>/` (esa carpeta está en `.gitignore`).
 
-## ⚠️ Requisito previo: Linux o WSL
+## Opción 1: GitHub Actions (recomendada)
 
-**Buildozer solo compila en Linux.** En Windows debes usar:
-- **WSL 2** (Windows Subsystem for Linux) con Ubuntu 22.04 → opción recomendada
-- Máquina virtual Linux
-- CI/CD (GitHub Actions)
+Haz *push* a `main` o `_dev`, o lanza el workflow a mano (*Actions → Build Android APKs → Run workflow*). Al terminar, descarga los artefactos `Recetario_APK` y `GestorRecetas_APK`.
 
----
-
-## 1. Instalar dependencias del sistema (Ubuntu/WSL)
+## Opción 2: en local (Linux o WSL con Ubuntu 22.04)
 
 ```bash
-sudo apt update && sudo apt install -y \
-    git zip unzip python3-pip \
-    build-essential libssl-dev libffi-dev \
-    python3-dev libltdl-dev \
-    autoconf libtool pkg-config \
-    openjdk-17-jdk
+sudo apt update && sudo apt install -y build-essential git zip unzip autoconf automake libtool \
+    pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev \
+    libssl-dev libltdl-dev python3-pip python3-venv openjdk-17-jdk
+python3 -m venv ~/bzenv && ~/bzenv/bin/pip install Cython buildozer "virtualenv==20.21.0" setuptools
+
+python3 tools/stage_android.py interface      # o: manager
+cd android_build/interface
+~/bzenv/bin/buildozer -v android debug
 ```
 
-## 2. Instalar Buildozer y Kivy
+La primera compilación tarda entre 20 y 40 minutos (descarga el SDK/NDK). El APK queda en `android_build/<app>/bin/`.
 
-```bash
-pip3 install --upgrade buildozer cython virtualenv
-```
+Instalar en el móvil (con la depuración USB activada): `adb install -r bin/*.apk`
+Ver los logs: `adb logcat | grep python`
 
-## 3. Copiar el proyecto a Linux
+## Notas
 
-Desde PowerShell (Windows), copia el repositorio a WSL:
-
-```powershell
-# Ejemplo: copiar a tu home de WSL
-wsl cp -r "D:\Proyectos\Repositorios\CocinaArguinyano" ~/CocinaArguinyano
-```
-
-O simplemente clona desde GitHub si tienes el repo subido.
-
-## 4. Compilar el APK (modo debug)
-
-```bash
-cd ~/CocinaArguinyano
-buildozer android debug
-```
-
-> La primera compilación tarda **20–40 minutos** porque descarga el Android SDK, NDK y compila todas las dependencias Python para ARM.
-
-El APK resultante estará en:
-```
-~/CocinaArguinyano/bin/cocinarapida-1.0-arm64-v8a_armeabi-v7a-debug.apk
-```
-
-## 5. Instalar en el dispositivo
-
-Con el dispositivo Android conectado por USB (modo depuración USB activado):
-
-```bash
-buildozer android deploy run
-```
-
-O manualmente:
-```bash
-adb install bin/cocinarapida-*.apk
-```
-
----
-
-## 🚀 Build de producción (Release)
-
-Para generar un APK firmado listo para Google Play:
-
-```bash
-buildozer android release
-```
-
-Necesitarás un keystore. Buildozer te pedirá los datos la primera vez.
-
----
-
-## 🐛 Ver logs en tiempo real
-
-```bash
-buildozer android logcat | grep python
-```
-
----
-
-## ❓ Preguntas frecuentes
-
-**¿Por qué no funciona `reportlab`?**  
-`reportlab` no tiene soporte para python-for-android. `MvInterface.py` ya usa `fpdf2`, que sí es compatible.
-
-**¿Los PDFs dónde se guardan en Android?**  
-En la carpeta `Descargas/` del almacenamiento externo del dispositivo (`/storage/emulated/0/Download/`).
-
-**¿Necesita internet?**  
-Sí, la app descarga el Excel desde GitHub al arrancar. Se requiere conexión en el primer uso.
+- **Python fijado a 3.11** en los `.spec`. Con 3.14, python-for-android intenta instalar wheels Android de PyPI (p. ej. `charset_normalizer`) y la compilación falla con *"is not a supported wheel on this platform"*.
+- **Permisos**: solo `INTERNET`. Para exportar no se escriben archivos: la app usa el menú **Compartir** de Android (WhatsApp, Keep, correo...).
+- **HTTPS**: se incluye `certifi` para que las descargas no fallen por certificados.
+- **Iconos**: si cambias los logos de `assets/`, regenera los PNG con `python tools/make_icons.py`.
+- **Release firmada** (Google Play): `buildozer android release`; la primera vez pide crear un *keystore*.

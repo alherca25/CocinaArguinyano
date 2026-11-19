@@ -7,8 +7,16 @@ venv/
 build/
 #dist/
 RecipeManager.exe
-RecipeManager.py
 *.spec
+!buildozer_*.spec
+
+# Android (generado por tools/stage_android.py y buildozer)
+android_build/
+.buildozer/
+bin/
+
+# Secretos: token de GitHub del gestor de recetas
+token.txt
 
 # Caché de Python
 __pycache__/
@@ -16,6 +24,4 @@ __pycache__/
 
 # Logs y otros
 *.log
-.buildozer/
-bin/
 .vscode/

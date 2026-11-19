@@ -6,16 +6,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-interface:
+  tests:
     runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests (lógica sin interfaz)
+        run: python -m unittest discover -s tests -v
+
+  build:
+    needs: tests
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: interface
+            artifact: Recetario_APK
+          - app: manager
+            artifact: GestorRecetas_APK
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Prepare Interface Build
-        run: |
-          cp src/MvInterface.py main.py
-          cp buildozer_interface.spec buildozer.spec
 
       - name: Setup Java 17
         uses: actions/setup-java@v4
@@ -23,61 +37,32 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev python3-pip zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
-          pip install --upgrade Cython buildozer "virtualenv==20.21.0"
-          
-      - name: Purge buildozer cache
-        run: |
-          rm -rf ~/.buildozer
-          rm -rf .buildozer
+          sudo apt-get install -y build-essential git zip unzip autoconf automake libtool \
+            pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake \
+            libffi-dev libssl-dev libltdl-dev python3-pip
+          pip install --upgrade Cython buildozer "virtualenv==20.21.0" setuptools
+
+      - name: Stage app
+        run: python3 tools/stage_android.py ${{ matrix.app }}
+
+      # Caché del SDK/NDK y de la compilación; se invalida al cambiar el .spec.
+      - name: Cache buildozer
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.buildozer
+            android_build/${{ matrix.app }}/.buildozer
+          key: buildozer-${{ matrix.app }}-${{ hashFiles(format('buildozer_{0}.spec', matrix.app)) }}
 
       - name: Build with Buildozer
-        run: |
-          yes | buildozer -v android debug
+        working-directory: android_build/${{ matrix.app }}
+        run: buildozer -v android debug
 
-      - name: Upload Interface APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Recetario_APK
-          path: bin/*.apk
-
-  build-manager:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Prepare Manager Build
-        run: |
-          cp src/MvRecipeManager.py main.py
-          cp buildozer_manager.spec buildozer.spec
-
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev python3-pip zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
-          pip install --upgrade Cython buildozer "virtualenv==20.21.0"
-          
-      - name: Purge buildozer cache
-        run: |
-          rm -rf ~/.buildozer
-          rm -rf .buildozer
-
-      - name: Build with Buildozer
-        run: |
-          yes | buildozer -v android debug
-
-      - name: Upload Manager APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: RecipeManager_APK
-          path: bin/*.apk
+          name: ${{ matrix.artifact }}
+          path: android_build/${{ matrix.app }}/bin/*.apk

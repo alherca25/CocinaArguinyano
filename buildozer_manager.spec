@@ -1,14 +1,28 @@
+# Gestor de Recetas (app para el administrador).
+# No compilar desde la raíz: usar  python tools/stage_android.py manager
+# y ejecutar buildozer dentro de android_build/manager/.
 [app]
 title = Gestor de Recetas
 package.name = recipemanager
 package.domain = org.alherca25
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,json,ico,ttf,otf
-version = 1.0
-requirements = python3,kivy
+source.include_exts = py,png,json
+version = 1.1.0
+
+# Python fijado a 3.11: ver buildozer_interface.spec.
+requirements = python3==3.11.9,hostpython3==3.11.9,kivy==2.3.1,certifi
+
+icon.filename = %(source.dir)s/assets/icon_edit.png
+presplash.filename = %(source.dir)s/assets/presplash_edit.png
+android.presplash_color = #FBF7F1
 orientation = portrait
 fullscreen = 0
-android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
+
+android.permissions = INTERNET
+android.archs = arm64-v8a, armeabi-v7a
+android.api = 34
+android.minapi = 24
+android.accept_sdk_license = True
 
 [buildozer]
 log_level = 2

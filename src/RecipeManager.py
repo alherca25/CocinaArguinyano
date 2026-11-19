@@ -1,13 +1,13 @@
 import customtkinter as ctk
 import json
 import os
+import sys
 import tkinter.messagebox as messagebox
 
-ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
-ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+import desktop_theme as T
+import functions
 
-import os
-import sys
+T.apply_theme()
 
 if getattr(sys, 'frozen', False):
     # Si se ejecuta como .exe compilado, sys.executable es la ruta al .exe
@@ -43,12 +43,12 @@ class IngredientRow(ctk.CTkFrame):
         self.unit_entry = ctk.CTkEntry(self, placeholder_text="Unidad (ej: gr, ud)")
         self.unit_entry.grid(row=0, column=2, padx=2, pady=2, sticky="ew")
 
-        self.del_btn = ctk.CTkButton(self, text="X", width=30, fg_color="#c0392b", hover_color="#e74c3c", command=self.on_delete)
+        self.del_btn = T.danger_button(self, text="✕", width=34, command=self.on_delete)
         self.del_btn.grid(row=0, column=3, padx=2, pady=2)
         
         if init_data:
             self.name_entry.insert(0, init_data.get("nombre", ""))
-            self.qty_entry.insert(0, str(init_data.get("cantidad", "")))
+            self.qty_entry.insert(0, functions.format_quantity(init_data.get("cantidad", "")))
             self.unit_entry.insert(0, str(init_data.get("unidad", "")))
 
     def on_delete(self):
@@ -67,40 +67,12 @@ class RecipeManager(ctk.CTk):
     def __init__(self):
         super().__init__()
         
-        import platform
-        if platform.system() == "Windows":
-            try:
-                import ctypes
-                myappid = 'alherca25.cocina_arguinyano.recipemanager.1.0'
-                ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-            except Exception:
-                pass
-                
-        import tkinter as tk
-        from PIL import Image, ImageTk
-        import os
-        import sys
-        
-        def resource_path(relative_path):
-            try:
-                base_path = sys._MEIPASS
-                return os.path.join(base_path, os.path.basename(relative_path))
-            except Exception:
-                base_path = os.path.abspath(os.path.dirname(__file__))
-                base_path = os.path.dirname(base_path)
-                return os.path.join(base_path, relative_path)
-
-        ico_path = resource_path("assets/edit_logo.ico")
-        if os.path.exists(ico_path):
-            try:
-                self.iconbitmap(ico_path)
-            except Exception as e:
-                print(f"Error al cargar logo ico: {e}")
-        
+        T.set_window_icon(self, "edit_logo.ico")
         self.title("Gestor de Recetas - Cocina Rápida")
-        self.geometry("800x700")
-        
+        self.geometry("820x760")
+
         self.db = {}
+        self.can_save = True   # False si el JSON existe pero no se pudo leer: no se sobrescribe
         self.load_db()
         
         self.categories = list(self.db.keys())
@@ -118,30 +90,43 @@ class RecipeManager(ctk.CTk):
         if os.path.exists(JSON_FILE):
             try:
                 with open(JSON_FILE, "r", encoding="utf-8") as f:
-                    self.db = json.load(f)
+                    data = json.load(f)
+                self.db = {cat: [functions.normalize_recipe(r) for r in recs] for cat, recs in data.items()}
             except Exception as e:
-                messagebox.showerror("Error", f"No se pudo cargar la base de datos: {e}")
+                self.can_save = False
+                messagebox.showerror("Error", f"No se pudo cargar la base de datos: {e}\n\n"
+                                     "Por seguridad no se permitirá guardar hasta corregir el archivo.")
         else:
             messagebox.showwarning("Aviso", "No se encontró el archivo JSON, se creará uno nuevo al guardar.")
             self.db = {}
 
     def save_db(self):
+        """Guarda el JSON. Devuelve True si se guardó correctamente."""
+        if not self.can_save:
+            messagebox.showerror("Error", "La base de datos no se cargó bien; no se guardará nada.")
+            return False
         try:
-            with open(JSON_FILE, "w", encoding="utf-8") as f:
+            os.makedirs(os.path.dirname(JSON_FILE), exist_ok=True)
+            tmp = JSON_FILE + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as f:
                 json.dump(self.db, f, indent=4, ensure_ascii=False)
-            messagebox.showinfo("Éxito", "Base de datos guardada correctamente.")
+            os.replace(tmp, JSON_FILE)   # escritura atómica: nunca queda un archivo a medias
+            return True
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo guardar la base de datos: {e}")
+            return False
 
     def show_help(self):
         messagebox.showinfo("Ayuda / Soporte", "En caso de necesitar ayuda/soporte o tener alguna sugerencia, mande un correo a alherca25@gmail.com")
 
     def setup_ui(self):
-        self.help_btn = ctk.CTkButton(self, text="?", width=30, height=30, corner_radius=15, font=("Arial", 16, "bold"), command=self.show_help)
-        self.help_btn.place(relx=0.95, rely=0.02, anchor="ne")
+        total = sum(len(v) for v in self.db.values())
+        T.header(self, "edit_logo.ico", "Gestor de Recetas",
+                 f"{total} recetas · {os.path.join(os.path.basename(os.path.dirname(JSON_FILE)), os.path.basename(JSON_FILE))}",
+                 on_help=self.show_help).pack(fill="x")
 
         # Top Bar
-        self.top_frame = ctk.CTkFrame(self)
+        self.top_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.top_frame.pack(fill="x", padx=10, pady=10)
         
         self.mode_switch = ctk.CTkSegmentedButton(self.top_frame, values=["Añadir Receta", "Editar Receta"], command=self.change_mode)
@@ -149,7 +134,7 @@ class RecipeManager(ctk.CTk):
         self.mode_switch.set("Añadir Receta")
         
         # Search / Select (Only visible in edit mode)
-        self.edit_frame = ctk.CTkFrame(self)
+        self.edit_frame = ctk.CTkFrame(self, fg_color="transparent")
         
         self.cat_select_lbl = ctk.CTkLabel(self.edit_frame, text="Categoría:")
         self.cat_select_lbl.grid(row=0, column=0, padx=10, pady=5)
@@ -162,7 +147,7 @@ class RecipeManager(ctk.CTk):
         self.recipe_select.grid(row=0, column=3, padx=10, pady=5)
         
         # Form
-        self.scroll_frame = ctk.CTkScrollableFrame(self)
+        self.scroll_frame = ctk.CTkScrollableFrame(self, fg_color=T.SURFACE, border_width=1, border_color=T.BORDER)
         self.scroll_frame.pack(fill="both", expand=True, padx=10, pady=5)
         
         self.form_inner = ctk.CTkFrame(self.scroll_frame, fg_color="transparent")
@@ -196,7 +181,7 @@ class RecipeManager(ctk.CTk):
         self.veg_chk = ctk.CTkCheckBox(self.filters_frame, text="Vegetariano", variable=self.veg_var)
         self.veg_chk.pack(side="left", padx=20)
         
-        self.gf_chk = ctk.CTkCheckBox(self.filters_frame, text="Gluten Free", variable=self.gf_var)
+        self.gf_chk = ctk.CTkCheckBox(self.filters_frame, text="Sin gluten", variable=self.gf_var)
         self.gf_chk.pack(side="left", padx=20)
         
         # Elaboration
@@ -206,7 +191,7 @@ class RecipeManager(ctk.CTk):
         self.elab_text.grid(row=4, column=1, padx=10, pady=5, sticky="w")
         
         # Ingredients Section
-        self.ings_lbl = ctk.CTkLabel(self.form_inner, text="Ingredientes", font=("Arial", 16, "bold"))
+        self.ings_lbl = ctk.CTkLabel(self.form_inner, text="Ingredientes", font=(T.FONT, 16, "bold"))
         self.ings_lbl.grid(row=5, column=0, columnspan=2, pady=(20,5))
         
         self.ings_container = ctk.CTkFrame(self.form_inner, fg_color="transparent")
@@ -215,7 +200,7 @@ class RecipeManager(ctk.CTk):
         
         self.ingredient_rows = []
         
-        self.add_ing_btn = ctk.CTkButton(self.form_inner, text="+ Añadir Ingrediente", command=self.add_ingredient_row)
+        self.add_ing_btn = T.secondary_button(self.form_inner, text="+ Añadir Ingrediente", command=self.add_ingredient_row)
         self.add_ing_btn.grid(row=7, column=0, columnspan=2, pady=10)
         
         # Action Buttons Frame
@@ -223,11 +208,11 @@ class RecipeManager(ctk.CTk):
         self.actions_frame.pack(fill="x", padx=20, pady=10)
 
         # Save Button
-        self.save_btn = ctk.CTkButton(self.actions_frame, text="Guardar Receta", height=40, font=("Arial", 14, "bold"), command=self.save_recipe)
+        self.save_btn = ctk.CTkButton(self.actions_frame, text="Guardar Receta", height=40, font=(T.FONT, 14, "bold"), command=self.save_recipe)
         self.save_btn.pack(side="left", fill="x", expand=True, padx=5)
         
         # Delete Button (Hidden by default)
-        self.delete_btn = ctk.CTkButton(self.actions_frame, text="Eliminar Receta", height=40, font=("Arial", 14, "bold"), fg_color="#c0392b", hover_color="#e74c3c", command=self.delete_recipe)
+        self.delete_btn = T.danger_button(self.actions_frame, text="Eliminar Receta", height=40, font=(T.FONT, 14, "bold"), command=self.delete_recipe)
         
         # Initial ingredient row
         self.add_ingredient_row()
@@ -299,9 +284,12 @@ class RecipeManager(ctk.CTk):
         self.clear_form()
         self.current_edit_index = idx
         
+        # Un CTkComboBox deshabilitado no refresca el texto: se habilita, se cambia y se vuelve a bloquear.
+        self.form_cat.configure(state="normal")
         self.form_cat.set(self.cat_select.get())
+        self.form_cat.configure(state="disabled")
         self.name_entry.insert(0, recipe.get("nombre", ""))
-        self.page_entry.insert(0, recipe.get("pagina", ""))
+        self.page_entry.insert(0, functions.format_page(recipe.get("pagina", "")))
         self.elab_text.insert("1.0", recipe.get("elaboracion", ""))
         
         filtros = recipe.get("filtros", {})
@@ -318,65 +306,83 @@ class RecipeManager(ctk.CTk):
         cat = self.form_cat.get()
         if self.mode == "edit":
             cat = self.cat_select.get()
-            
+
         name = self.name_entry.get().strip()
+        page = self.page_entry.get().strip()
+        errors = []
         if not name:
-            messagebox.showwarning("Aviso", "El nombre del plato no puede estar vacío.")
-            return
-            
-        # Collect ingredients
+            errors.append("El nombre del plato no puede estar vacío.")
+        if page and not page.isdigit():
+            errors.append("La página debe ser un número.")
         ings = []
         for row in self.ingredient_rows:
             data = row.get_data()
-            if data["nombre"]: # Only add if name is not empty
-                ings.append(data)
-                
+            if not data["nombre"]:
+                continue
+            data["cantidad"] = data["cantidad"].replace(",", ".")
+            if data["cantidad"] and functions.parse_quantity(data["cantidad"]) is None:
+                errors.append(f"«{data['nombre']}»: la cantidad debe ser un número (ej. 2 o 0.5).")
+            ings.append(data)
+        if not ings:
+            errors.append("Añade al menos un ingrediente.")
+        if errors:
+            messagebox.showwarning("Revisa la receta", "\n".join(errors))
+            return
+
+        # Nombre repetido en la misma categoría (excepto la propia receta al editar)
+        for i, r in enumerate(self.db.get(cat, [])):
+            if r.get("nombre", "").strip().lower() == name.lower() and                     not (self.mode == "edit" and i == self.current_edit_index):
+                messagebox.showwarning("Receta repetida", f"Ya existe «{name}» en {cat}.")
+                return
+
         recipe = {
             "nombre": name,
-            "pagina": self.page_entry.get().strip(),
+            "pagina": page,
             "elaboracion": self.elab_text.get("1.0", "end").strip(),
-            "filtros": {
-                "vegetariano": self.veg_var.get(),
-                "gluten_free": self.gf_var.get()
-            },
-            "ingredientes": ings
+            "filtros": {"vegetariano": bool(self.veg_var.get()), "gluten_free": bool(self.gf_var.get())},
+            "ingredientes": ings,
         }
-        
+
+        backup = json.loads(json.dumps(self.db))
         if self.mode == "add":
-            if cat not in self.db:
-                self.db[cat] = []
-            self.db[cat].append(recipe)
+            self.db.setdefault(cat, []).append(recipe)
         else:
-            if self.current_edit_index >= 0 and cat in self.db:
-                self.db[cat][self.current_edit_index] = recipe
-            else:
+            if self.current_edit_index < 0 or cat not in self.db:
                 messagebox.showerror("Error", "No hay una receta seleccionada para editar.")
                 return
-                
-        self.save_db()
-        
+            self.db[cat][self.current_edit_index] = recipe
+
+        if not self.save_db():
+            self.db = backup          # no dejar en memoria un cambio que no se guardó
+            return
+
         if self.mode == "add":
             self.clear_form()
-            messagebox.showinfo("Listo", "Receta añadida.")
+            messagebox.showinfo("Listo", "Receta añadida. Recuerda hacer commit y push en BaseDatosRecetas.")
         else:
-            # Refresh edit dropdown
+            # Recargar la lista y volver a mostrar ESTA receta (antes se quedaba cargada la primera
+            # de la categoría con el nombre de otra, y el siguiente guardado pisaba la receta equivocada).
             self.on_edit_category_change(cat)
             self.recipe_select.set(name)
+            self.on_edit_recipe_change(name)
+            messagebox.showinfo("Listo", "Cambios guardados.")
 
     def delete_recipe(self):
         cat = self.cat_select.get()
-        name = self.name_entry.get().strip()
-        
         if self.current_edit_index < 0 or cat not in self.db:
             messagebox.showwarning("Aviso", "No hay ninguna receta seleccionada para eliminar.")
             return
-            
-        confirm = messagebox.askyesno("Confirmar eliminación", f"¿Estás seguro de que deseas eliminar la receta '{name}' de la categoría '{cat}'?\n\nEsta acción no se puede deshacer.")
-        if confirm:
-            del self.db[cat][self.current_edit_index]
-            self.save_db()
-            messagebox.showinfo("Listo", "Receta eliminada correctamente.")
-            self.on_edit_category_change(cat)
+        name = self.db[cat][self.current_edit_index].get("nombre", "")
+        if not messagebox.askyesno("Confirmar eliminación",
+                                   f"¿Eliminar la receta «{name}» de {cat}?\n\nEsta acción no se puede deshacer."):
+            return
+        removed = self.db[cat].pop(self.current_edit_index)
+        if not self.save_db():
+            self.db[cat].insert(self.current_edit_index, removed)
+            return
+        messagebox.showinfo("Listo", "Receta eliminada correctamente.")
+        self.on_edit_category_change(cat)
+
 
 if __name__ == "__main__":
     app = RecipeManager()

@@ -1,91 +1,69 @@
-# 🍳 Cocina Rápida — Planificador de Recetas y Generador de Listas de Compra
+# 🍳 Cocina Rápida — planificador de menús y lista de la compra
 
-**Cocina Rápida** es una solución interactiva multiplataforma (escritorio y móvil) diseñada para automatizar la planificación semanal de menús y la gestión de compras a partir de un recetario en formato JSON.
+Elige cuántos platos quieres de cada tipo (sopas, legumbres, postres...). La app escoge recetas al azar del recetario, te muestra cada receta y junta los ingredientes en una sola lista de la compra, sumando las cantidades repetidas.
 
-La herramienta selecciona platos de forma aleatoria a partir de una base de datos local o en red (organizada por categorías y etiquetas dietéticas), valida el inventario real de recetas, agrupa los ingredientes duplicados sumando sus cantidades, y exporta listas de cocina y de compra en formato **PDF**.
+El proyecto tiene **dos apps para Android** (el objetivo principal) y sus equivalentes de escritorio:
 
----
+| | Para quién | Android (Kivy) | Escritorio (customtkinter) |
+|---|---|---|---|
+| **Recetario** | Usuarios | `src/MvInterface.py` → APK *Cocina Rápida* | `src/PyInterface.py` (exporta PDF) |
+| **Gestor de Recetas** | Administrador | `src/MvRecipeManager.py` → APK *Gestor de Recetas* | `src/RecipeManager.py` |
 
-## ✨ Características Principales
+## Base de datos
 
-*   **Migración a formato JSON y Ligereza**: La base de datos de recetas se gestiona ahora de manera íntegra en formato `.json` ([CocinaArguinyano.json](CocinaArguinyano.json)), sustituyendo a las hojas de Excel. Esto ha permitido eliminar la dependencia de librerías pesadas como `pandas` y `openpyxl`, haciendo la aplicación móvil dramáticamente más ligera y rápida de compilar/iniciar.
-*   **Sincronización Dinámica y Caché Offline Persistente**: Al iniciar, las aplicaciones descargan la base de datos de recetas actualizada desde GitHub y guardan una copia local en la caché del dispositivo (directorio de usuario). Si inicias la app sin internet, recurrirá automáticamente a esta caché.
-*   **Algoritmo de Selección Inteligente**:
-    *   Selección aleatoria sin repetición de platos por categoría.
-    *   Filtros dietéticos dinámicos (*Vegetariano*, *Gluten Free*).
-    *   **Ajuste automático de límites**: Si se solicitan más platos de los existentes en una categoría con los filtros seleccionados, el sistema limita automáticamente la cantidad devuelta al máximo disponible y notifica al usuario.
-*   **Consolidación de Lista de la Compra**: Agrupa ingredientes idénticos utilizados en diferentes recetas, sumando sus cantidades y normalizando las unidades de medida (p. ej., gramos, unidades, chorros) para generar una lista de la compra compacta y eficiente.
-*   **Diseño Multiplataforma Integrado**:
-    *   🖥️ **Escritorio (Tkinter)**: Interfaz clásica para interactuar y exportar listados de compra (`PyInterface.py`).
-    *   📱 **Móvil (Kivy/Android)**: Interfaz táctil, responsiva y adaptable, lista para empaquetarse (`MvInterface.py`).
-    *   📝 **Gestor de Recetas (CustomTkinter)**: Aplicación con estética premium y modo oscuro para la inserción y modificación automatizada y sin código de nuevas recetas en la base de datos JSON (`RecipeManager.py`).
+Las recetas están en otro repositorio: [`alherca25/BaseDatosRecetas`](https://github.com/alherca25/BaseDatosRecetas), archivo `CocinaArguinyano.json`:
 
----
+```json
+{ "Sopas": [ { "nombre": "...", "pagina": "185", "elaboracion": "...",
+               "filtros": { "vegetariano": false, "gluten_free": false },
+               "ingredientes": [ { "nombre": "Tomate", "cantidad": "2", "unidad": "uds" } ] } ] }
+```
 
-## 📂 Estructura del Proyecto
+- **Recetario**: descarga el JSON al arrancar y guarda una copia, así funciona sin conexión. El APK también lleva una copia (`data/CocinaArguinyano.json`) por si el primer arranque es sin internet.
+- **Gestor móvil**: lee y guarda directamente en GitHub con un *token* personal (permiso *Contents: Read and write* sobre `BaseDatosRecetas`). Si alguien cambió el archivo mientras tanto, la app avisa y no pisa esos cambios.
+- **Gestor de escritorio**: edita el clon local `../BaseDatosRecetas/CocinaArguinyano.json`. Después hay que hacer *commit* y *push* a mano.
 
-*   **`main.py`**: Punto de entrada de la aplicación móvil (requerido para la compilación de Buildozer).
-*   **`MvInterface.py`**: Interfaz de Kivy y motor lógico principal para Android. Emplea la librería `fpdf2` para generar PDFs de forma nativa.
-*   **`PyInterface.py`**: Interfaz de escritorio desarrollada en Tkinter clásico. Emplea `reportlab` para la renderización de PDFs de compra y menús.
-*   **`RecipeManager.py`**: Interfaz de escritorio desarrollada en `customtkinter`. Se utiliza para añadir nuevas recetas a la base de datos JSON y editar las ya existentes mediante una interfaz amigable.
-*   **`functions.py`**: Módulo compartido que abstrae la lógica común (descarga de red, gestión de caché, validación de filtros, suma de ingredientes).
-*   **`buildozer.spec`**: Archivo de especificaciones y dependencias para compilar la aplicación móvil a un paquete APK de Android.
-*   **`CocinaArguinyano.json`**: Base de datos troncal de todas las recetas en formato ligero.
-*   **`migrate_excel_to_json.py`**: Script de utilidad que permitió la transición inicial del viejo formato Excel al actual formato estructurado JSON.
+Unidades admitidas: `uds`, `g`, `mL`, `cuch`.
 
----
+## Estructura
 
-## 🚀 Requisitos e Instalación
+```
+src/
+  functions.py         lógica común: descarga, caché, filtros, menú, agrupar ingredientes, API de GitHub
+  mobile_ui.py         componentes visuales de las apps móviles (paleta de los logos)
+  desktop_theme.py     tema de las apps de escritorio
+  MvInterface.py       Recetario móvil         (main.py lo lanza en el ordenador)
+  MvRecipeManager.py   Gestor móvil
+  PyInterface.py       Recetario escritorio
+  RecipeManager.py     Gestor escritorio
+assets/                logos (.ico/.jpg) y PNG generados para Android (tools/make_icons.py)
+data/                  copia de la BD y Excel original
+tests/                 tests de la lógica (python -m unittest discover -s tests)
+tools/                 stage_android.py, make_icons.py, screenshot_app.py
+legacy/                prototipo con pandas/Excel y script de migración a JSON
+buildozer_*.spec       configuración de cada APK
+```
 
-### 🖥️ Versiones de Escritorio (Gestor y Recetario)
+## Ejecutar en el ordenador
 
-1. **Clonar el repositorio**:
-   ```bash
-   git clone https://github.com/alherca25/CocinaArguinyano.git
-   cd CocinaArguinyano
-   ```
+```bash
+python -m venv venvArguinyano
+venvArguinyano\Scripts\activate
+pip install -r requirements_desktop.txt -r requirements_mobile.txt
 
-2. **Instalar las dependencias**:
-   ```bash
-   pip install -r Requirements.txt
-   ```
-   *(Asegúrate de que incluya `customtkinter` y `reportlab`)*
+cd src
+python PyInterface.py        # Recetario escritorio (PDF en Documentos\Cocina Rápida)
+python RecipeManager.py      # Gestor escritorio
+python MvInterface.py        # Recetario móvil en una ventana
+python MvRecipeManager.py    # Gestor móvil en una ventana
+```
 
-3. **Ejecutar la Interfaz Clásica o el Gestor de Recetas**:
-   ```bash
-   python PyInterface.py
-   # o
-   python RecipeManager.py
-   ```
+Tests: `python -m unittest discover -s tests`
 
-### 📱 Versión Móvil (Prueba Local de Kivy)
+## Compilar los APK
 
-Para probar la interfaz táctil directamente en tu ordenador:
+Cada *push* a `main` o `_dev` lanza **GitHub Actions** (`.github/workflows/build-android.yml`): pasa los tests y genera los artefactos `Recetario_APK` y `GestorRecetas_APK`. Para compilar en local (Linux/WSL) consulta [README_android.md](README_android.md).
 
-1. **Instalar Kivy y librerías PDF**:
-   ```bash
-   pip install kivy==2.3.0 requests fpdf2
-   ```
+## Licencia
 
-2. **Ejecutar la aplicación móvil**:
-   ```bash
-   python main.py
-   ```
-
-### 🤖 Compilación para Android (.APK)
-
-Para compilar el archivo ejecutable de Android (`.apk`), consulta la [Guía de Compilación Android](README_android.md), que detalla el uso de **Buildozer** bajo Linux/WSL2. 
-
----
-
-## 📊 Formato de la Base de Datos (JSON)
-
-Al haber migrado a formato JSON, ya **no se recomienda editar el archivo a mano**. Para insertar nuevas recetas o rectificar cantidades e ingredientes de las ya existentes, utiliza la interfaz **`RecipeManager.py`**. 
-
-El Gestor se encargará de mantener la integridad estructural del documento y guardarlo de forma local, listo para que hagas commit y actualices el repositorio de GitHub de forma segura.
-
----
-
-## 📝 Licencia
-
-Este proyecto está desarrollado para uso personal y educativo. Los contenidos de las recetas pertenecen a sus respectivos autores.
+Proyecto de uso personal y educativo. Las recetas pertenecen a sus autores.

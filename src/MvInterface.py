@@ -1,946 +1,658 @@
-# MvInterface.py
-# Interfaz móvil (Kivy/KivyMD-ready) que replica PyInterface.py para Android.
-# Compatible con Buildozer (python-for-android).
+"""
+Recetario «Cocina Rápida» — app móvil (Kivy / Android).
 
+Pantallas:
+  - Planificar: filtro + cuántos platos de cada categoría.
+  - Mi menú:    platos elegidos (pestaña Platos) y lista de la compra (pestaña Compra).
+  - Receta:     detalle de una receta.
+  - Recetario:  buscador de todas las recetas.
+"""
+import json
 import os
-import os
-import random
 import threading
 from datetime import datetime
-import json
 
-import functions
-
-# ---------------------------------------------------------------------------
-# Kivy imports
-# ---------------------------------------------------------------------------
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.graphics import Color, Rectangle
-from kivy.metrics import dp
+from kivy.metrics import dp, sp
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
-from kivy.uix.popup import Popup
+from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 from kivy.uix.scrollview import ScrollView
-from kivy.uix.spinner import Spinner
-from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget
 
-# ---------------------------------------------------------------------------
-# Exportador nativo a TXT (reemplazo de FPDF)
-# ---------------------------------------------------------------------------
+import functions
+from mobile_ui import (AppBar, AutoLabel, C, Card, Chip, Field, IconButton, RoundButton,
+                       Stepper, TabBar, TickBox, Toast, asset_path, confirm, empty_state,
+                       muted_label, recipe_tags, setup_window, share_text, show_info,
+                       spacer, tag_row, title_label, user_dir)
 
-# ---------------------------------------------------------------------------
-# Directorio de salida para los PDF
-# ---------------------------------------------------------------------------
-from kivy.utils import platform
-
-def get_local_pdf_dir():
-    if platform == 'android':
-        try:
-            from kivy.app import App
-            app = App.get_running_app()
-            if app and app.user_data_dir:
-                return app.user_data_dir
-        except Exception:
-            pass
-        return "."
-    else:
-        docs = os.path.join(os.path.expanduser("~"), "Documents")
-        if not os.path.exists(docs):
-            docs = "."
-        return docs
+LOGO = "icon_main.png"
+FILTER_LABELS = {"Todo": "Todo", "Vegetariano": "Vegetariano", "Gluten Free": "Sin gluten"}
 
 
 # ===========================================================================
-# LÓGICA DE NEGOCIO (sin dependencias de UI)
+# LÓGICA (sin widgets)
 # ===========================================================================
+class PlannerLogic:
+    """Estado de la app: recetas, selección, menú generado y compra marcada."""
 
-class CocinaArguinyanoLogic:
-    """Lógica pura: carga de recetas, selección aleatoria, generación de PDF."""
+    def __init__(self, data_dir):
+        self.data_dir = data_dir
+        self.db = {}
+        self.source = ""
+        self.active_filter = "Todo"
+        self.selection = {}        # {categoría: cantidad}
+        self.menu = []             # recetas elegidas (con clave "Tipo")
+        self.menu_date = ""
+        self.checked = set()       # claves de ingredientes ya comprados
+        self.load_state()
 
-    JSON_URL = (
-        "https://raw.githubusercontent.com/alherca25/BaseDatosRecetas/"
-        "main/CocinaArguinyano.json"
-    )
-
-    def __init__(self):
-        self.recipes_table: dict = {}      
-        self.selected_dishes: dict = {}    # {tipo: cantidad}
-        self.active_filter: str = "Todo"
-        self.actual_date: str = datetime.now().strftime("%Y-%m-%d")
-
-    def get_cache_path(self) -> str:
-        try:
-            from kivy.app import App
-            app = App.get_running_app()
-            if app and app.user_data_dir:
-                os.makedirs(app.user_data_dir, exist_ok=True)
-                return os.path.join(app.user_data_dir, "CocinaArguinyano.json")
-        except Exception as e:
-            print(f"Error al obtener ruta de caché: {e}")
-        return None
-
-    def load_recipes(self) -> str:
-        """Carga el JSON desde GitHub o caché/local."""
-        cache_path = self.get_cache_path()
-
-        try:
-            self.recipes_table = functions.load_recipes(self.JSON_URL, is_local=False)
-            if cache_path:
-                try:
-                    with open(cache_path, "w", encoding="utf-8") as f:
-                        json.dump(self.recipes_table, f, ensure_ascii=False)
-                except Exception:
-                    pass
-            return ""
-        except Exception as exc:
-            print(f"Descarga fallida: {exc}")
-            
-        if cache_path and os.path.exists(cache_path):
-            try:
-                self.recipes_table = functions.load_recipes(cache_path, is_local=True)
-                return ""
-            except Exception:
-                pass
-
-        try:
-            local_file = "CocinaArguinyano.json"
-            if not os.path.exists(local_file):
-                script_dir = os.path.dirname(os.path.abspath(__file__))
-                local_file = os.path.join(script_dir, "CocinaArguinyano.json")
-
-            if os.path.exists(local_file):
-                self.recipes_table = functions.load_recipes(local_file, is_local=True)
-                return ""
-            else:
-                return f"No se encontró JSON local ni en GitHub."
-        except Exception as local_exc:
-            return f"Fallo descarga y fallo lectura local ({local_exc})"
-
-    def get_recipe_types(self) -> list:
-        return list(self.recipes_table.keys())
-
-    def add_dish(self, dish_type: str, quantity: str) -> str:
-        if not dish_type or dish_type == "—":
-            return "Selecciona un tipo de receta."
-        try:
-            qty = int(quantity)
-        except ValueError:
-            return "La cantidad debe ser un número entero."
-        if qty <= 0:
-            return "La cantidad debe ser mayor que 0."
-
-        adjusted_msg = ""
-        if dish_type in self.recipes_table:
-            valid_recipes = functions.filter_recipes(self.recipes_table[dish_type], self.active_filter)
-            max_recetas = len(valid_recipes)
-            if qty > max_recetas:
-                qty = max_recetas
-                adjusted_msg = f"Ajustado: Con el filtro '{self.active_filter}', solo hay {max_recetas} platos disponibles."
-
-        self.selected_dishes[dish_type] = qty
-        return adjusted_msg
-
-    def edit_dish(self, old_type: str, new_type: str, new_quantity: str) -> str:
-        self.selected_dishes.pop(old_type, None)
-        return self.add_dish(new_type, new_quantity)
-
-    def remove_dish(self, dish_type: str):
-        self.selected_dishes.pop(dish_type, None)
-
-    def get_selected_dishes(self, save_pdf: bool = False):
-        result = []
-        for plate_type, desired_num in self.selected_dishes.items():
-            if desired_num <= 0: continue
-            
-            dishes, limited = functions.select_random_dishes(
-                self.recipes_table, plate_type, desired_num, self.active_filter
-            )
-            
-            for d in dishes:
-                d_copy = d.copy()
-                d_copy["Tipo"] = plate_type
-                result.append(d_copy)
-
-        if not result:
-            raise RuntimeError("No se pudo seleccionar ningún plato.")
-
-        if save_pdf:
-            return self.generate_recipes_pdf(result, f"Recetas-{self.actual_date}")
-
-        return result
-
-    def get_ingredients_from_dishes(self, save_pdf: bool = True, dishes_list: list = None):
-        if dishes_list is None:
-            dishes_list = self.get_selected_dishes(save_pdf=False)
-        if not dishes_list:
-            raise RuntimeError("No hay platos seleccionados.")
-
-        grouped = {}
-        for recipe in dishes_list:
-            for ing in recipe.get("ingredientes", []):
-                nombre = str(ing.get("nombre", "")).strip()
-                if not nombre: continue
-                key = nombre.lower()
-                
-                unidad = str(ing.get("unidad", "")).strip()
-                cantidad_str = str(ing.get("cantidad", "")).strip()
-                
-                cantidad_val = 0.0
-                is_numeric = False
-                try:
-                    if cantidad_str and cantidad_str.lower() != 'nan':
-                        cantidad_val = float(cantidad_str)
-                        is_numeric = True
-                except ValueError:
-                    pass
-                
-                full_key = (key, unidad)
-                if full_key not in grouped:
-                    grouped[full_key] = {
-                        "Ingredientes": nombre,
-                        "Cantidades": cantidad_val if is_numeric else cantidad_str,
-                        "Unidades": unidad,
-                        "is_numeric": is_numeric
-                    }
-                else:
-                    if is_numeric and grouped[full_key]["is_numeric"]:
-                        grouped[full_key]["Cantidades"] += cantidad_val
-
-        result = list(grouped.values())
-        result.sort(key=lambda x: x["Ingredientes"].lower())
-
-        for item in result:
-            cant = item["Cantidades"]
-            if item["is_numeric"] and float(cant).is_integer():
-                cant = int(float(cant))
-            item["Cantidades"] = str(cant)
-            
-        if not result:
-            raise RuntimeError("No hay ingredientes.")
-
-        if save_pdf:
-            return self.generate_pdf(result, f"Compra-{self.actual_date}")
-        return result
-
-    def generate_all(self) -> str:
-        dishes = self.get_selected_dishes(save_pdf=False)
-        msg1 = self.generate_recipes_pdf(dishes, f"Recetas-{self.actual_date}")
-        ingredients = self.get_ingredients_from_dishes(save_pdf=False, dishes_list=dishes)
-        msg2 = self.generate_pdf(ingredients, f"Compra-{self.actual_date}")
-        return f"Recetas:\n{msg1}\n\nCompra:\n{msg2}"
-
-    def generate_pdf(self, rows: list, title: str) -> str:
-        if not rows:
-            raise RuntimeError("Sin datos para generar el documento.")
-
-        pdf_dir = get_local_pdf_dir()
-        os.makedirs(pdf_dir, exist_ok=True)
-        txt_name = f"{title}.txt"
-        local_path = os.path.join(pdf_dir, txt_name)
-
-        with open(local_path, "w", encoding="utf-8") as f:
-            f.write(f"--- {title.upper()} ---\n\n")
-            f.write(f"{'Ingrediente':<30} | {'Cantidad':<10} | {'Unidad':<15}\n")
-            f.write("-" * 60 + "\n")
-            for row in rows:
-                ing = str(row.get("Ingredientes", ""))[:30]
-                cant = str(row.get("Cantidades", ""))[:10]
-                unid = str(row.get("Unidades", ""))[:15]
-                f.write(f"{ing:<30} | {cant:<10} | {unid:<15}\n")
-            f.write("\n" + "-" * 60 + "\n")
-
-        # Compartir el TXT mediante menú nativo si estamos en Android
-        if platform == 'android':
-            try:
-                from plyer import share
-                share.share(local_path, title=txt_name)
-                return f"Lista generada. Abre el menú para compartirla/guardarla."
-            except Exception as e:
-                return f"Guardado internamente debido a un fallo al compartir:\n{local_path}\nError: {e}"
-
-        return local_path
-
-    def generate_recipes_pdf(self, dishes: list, title: str) -> str:
-        if not dishes:
-            raise RuntimeError("Sin platos seleccionados para generar el documento.")
-
-        pdf_dir = get_local_pdf_dir()
-        os.makedirs(pdf_dir, exist_ok=True)
-        txt_name = f"{title}.txt"
-        local_path = os.path.join(pdf_dir, txt_name)
-
-        with open(local_path, "w", encoding="utf-8") as f:
-            f.write(f"=== {title.upper()} ===\n\n")
-            for dish in dishes:
-                dish_name = dish.get("nombre", dish.get("Plato", ""))
-                plate_type = dish.get("Tipo", "")
-                elaboration = dish.get("elaboracion", dish.get("Elaboración", ""))
-                page_val = dish.get("pagina", dish.get("Página", ""))
-
-                f.write(f"PLATILLO: {dish_name}\n")
-                meta = f"Categoría: {plate_type}"
-                if page_val:
-                    meta += f" | Página: {page_val}"
-                f.write(f"{meta}\n\n")
-
-                f.write("INGREDIENTES:\n")
-                for ing in dish.get("ingredientes", []):
-                    formatted_ing = functions.format_ingredient(ing)
-                    if formatted_ing:
-                        f.write(f" - {formatted_ing}\n")
-                
-                f.write("\nELABORACIÓN:\n")
-                f.write(f"{elaboration if elaboration else 'Sin elaboración.'}\n")
-                f.write("\n" + "=" * 40 + "\n\n")
-
-        # Compartir el TXT mediante menú nativo si estamos en Android
-        if platform == 'android':
-            try:
-                from plyer import share
-                share.share(local_path, title=txt_name)
-                return f"Recetas generadas. Abre el menú para compartir/guardar."
-            except Exception as e:
-                return f"Guardado internamente debido a un fallo al compartir:\n{local_path}\nError: {e}"
-
-        return local_path
-
-
-# ===========================================================================
-# COMPONENTES DE UI (Kivy)
-# ===========================================================================
-
-class SelectableRow(BoxLayout):
-    """Fila seleccionable en la lista de platos seleccionados."""
-
-    NORMAL_COLOR = (0.15, 0.15, 0.2, 1)
-    SELECTED_COLOR = (0.2, 0.5, 0.85, 1)
-
-    def __init__(self, dish_type: str, quantity: int, on_select_cb, **kwargs):
-        super().__init__(
-            orientation="horizontal",
-            size_hint_y=None,
-            height=dp(52),
-            spacing=dp(4),
-            padding=(dp(6), dp(4)),
-            **kwargs
-        )
-        self.dish_type = dish_type
-        self.quantity = quantity
-        self._on_select_cb = on_select_cb
-        self._selected = False
-
-        with self.canvas.before:
-            self._bg_color_inst = Color(*self.NORMAL_COLOR)
-            self._bg_rect = Rectangle(pos=self.pos, size=self.size)
-
-        self.bind(pos=self._update_rect, size=self._update_rect)
-
-        self.lbl_type = Label(
-            text=dish_type,
-            size_hint_x=0.65,
-            halign="left",
-            valign="middle"
-        )
-        self.lbl_type.bind(
-            size=lambda instance, value: setattr(instance, "text_size", value)
-        )
-
-        self.lbl_qty = Label(
-            text=str(quantity),
-            size_hint_x=0.20,
-            halign="center",
-            valign="middle"
-        )
-        self.lbl_qty.bind(
-            size=lambda instance, value: setattr(instance, "text_size", value)
-        )
-
-        btn_select = Button(
-            text="Seleccionar",
-            size_hint_x=0.15,
-            background_color=(0.3, 0.6, 1, 1),
-            font_size="12sp"
-        )
-        btn_select.bind(on_release=self._toggle_select)
-
-        self.add_widget(self.lbl_type)
-        self.add_widget(self.lbl_qty)
-        self.add_widget(btn_select)
-
-    def _update_rect(self, *_):
-        self._bg_rect.pos = self.pos
-        self._bg_rect.size = self.size
-
-    def _toggle_select(self, *_):
-        self._selected = not self._selected
-        color = self.SELECTED_COLOR if self._selected else self.NORMAL_COLOR
-        self._bg_color_inst.rgba = color
-        self._on_select_cb(self)
+    # --- persistencia -----------------------------------------------------
+    @property
+    def cache_path(self):
+        return os.path.join(self.data_dir, "CocinaArguinyano.json")
 
     @property
-    def is_selected(self) -> bool:
-        return self._selected
-
-    def deselect(self):
-        self._selected = False
-        self._bg_color_inst.rgba = self.NORMAL_COLOR
-
-
-class HeaderRow(BoxLayout):
-    """Cabecera de la tabla de platos."""
-
-    def __init__(self, **kwargs):
-        super().__init__(
-            orientation="horizontal",
-            size_hint_y=None,
-            height=dp(36),
-            **kwargs
-        )
-
-        with self.canvas.before:
-            Color(0.1, 0.1, 0.15, 1)
-            self._rect = Rectangle(pos=self.pos, size=self.size)
-
-        self.bind(
-            pos=lambda *_: setattr(self._rect, "pos", self.pos),
-            size=lambda *_: setattr(self._rect, "size", self.size)
-        )
-
-        for text, hint in (
-            ("Tipo de plato", 0.65),
-            ("Cant.", 0.20),
-            ("", 0.15),
-        ):
-            lbl = Label(
-                text=text,
-                size_hint_x=hint,
-                bold=True,
-                color=(0.8, 0.9, 1, 1),
-                halign="center",
-                valign="middle"
-            )
-            lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
-            self.add_widget(lbl)
-
-
-# ===========================================================================
-# POPUP: Añadir plato
-# ===========================================================================
-
-class AddDishPopup(Popup):
-    def __init__(self, recipe_types: list, on_confirm, **kwargs):
-        kwargs.setdefault("title", "Añadir plato")
-        kwargs.setdefault("size_hint", (0.88, 0.55))
-        super().__init__(**kwargs)
-        self._on_confirm = on_confirm
-
-        layout = BoxLayout(
-            orientation="vertical",
-            spacing=dp(10),
-            padding=dp(12)
-        )
-
-        layout.add_widget(
-            Label(text="Tipo de receta:", size_hint_y=None, height=dp(28))
-        )
-
-        self.spinner = Spinner(
-            text=recipe_types[0] if recipe_types else "—",
-            values=recipe_types,
-            size_hint_y=None,
-            height=dp(44),
-        )
-        layout.add_widget(self.spinner)
-
-        layout.add_widget(
-            Label(text="Número de platos:", size_hint_y=None, height=dp(28))
-        )
-
-        self.qty_input = TextInput(
-            hint_text="Ej: 3",
-            multiline=False,
-            input_filter="int",
-            size_hint_y=None,
-            height=dp(44),
-        )
-        layout.add_widget(self.qty_input)
-
-        layout.add_widget(Widget())  # spacer
-
-        btns = BoxLayout(size_hint_y=None, height=dp(48), spacing=dp(8))
-
-        btn_cancel = Button(
-            text="Cancelar",
-            background_color=(0.5, 0.5, 0.5, 1)
-        )
-        btn_cancel.bind(on_release=self.dismiss)
-
-        btn_ok = Button(
-            text="Añadir",
-            background_color=(0.2, 0.6, 0.3, 1)
-        )
-        btn_ok.bind(on_release=self._on_ok)
-
-        btns.add_widget(btn_cancel)
-        btns.add_widget(btn_ok)
-        layout.add_widget(btns)
-
-        self.content = layout
-
-    def _on_ok(self, *_):
-        dish_type = self.spinner.text
-        qty = self.qty_input.text.strip() or "1"
-        self._on_confirm(dish_type, qty)
-        self.dismiss()
-
-
-# ===========================================================================
-# POPUP: Editar plato
-# ===========================================================================
-
-class EditDishPopup(Popup):
-    def __init__(self, dish_type: str, quantity: int, recipe_types: list,
-                 on_confirm, **kwargs):
-        kwargs.setdefault("title", "Editar plato")
-        kwargs.setdefault("size_hint", (0.88, 0.55))
-        super().__init__(**kwargs)
-        self._old_type = dish_type
-        self._on_confirm = on_confirm
-
-        layout = BoxLayout(
-            orientation="vertical",
-            spacing=dp(10),
-            padding=dp(12)
-        )
-
-        layout.add_widget(
-            Label(text="Tipo de receta:", size_hint_y=None, height=dp(28))
-        )
-
-        self.spinner = Spinner(
-            text=dish_type,
-            values=recipe_types,
-            size_hint_y=None,
-            height=dp(44),
-        )
-        layout.add_widget(self.spinner)
-
-        layout.add_widget(
-            Label(text="Número de platos:", size_hint_y=None, height=dp(28))
-        )
-
-        self.qty_input = TextInput(
-            text=str(quantity),
-            multiline=False,
-            input_filter="int",
-            size_hint_y=None,
-            height=dp(44),
-        )
-        layout.add_widget(self.qty_input)
-
-        layout.add_widget(Widget())
-
-        btns = BoxLayout(size_hint_y=None, height=dp(48), spacing=dp(8))
-
-        btn_cancel = Button(
-            text="Cancelar",
-            background_color=(0.5, 0.5, 0.5, 1)
-        )
-        btn_cancel.bind(on_release=self.dismiss)
-
-        btn_ok = Button(
-            text="Actualizar",
-            background_color=(0.2, 0.5, 0.85, 1)
-        )
-        btn_ok.bind(on_release=self._on_ok)
-
-        btns.add_widget(btn_cancel)
-        btns.add_widget(btn_ok)
-        layout.add_widget(btns)
-
-        self.content = layout
-
-    def _on_ok(self, *_):
-        new_type = self.spinner.text
-        new_qty = self.qty_input.text.strip() or "1"
-        self._on_confirm(self._old_type, new_type, new_qty)
-        self.dismiss()
-
-
-# ===========================================================================
-# POPUP: Mensaje informativo / error
-# ===========================================================================
-
-class InfoPopup(Popup):
-    def __init__(self, title: str, message: str, **kwargs):
-        kwargs.setdefault("size_hint", (0.85, 0.4))
-        super().__init__(title=title, **kwargs)
-
-        layout = BoxLayout(
-            orientation="vertical",
-            spacing=dp(10),
-            padding=dp(12)
-        )
-
-        lbl = Label(
-            text=message,
-            halign="center",
-            valign="middle"
-        )
-        lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
-        layout.add_widget(lbl)
-
-        btn = Button(
-            text="OK",
-            size_hint_y=None,
-            height=dp(44),
-            background_color=(0.2, 0.6, 0.3, 1)
-        )
-        btn.bind(on_release=self.dismiss)
-        layout.add_widget(btn)
-
-        self.content = layout
-
-
-# ===========================================================================
-# PANTALLA PRINCIPAL
-# ===========================================================================
-
-class MainScreen(BoxLayout):
-    """Widget raíz de la aplicación."""
-
-    BG_COLOR = (0.08, 0.08, 0.12, 1)
-
-    def __init__(self, logic: CocinaArguinyanoLogic, **kwargs):
-        super().__init__(
-            orientation="vertical",
-            spacing=dp(8),
-            padding=dp(10),
-            **kwargs
-        )
-        self.logic = logic
-        self._selected_row = None  # fila actualmente seleccionada
-
-        with self.canvas.before:
-            Color(*self.BG_COLOR)
-            self._bg = Rectangle(pos=self.pos, size=self.size)
-
-        self.bind(
-            pos=lambda *_: setattr(self._bg, "pos", self.pos),
-            size=lambda *_: setattr(self._bg, "size", self.size)
-        )
-
-        self._build_ui()
-
-    # ------------------------------------------------------------------
-    # Construcción de la interfaz
-    # ------------------------------------------------------------------
-
-    def _build_ui(self):
-        # --- Título ---
-        title_lbl = Label(
-            text="Cocina Rápida",
-            font_size="22sp",
-            bold=True,
-            color=(1, 0.85, 0.3, 1),
-            size_hint_y=None,
-            height=dp(48),
-            halign="center",
-            valign="middle",
-        )
-        title_lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
-        self.add_widget(title_lbl)
-
-        # --- Estado de carga ---
-        self.lbl_status = Label(
-            text="Cargando recetas...",
-            font_size="13sp",
-            color=(0.7, 0.9, 1, 1),
-            size_hint_y=None,
-            height=dp(28),
-            halign="center",
-            valign="middle",
-        )
-        self.lbl_status.bind(
-            size=lambda instance, value: setattr(instance, "text_size", value)
-        )
-        self.add_widget(self.lbl_status)
-
-        # --- Filtro ---
-        filter_layout = BoxLayout(size_hint_y=None, height=dp(40), spacing=dp(5), padding=(0, 0, 0, dp(5)))
-        filter_lbl = Label(
-            text="Filtro:", size_hint_x=0.2, halign="right", valign="middle"
-        )
-        filter_lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
-        self.filter_spinner = Spinner(
-            text="Todo",
-            values=["Todo", "Vegetariano", "Gluten Free"],
-            size_hint_x=0.8,
-            height=dp(36),
-            background_color=(0.2, 0.2, 0.3, 1)
-        )
-        self.filter_spinner.bind(text=self.on_filter_change)
-        filter_layout.add_widget(filter_lbl)
-        filter_layout.add_widget(self.filter_spinner)
-        self.add_widget(filter_layout)
-
-        # --- Cabecera de la tabla ---
-        self.add_widget(HeaderRow())
-
-        # --- Lista de platos seleccionados (scroll) ---
-        scroll = ScrollView()
-        self.list_container = GridLayout(
-            cols=1,
-            spacing=dp(4),
-            size_hint_y=None,
-        )
-        self.list_container.bind(
-            minimum_height=self.list_container.setter("height")
-        )
-        scroll.add_widget(self.list_container)
-        self.add_widget(scroll)
-
-        # --- Botones CRUD ---
-        crud_btns = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))
-
-        for label, color, cb in (
-            ("Añadir", (0.2, 0.6, 0.3, 1), self.on_add),
-            ("Editar", (0.2, 0.5, 0.85, 1), self.on_edit),
-            ("Eliminar", (0.75, 0.25, 0.2, 1), self.on_delete),
-        ):
-            btn = Button(
-                text=label,
-                background_color=color,
-                font_size="14sp"
-            )
-            btn.bind(on_release=cb)
-            crud_btns.add_widget(btn)
-
-        self.add_widget(crud_btns)
-
-        # --- Separador ---
-        sep_lbl = Label(
-            text="Generar listas:",
-            font_size="13sp",
-            color=(0.75, 0.75, 0.75, 1),
-            size_hint_y=None,
-            height=dp(26),
-            halign="center",
-            valign="middle",
-        )
-        sep_lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
-        self.add_widget(sep_lbl)
-
-        # --- Botones de generación ---
-        gen_btns = BoxLayout(size_hint_y=None, height=dp(52), spacing=dp(6))
-
-        for label, color, cb in (
-            ("Recetas", (0.6, 0.3, 0.8, 1), self.on_gen_recipes),
-            ("Compra", (0.2, 0.55, 0.65, 1), self.on_gen_shopping),
-            ("Ambas", (0.7, 0.45, 0.1, 1), self.on_gen_both),
-        ):
-            btn = Button(
-                text=label,
-                background_color=color,
-                font_size="14sp"
-            )
-            btn.bind(on_release=cb)
-            gen_btns.add_widget(btn)
-
-        self.add_widget(gen_btns)
-
-    # ------------------------------------------------------------------
-    # Actualizar lista visual
-    # ------------------------------------------------------------------
-
-    def refresh_list(self):
-        self._selected_row = None
-        self.list_container.clear_widgets()
-
-        if not self.logic.selected_dishes:
-            lbl = Label(
-                text="(Ningún plato añadido aún)",
-                color=(0.5, 0.5, 0.5, 1),
-                size_hint_y=None,
-                height=dp(44),
-                halign="center",
-                valign="middle",
-            )
-            lbl.bind(size=lambda instance, value: setattr(instance, "text_size", value))
-            self.list_container.add_widget(lbl)
-            return
-
-        for dtype, qty in self.logic.selected_dishes.items():
-            row = SelectableRow(dtype, qty, self._on_row_selected)
-            self.list_container.add_widget(row)
-
-    def on_filter_change(self, spinner, text):
-        self.logic.active_filter = text
-
-    def _on_row_selected(self, row: SelectableRow):
-        # Des-seleccionar anterior si es distinto
-        if self._selected_row and self._selected_row is not row:
-            self._selected_row.deselect()
-
-        self._selected_row = row if row.is_selected else None
-
-    # ------------------------------------------------------------------
-    # Acciones CRUD
-    # ------------------------------------------------------------------
-
-    def on_add(self, *_):
-        types = self.logic.get_recipe_types()
-        if not types:
-            self._show_info("Error", "No hay recetas cargadas todavía.")
-            return
-
-        AddDishPopup(recipe_types=types, on_confirm=self._confirm_add).open()
-
-    def _confirm_add(self, dish_type: str, qty: str):
-        err = self.logic.add_dish(dish_type, qty)
-        if err:
-            if err.startswith("Ajustado:"):
-                self._show_info("Cantidad ajustada", err)
-                self.refresh_list()
-            else:
-                self._show_info("Error", err)
+    def state_path(self):
+        return os.path.join(self.data_dir, "estado.json")
+
+    def load_state(self):
+        try:
+            with open(self.state_path, "r", encoding="utf-8") as f:
+                st = json.load(f)
+            self.active_filter = st.get("filter", "Todo")
+            self.selection = {k: int(v) for k, v in st.get("selection", {}).items()}
+            self.menu = st.get("menu", [])
+            self.menu_date = st.get("menu_date", "")
+            self.checked = set(st.get("checked", []))
+        except (OSError, ValueError):
+            pass
+
+    def save_state(self):
+        try:
+            with open(self.state_path, "w", encoding="utf-8") as f:
+                json.dump({"filter": self.active_filter, "selection": self.selection,
+                           "menu": self.menu, "menu_date": self.menu_date,
+                           "checked": sorted(self.checked)}, f, ensure_ascii=False)
+        except OSError as exc:
+            print(f"No se pudo guardar el estado: {exc}")
+
+    # --- recetas ----------------------------------------------------------
+    def load_recipes(self):
+        here = os.path.dirname(os.path.abspath(__file__))
+        fallbacks = [os.path.join(here, "CocinaArguinyano.json"),
+                     os.path.join(os.path.dirname(here), "data", "CocinaArguinyano.json")]
+        db, self.source = functions.load_recipes_with_cache(self.cache_path, fallbacks)
+        self.db = {cat: [functions.normalize_recipe(r) for r in recipes]
+                   for cat, recipes in db.items()}
+        self.clamp_selection()
+
+    @property
+    def categories(self):
+        return list(self.db.keys())
+
+    @property
+    def total_recipes(self):
+        return sum(len(v) for v in self.db.values())
+
+    def available(self, category):
+        return functions.count_available(self.db, category, self.active_filter)
+
+    def set_filter(self, value):
+        self.active_filter = value
+        return self.clamp_selection()
+
+    def clamp_selection(self):
+        """Ajusta las cantidades al máximo disponible con el filtro. Devuelve lo ajustado."""
+        adjusted = []
+        for cat in list(self.selection):
+            if cat not in self.db:
+                del self.selection[cat]
+                continue
+            maximum = self.available(cat)
+            if self.selection[cat] > maximum:
+                self.selection[cat] = maximum
+                adjusted.append(cat)
+            if self.selection[cat] <= 0:
+                del self.selection[cat]
+        return adjusted
+
+    def set_amount(self, category, qty):
+        if qty > 0:
+            self.selection[category] = min(qty, self.available(category))
         else:
-            self.refresh_list()
+            self.selection.pop(category, None)
 
-    def on_edit(self, *_):
-        if not self._selected_row:
-            self._show_info("Aviso", "Selecciona un plato de la lista para editarlo.")
-            return
+    @property
+    def total_selected(self):
+        return sum(self.selection.values())
 
-        row = self._selected_row
-        EditDishPopup(
-            dish_type=row.dish_type,
-            quantity=row.quantity,
-            recipe_types=self.logic.get_recipe_types(),
-            on_confirm=self._confirm_edit,
-        ).open()
+    # --- menú -------------------------------------------------------------
+    def generate_menu(self):
+        if not self.selection:
+            raise ValueError("Elige al menos un plato.")
+        self.menu = functions.build_menu(self.db, self.selection, self.active_filter)
+        self.menu_date = datetime.now().strftime("%d/%m/%Y")
+        self.checked = set()
+        self.save_state()
 
-    def _confirm_edit(self, old_type: str, new_type: str, new_qty: str):
-        err = self.logic.edit_dish(old_type, new_type, new_qty)
-        if err:
-            if err.startswith("Ajustado:"):
-                self._show_info("Cantidad ajustada", err)
-                self._selected_row = None
-                self.refresh_list()
-            else:
-                self._show_info("Error", err)
-        else:
-            self._selected_row = None
-            self.refresh_list()
+    def reroll(self, index):
+        """Cambia un plato del menú por otro de la misma categoría que no esté ya."""
+        dish = self.menu[index]
+        cat = dish.get("Tipo", "")
+        used = {d["nombre"] for d in self.menu if d.get("Tipo") == cat}
+        options = [r for r in functions.filter_recipes(self.db.get(cat, []), self.active_filter)
+                   if r["nombre"] not in used]
+        if not options:
+            return False
+        import random
+        new = dict(random.choice(options))
+        new["Tipo"] = cat
+        self.menu[index] = new
+        self.save_state()
+        return True
 
-    def on_delete(self, *_):
-        if not self._selected_row:
-            self._show_info("Aviso", "Selecciona un plato de la lista para eliminarlo.")
-            return
+    def shopping_list(self):
+        return functions.aggregate_ingredients(self.menu)
 
-        dish_type = self._selected_row.dish_type
-        self.logic.remove_dish(dish_type)
-        self._selected_row = None
-        self.refresh_list()
-
-    # ------------------------------------------------------------------
-    # Acciones de generación (ejecutadas en hilo secundario)
-    # ------------------------------------------------------------------
-
-    def _run_in_thread(self, fn):
-        """Ejecuta fn() en un hilo y muestra popup con el mensaje devuelto al terminar."""
-
-        def worker():
-            try:
-                msg = fn()
-                # Si retorna una lista u otro objeto que no sea string, ponemos un mensaje genérico
-                if not isinstance(msg, str):
-                    msg = "Operación completada con éxito."
-                Clock.schedule_once(
-                    lambda _: self._show_info("Listo", str(msg)), 0
-                )
-            except Exception as exc:
-                msg = str(exc)
-                Clock.schedule_once(
-                    lambda _: self._show_info("Error", msg), 0
-                )
-
-        threading.Thread(target=worker, daemon=True).start()
-
-    def on_gen_recipes(self, *_):
-        if not self.logic.selected_dishes:
-            self._show_info("Aviso", "Añade al menos un tipo de plato.")
-            return
-
-        self._run_in_thread(
-            lambda: self.logic.get_selected_dishes(save_pdf=True)
-        )
-
-    def on_gen_shopping(self, *_):
-        if not self.logic.selected_dishes:
-            self._show_info("Aviso", "Añade al menos un tipo de plato.")
-            return
-
-        self._run_in_thread(
-            lambda: self.logic.get_ingredients_from_dishes(save_pdf=True)
-        )
-
-    def on_gen_both(self, *_):
-        if not self.logic.selected_dishes:
-            self._show_info("Aviso", "Añade al menos un tipo de plato.")
-            return
-
-        self._run_in_thread(
-            self.logic.generate_all
-        )
-
-    # ------------------------------------------------------------------
-    # Helpers UI
-    # ------------------------------------------------------------------
-
-    def _show_info(self, title: str, message: str):
-        InfoPopup(title=title, message=message).open()
-
-    def set_status(self, text: str):
-        self.lbl_status.text = text
+    def toggle_checked(self, key, value):
+        (self.checked.add if value else self.checked.discard)(key)
+        self.save_state()
 
 
 # ===========================================================================
-# APLICACIÓN PRINCIPAL (Kivy App)
+# PANTALLAS
 # ===========================================================================
+def scroll_list(padding=None):
+    scroll = ScrollView(do_scroll_x=False, bar_width=dp(4), bar_color=C.INK_SOFT)
+    box = BoxLayout(orientation="vertical", size_hint_y=None, spacing=dp(10),
+                    padding=padding if padding is not None else [dp(16), dp(14), dp(16), dp(24)])
+    box.bind(minimum_height=box.setter("height"))
+    scroll.add_widget(box)
+    return scroll, box
 
-class CocinaApp(App):
-    """Punto de entrada de la aplicación Kivy."""
+
+def bottom_bar(*widgets):
+    bar = BoxLayout(size_hint_y=None, height=dp(76), padding=[dp(16), dp(12)], spacing=dp(10))
+    from kivy.graphics import Color, Rectangle
+    with bar.canvas.before:
+        Color(*C.SURFACE)
+        rect = Rectangle()
+        Color(*C.BORDER)
+        line = Rectangle()
+    def redraw(*_):
+        rect.pos, rect.size = bar.pos, bar.size
+        line.pos, line.size = (bar.x, bar.top - 1), (bar.width, 1)
+    bar.bind(pos=redraw, size=redraw)
+    for w in widgets:
+        bar.add_widget(w)
+    return bar
+
+
+class PlannerScreen(Screen):
+    def __init__(self, app, **kwargs):
+        super().__init__(name="planner", **kwargs)
+        self.app = app
+        root = BoxLayout(orientation="vertical")
+
+        self.btn_book = RoundButton(text="Recetario", variant="secondary", size_hint_x=None,
+                                    width=dp(108), height=dp(40), font_size=sp(14))
+        self.btn_book.bind(on_release=lambda *_: app.open_browse())
+        self.bar = AppBar("Cocina Rápida", "Cargando recetas...", logo=LOGO,
+                          actions=[self.btn_book])
+        root.add_widget(self.bar)
+
+        scroll, self.body = scroll_list()
+        root.add_widget(scroll)
+
+        self.lbl_total = AutoLabel(text="", bold=True, size_hint_x=0.42)
+        self.btn_menu = RoundButton(text="Generar menú")
+        self.btn_menu.bind(on_release=lambda *_: app.generate_menu())
+        root.add_widget(bottom_bar(self.lbl_total, self.btn_menu))
+        self.add_widget(root)
+        self.steppers = {}
+        self.show_loading()
+
+    def show_loading(self):
+        self.body.clear_widgets()
+        self.body.add_widget(empty_state("Descargando el recetario...", LOGO))
+        self.btn_menu.disabled = True
+
+    def show_error(self, message):
+        self.body.clear_widgets()
+        self.body.add_widget(empty_state(message, LOGO))
+        retry = RoundButton(text="Reintentar", variant="ghost")
+        retry.bind(on_release=lambda *_: self.app.load_data())
+        self.body.add_widget(retry)
 
     def build(self):
-        self.title = "Cocina Rápida"
-        self.logic = CocinaArguinyanoLogic()
-        self.screen = MainScreen(logic=self.logic)
+        logic = self.app.logic
+        self.body.clear_widgets()
+        self.steppers = {}
 
-        # Cargar recetas en background para no bloquear la UI
-        threading.Thread(target=self._load_data, daemon=True).start()
-        return self.screen
+        # Último menú
+        if logic.menu:
+            card = Card(size_hint_y=None, height=dp(86), orientation="horizontal",
+                        fill=C.PEACH, border=False)
+            texts = BoxLayout(orientation="vertical")
+            texts.add_widget(title_label("Tu último menú", size=16))
+            texts.add_widget(muted_label(f"{len(logic.menu)} platos · {logic.menu_date}"))
+            card.add_widget(texts)
+            btn = RoundButton(text="Abrir", variant="primary", size_hint_x=None, width=dp(92),
+                              height=dp(44), pos_hint={"center_y": 0.5})
+            btn.bind(on_release=lambda *_: self.app.open_menu())
+            card.add_widget(btn)
+            self.body.add_widget(card)
 
-    def _load_data(self):
-        err = self.logic.load_recipes()
+        # Filtro
+        self.body.add_widget(title_label("Tipo de dieta", size=17))
+        chips = BoxLayout(size_hint_y=None, height=dp(38), spacing=dp(8))
+        for value in functions.FILTERS:
+            chip = Chip(text=FILTER_LABELS[value], group="filter",
+                        state="down" if value == logic.active_filter else "normal")
+            chip.bind(on_release=lambda c, v=value: self.app.change_filter(v))
+            chips.add_widget(chip)
+        self.body.add_widget(chips)
 
-        if err:
-            Clock.schedule_once(
-                lambda _: self.screen.set_status(f"Error: {err}"), 0
-            )
+        # Categorías
+        self.body.add_widget(spacer(dp(4)))
+        self.body.add_widget(title_label("¿Cuántos platos de cada tipo?", size=17))
+        for cat in logic.categories:
+            card = Card(orientation="horizontal", size_hint_y=None, height=dp(74),
+                        padding=[dp(16), dp(10)])
+            texts = BoxLayout(orientation="vertical", spacing=dp(2))
+            texts.add_widget(Widget())
+            texts.add_widget(AutoLabel(text=cat, bold=True, font_size=sp(16)))
+            avail = logic.available(cat)
+            texts.add_widget(muted_label(f"{avail} disponibles" if avail else "Ninguna con este filtro"))
+            texts.add_widget(Widget())
+            card.add_widget(texts)
+            stepper = Stepper(on_change=lambda v, c=cat: self.app.change_amount(c, v),
+                              pos_hint={"center_y": 0.5})
+            stepper.maximum = avail
+            stepper.value = logic.selection.get(cat, 0)
+            self.steppers[cat] = stepper
+            card.add_widget(stepper)
+            self.body.add_widget(card)
+        self.update_total()
+
+    def update_total(self):
+        total = self.app.logic.total_selected
+        self.lbl_total.text = f"{total} plato{'s' if total != 1 else ''}\nseleccionado{'s' if total != 1 else ''}"
+        self.btn_menu.disabled = total == 0
+
+
+class MenuScreen(Screen):
+    TABS = ["Platos", "Compra"]
+
+    def __init__(self, app, **kwargs):
+        super().__init__(name="menu", **kwargs)
+        self.app = app
+        self.tab = "Platos"
+        root = BoxLayout(orientation="vertical")
+        self.bar = AppBar("Mi menú", "", on_back=app.go_home)
+        root.add_widget(self.bar)
+        self.tabs = TabBar(self.TABS, self.select_tab, group="menu_tabs",
+                           padding=[dp(16), 0])
+        root.add_widget(spacer(dp(12)))
+        root.add_widget(self.tabs)
+        scroll, self.body = scroll_list()
+        self.scroll = scroll
+        root.add_widget(scroll)
+
+        self.btn_share = RoundButton(text="Compartir", variant="primary")
+        self.btn_share.bind(on_release=lambda *_: self.share())
+        self.btn_new = RoundButton(text="Nuevo menú", variant="ghost")
+        self.btn_new.bind(on_release=lambda *_: app.go_home())
+        root.add_widget(bottom_bar(self.btn_new, self.btn_share))
+        self.add_widget(root)
+
+    def on_pre_enter(self, *_):
+        self.refresh()
+
+    def select_tab(self, name):
+        self.tab = name
+        self.tabs.select(name)
+        self.refresh()
+        self.scroll.scroll_y = 1
+
+    def refresh(self):
+        logic = self.app.logic
+        self.bar.set_subtitle(f"{len(logic.menu)} platos · {logic.menu_date}")
+        self.body.clear_widgets()
+        if not logic.menu:
+            self.body.add_widget(empty_state("Todavía no has generado ningún menú.", LOGO))
+            return
+        if self.tab == "Platos":
+            self._build_dishes()
         else:
-            types = self.logic.get_recipe_types()
-            msg = (
-                f"{len(types)} tipos de plato cargados"
-                if types else
-                "Sin tipos de plato"
-            )
-            Clock.schedule_once(lambda _: self.screen.set_status(msg), 0)
-            Clock.schedule_once(lambda _: self.screen.refresh_list(), 0)
+            self._build_shopping()
+
+    def _build_dishes(self):
+        logic = self.app.logic
+        self.body.add_widget(muted_label("«Ver receta» muestra ingredientes y pasos. "
+                                         "«Cambiar» elige otro plato de la misma categoría."))
+        for idx, dish in enumerate(logic.menu):
+            card = Card(size_hint_y=None, spacing=dp(8))
+            card.bind(minimum_height=card.setter("height"))
+            card.add_widget(AutoLabel(text=dish["nombre"], bold=True, font_size=sp(17)))
+            n_ing = len(dish.get("ingredientes", []))
+            card.add_widget(tag_row(recipe_tags(dish) + [(f"{n_ing} ingredientes", "plain")]))
+            row = BoxLayout(size_hint_y=None, height=dp(42), spacing=dp(8))
+            swap = RoundButton(text="Cambiar", variant="ghost", height=dp(40), font_size=sp(14))
+            swap.bind(on_release=lambda *_b, i=idx: self.reroll(i))
+            see = RoundButton(text="Ver receta", variant="secondary", height=dp(40), font_size=sp(14))
+            see.bind(on_release=lambda *_b, d=dish: self.app.open_recipe(d))
+            row.add_widget(swap)
+            row.add_widget(see)
+            card.add_widget(row)
+            self.body.add_widget(card)
+
+    def reroll(self, index):
+        if self.app.logic.reroll(index):
+            self.refresh()
+            Toast.show("Plato cambiado")
+        else:
+            show_info("Sin alternativas", "No hay más recetas de esta categoría con el filtro actual.")
+
+    def _build_shopping(self):
+        logic = self.app.logic
+        items = logic.shopping_list()
+        pending = [i for i in items if functions.item_key(i) not in logic.checked]
+        done = [i for i in items if functions.item_key(i) in logic.checked]
+        self.body.add_widget(muted_label(
+            f"{len(pending)} por comprar · {len(done)} en el carro. "
+            "Marca lo que ya tengas."))
+        card = Card(size_hint_y=None, spacing=dp(2), padding=[dp(14), dp(8)])
+        card.bind(minimum_height=card.setter("height"))
+        for it in pending + done:
+            card.add_widget(self._shopping_row(it))
+        self.body.add_widget(card)
+        if done:
+            clear = RoundButton(text="Desmarcar todo", variant="flat", height=dp(42))
+            clear.bind(on_release=lambda *_: self._uncheck_all())
+            self.body.add_widget(clear)
+
+    def _shopping_row(self, item):
+        key = functions.item_key(item)
+        checked = key in self.app.logic.checked
+        row = BoxLayout(size_hint_y=None, height=dp(48), spacing=dp(12))
+        box = TickBox(active=checked, pos_hint={"center_y": 0.5})
+        name = item["nombre"]
+        qty = " ".join(p for p in (item["cantidad"], item["unidad"]) if p)
+        lbl = AutoLabel(text=f"[s]{name}[/s]" if checked else name, markup=True,
+                        color=C.INK_SOFT if checked else C.INK, pos_hint={"center_y": 0.5})
+        q = AutoLabel(text=qty, halign="right", bold=True, size_hint_x=0.38,
+                      color=C.INK_SOFT if checked else C.ACCENT, pos_hint={"center_y": 0.5})
+        box.bind(active=lambda _b, v, k=key: self._on_check(k, v))
+        row.add_widget(box)
+        row.add_widget(lbl)
+        row.add_widget(q)
+        return row
+
+    def _on_check(self, key, value):
+        self.app.logic.toggle_checked(key, value)
+        Clock.schedule_once(lambda *_: self.refresh(), 0.15)
+
+    def _uncheck_all(self):
+        self.app.logic.checked = set()
+        self.app.logic.save_state()
+        self.refresh()
+
+    def share(self):
+        logic = self.app.logic
+        if not logic.menu:
+            return
+        if self.tab == "Platos":
+            text = functions.menu_to_text(logic.menu, f"Menú {logic.menu_date}")
+        else:
+            text = functions.shopping_to_text(logic.shopping_list(),
+                                              f"Compra {logic.menu_date}", logic.checked)
+        try:
+            msg = share_text(text, subject=f"Cocina Rápida — {self.tab}")
+            if msg:
+                Toast.show(msg)
+        except Exception as exc:
+            show_info("No se pudo compartir", str(exc))
+
+
+class RecipeScreen(Screen):
+    def __init__(self, app, **kwargs):
+        super().__init__(name="recipe", **kwargs)
+        self.app = app
+        self.back_to = "menu"
+        root = BoxLayout(orientation="vertical")
+        self.bar = AppBar("Receta", "", on_back=lambda: app.go(self.back_to, back=True))
+        root.add_widget(self.bar)
+        scroll, self.body = scroll_list()
+        self.scroll = scroll
+        root.add_widget(scroll)
+        btn = RoundButton(text="Compartir receta", variant="secondary")
+        btn.bind(on_release=lambda *_: self.share())
+        root.add_widget(bottom_bar(btn))
+        self.add_widget(root)
+        self.recipe = None
+
+    def show(self, recipe, back_to):
+        self.recipe = recipe
+        self.back_to = back_to
+        self.bar.set_title(recipe.get("Tipo") or "Receta")
+        self.bar.set_subtitle("Recetario Cocina Rápida")
+        b = self.body
+        b.clear_widgets()
+        b.add_widget(title_label(recipe["nombre"], size=22))
+        b.add_widget(tag_row(recipe_tags(recipe, include_category=False)))
+
+        ings = Card(size_hint_y=None, spacing=dp(6))
+        ings.bind(minimum_height=ings.setter("height"))
+        ings.add_widget(title_label("Ingredientes", size=17))
+        for ing in recipe.get("ingredientes", []):
+            row = BoxLayout(size_hint_y=None, height=dp(30), spacing=dp(8))
+            qty = " ".join(p for p in (functions.format_quantity(ing.get("cantidad", "")),
+                                       ing.get("unidad", "")) if p)
+            row.add_widget(AutoLabel(text=ing["nombre"]))
+            row.add_widget(AutoLabel(text=qty, halign="right", bold=True, color=C.ACCENT,
+                                     size_hint_x=0.4))
+            ings.add_widget(row)
+        b.add_widget(ings)
+
+        elab = Card(size_hint_y=None, spacing=dp(10))
+        elab.bind(minimum_height=elab.setter("height"))
+        elab.add_widget(title_label("Elaboración", size=17))
+        text = recipe.get("elaboracion", "").strip() or "Sin elaboración registrada."
+        for i, paragraph in enumerate(p for p in text.split("\n") if p.strip()):
+            elab.add_widget(AutoLabel(text=paragraph.strip(), font_size=sp(15), line_height=1.25))
+        b.add_widget(elab)
+        self.scroll.scroll_y = 1
+
+    def share(self):
+        if self.recipe:
+            msg = share_text(functions.menu_to_text([self.recipe], self.recipe["nombre"]))
+            if msg:
+                Toast.show(msg)
+
+
+class BrowseScreen(Screen):
+    def __init__(self, app, **kwargs):
+        super().__init__(name="browse", **kwargs)
+        self.app = app
+        self.category = "Todas"
+        root = BoxLayout(orientation="vertical")
+        self.bar = AppBar("Recetario", "", on_back=app.go_home)
+        root.add_widget(self.bar)
+        top = BoxLayout(orientation="vertical", size_hint_y=None, height=dp(112),
+                        padding=[dp(16), dp(12), dp(16), 0], spacing=dp(10))
+        self.search = Field(hint_text="Buscar receta o ingrediente...")
+        self.search.bind(text=lambda *_: self._schedule())
+        top.add_widget(self.search)
+        cat_scroll = ScrollView(do_scroll_y=False, size_hint_y=None, height=dp(40), bar_width=0)
+        self.cat_row = BoxLayout(size_hint_x=None, spacing=dp(8))
+        self.cat_row.bind(minimum_width=self.cat_row.setter("width"))
+        cat_scroll.add_widget(self.cat_row)
+        top.add_widget(cat_scroll)
+        root.add_widget(top)
+        scroll, self.body = scroll_list()
+        root.add_widget(scroll)
+        self.add_widget(root)
+        self._ev = None
+
+    def on_pre_enter(self, *_):
+        self.cat_row.clear_widgets()
+        for cat in ["Todas"] + self.app.logic.categories:
+            chip = Chip(text=cat, group="browse_cat", size_hint_x=None,
+                        state="down" if cat == self.category else "normal")
+            chip.texture_update()
+            chip.width = chip.texture_size[0] + dp(28)
+            chip.bind(on_release=lambda c: self._set_category(c.text))
+            self.cat_row.add_widget(chip)
+        self.refresh()
+
+    def _set_category(self, cat):
+        self.category = cat
+        self.refresh()
+
+    def _schedule(self):
+        if self._ev:
+            self._ev.cancel()
+        self._ev = Clock.schedule_once(lambda *_: self.refresh(), 0.25)
+
+    def refresh(self):
+        logic = self.app.logic
+        query = self.search.text.strip().lower()
+        results = []
+        for cat, recipes in logic.db.items():
+            if self.category not in ("Todas", cat):
+                continue
+            for r in functions.filter_recipes(recipes, logic.active_filter):
+                haystack = " ".join([r["nombre"]] + [i["nombre"] for i in r["ingredientes"]]).lower()
+                if query in haystack:
+                    results.append(dict(r, Tipo=cat))
+        self.bar.set_subtitle(f"{len(results)} recetas · filtro: {FILTER_LABELS[logic.active_filter]}")
+        self.body.clear_widgets()
+        if not results:
+            self.body.add_widget(empty_state("No hay recetas que coincidan.", LOGO))
+            return
+        for r in results[:150]:
+            card = Card(size_hint_y=None, spacing=dp(6), padding=[dp(14), dp(12)])
+            card.bind(minimum_height=card.setter("height"))
+            card.add_widget(AutoLabel(text=r["nombre"], bold=True, font_size=sp(16)))
+            card.add_widget(tag_row(recipe_tags(r)))
+            card.bind(on_touch_up=lambda w, t, rec=r: self._tap(w, t, rec))
+            self.body.add_widget(card)
+
+    def _tap(self, widget, touch, recipe):
+        if widget.collide_point(*touch.pos) and not touch.is_mouse_scrolling \
+                and abs(touch.oy - touch.y) < dp(10):
+            self.app.open_recipe(recipe, back_to="browse")
+
+
+# ===========================================================================
+# APP
+# ===========================================================================
+class CocinaApp(App):
+    title = "Cocina Rápida"
+
+    def build(self):
+        setup_window()
+        self.icon = asset_path(LOGO)
+        self.logic = PlannerLogic(user_dir())
+        self.sm = ScreenManager(transition=SlideTransition(duration=0.22))
+        self.planner = PlannerScreen(self)
+        self.menu_screen = MenuScreen(self)
+        self.recipe_screen = RecipeScreen(self)
+        self.browse_screen = BrowseScreen(self)
+        for s in (self.planner, self.menu_screen, self.recipe_screen, self.browse_screen):
+            self.sm.add_widget(s)
+        from kivy.core.window import Window
+        Window.bind(on_keyboard=self._on_key)
+        self.load_data()
+        return self.sm
+
+    # --- navegación ---------------------------------------------------------
+    def go(self, name, back=False):
+        self.sm.transition.direction = "right" if back else "left"
+        self.sm.current = name
+
+    def go_home(self):
+        self.go("planner", back=True)
+        self.planner.build()
+
+    def open_menu(self):
+        self.go("menu")
+
+    def open_browse(self):
+        if self.logic.db:
+            self.go("browse")
+
+    def open_recipe(self, recipe, back_to="menu"):
+        self.recipe_screen.show(recipe, back_to)
+        self.go("recipe")
+
+    def _on_key(self, _window, key, *_):
+        if key == 27:  # botón «atrás» de Android / Esc
+            current = self.sm.current
+            if current == "recipe":
+                self.go(self.recipe_screen.back_to, back=True)
+                return True
+            if current in ("menu", "browse"):
+                self.go_home()
+                return True
+        return False
+
+    # --- datos ----------------------------------------------------------------
+    def load_data(self):
+        self.planner.show_loading()
+        threading.Thread(target=self._load_worker, daemon=True).start()
+
+    def _load_worker(self):
+        try:
+            self.logic.load_recipes()
+            Clock.schedule_once(lambda *_: self._loaded(), 0)
+        except Exception as exc:
+            msg = str(exc)
+            Clock.schedule_once(lambda *_: self._load_failed(msg), 0)
+
+    def _loaded(self):
+        logic = self.logic
+        origin = {"online": "actualizado", "cache": "sin conexión (copia guardada)",
+                  "local": "copia incluida"}.get(logic.source, "")
+        self.planner.bar.set_subtitle(f"{logic.total_recipes} recetas · {origin}")
+        self.planner.build()
+        if logic.source != "online":
+            Toast.show("Sin conexión: usando la última copia guardada")
+
+    def _load_failed(self, msg):
+        self.planner.bar.set_subtitle("Sin recetas")
+        self.planner.show_error(f"No se pudieron cargar las recetas.\n{msg}")
+
+    # --- acciones ---------------------------------------------------------------
+    def change_filter(self, value):
+        adjusted = self.logic.set_filter(value)
+        self.logic.save_state()
+        self.planner.build()
+        if adjusted:
+            Toast.show("Cantidades ajustadas: " + ", ".join(adjusted))
+
+    def change_amount(self, category, value):
+        self.logic.set_amount(category, value)
+        self.logic.save_state()
+        self.planner.update_total()
+
+    def generate_menu(self):
+        def do():
+            self.logic.generate_menu()
+            self.menu_screen.tab = "Platos"
+            self.menu_screen.tabs.select("Platos")
+            self.open_menu()
+        if self.logic.menu and self.logic.checked:
+            confirm("¿Nuevo menú?", "Se sustituirá el menú actual y su lista de la compra.",
+                    do, yes_text="Generar", variant="primary")
+        else:
+            do()
+
+    def on_pause(self):
+        self.logic.save_state()
+        return True
 
 
 if __name__ == "__main__":

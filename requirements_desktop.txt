@@ -1,4 +1,4 @@
-requests
-reportlab
 customtkinter
-fpdf2
+reportlab
+pillow
+certifi
