@@ -20,6 +20,11 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
+# Desde el repositorio, los módulos comunes están en ../../shared; en el APK/.exe van junto a este archivo.
+_SHARED = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "shared")
+if os.path.isdir(_SHARED):
+    sys.path.insert(0, os.path.abspath(_SHARED))
+
 import desktop_theme as T
 import functions
 
@@ -122,9 +127,7 @@ class CocinaArguinyano(ctk.CTk):
     # --- datos ---------------------------------------------------------------
     def load_recipes(self):
         cache = os.path.join(os.path.expanduser("~"), ".cocinarapida", "CocinaArguinyano.json")
-        local = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                             "data", "CocinaArguinyano.json")
-        db, self.source = functions.load_recipes_with_cache(cache, [local])
+        db, self.source = functions.load_recipes_with_cache(cache, [functions.LOCAL_DB])
         return {cat: [functions.normalize_recipe(r) for r in recs] for cat, recs in db.items()}
 
     @property

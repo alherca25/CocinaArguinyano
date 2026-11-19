@@ -30,7 +30,7 @@ def resource_path(relative_path):
     base = getattr(sys, "_MEIPASS", None)
     if base:
         return os.path.join(base, os.path.basename(relative_path))
-    return os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), relative_path)
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), relative_path)  # shared/assets/...
 
 
 def apply_theme():

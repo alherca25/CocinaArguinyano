@@ -1,17 +1,47 @@
-# 🍳 Cocina Rápida — planificador de menús y lista de la compra
+# 🍳 Cocina Rápida
 
-Elige cuántos platos quieres de cada tipo (sopas, legumbres, postres...). La app escoge recetas al azar del recetario, te muestra cada receta y junta los ingredientes en una sola lista de la compra, sumando las cantidades repetidas.
+Planificador de menús semanales con lista de la compra. Eliges cuántos platos quieres de cada tipo, la app escoge recetas al azar del recetario, te enseña cada receta y junta los ingredientes de todas en una sola lista de la compra.
 
-El proyecto tiene **dos apps para Android** (el objetivo principal) y sus equivalentes de escritorio:
+El proyecto tiene dos programas:
 
-| | Para quién | Android (Kivy) | Escritorio (customtkinter) |
+| | Para quién | Android | Escritorio |
 |---|---|---|---|
-| **Recetario** | Usuarios | `src/MvInterface.py` → APK *Cocina Rápida* | `src/PyInterface.py` (exporta PDF) |
-| **Gestor de Recetas** | Administrador | `src/MvRecipeManager.py` → APK *Gestor de Recetas* | `src/RecipeManager.py` |
+| **Recetario** (`client/`) | Cualquier usuario: **descarga libre** | `client/mobile/recetario_app.py` | `client/desktop/recetario_desktop.py` |
+| **Gestor de Recetas** (`manager/`) | Sólo el administrador: **bloqueado** | `manager/mobile/gestor_app.py` | `manager/desktop/gestor_desktop.py` |
+
+### ¿Cómo queda bloqueado el Gestor?
+- La app móvil arranca en una **pantalla de bloqueo**. Sólo deja entrar con un token de GitHub cuyo usuario tenga **permiso de escritura** sobre `alherca25/BaseDatosRecetas`, y lo comprueba con GitHub en cada arranque. «Salir» borra el token del móvil.
+- Su APK **no se publica**: se compila a mano (en local o con el workflow manual `Gestor APK`).
+- Aunque alguien consiguiera el APK, sin ese token no puede modificar nada: GitHub rechaza cualquier escritura.
+
+El Gestor de escritorio no tiene bloqueo propio. Edita el clon local de `BaseDatosRecetas`, y para publicar los cambios hace falta poder hacer *push* a ese repositorio.
+
+## Estructura
+
+```
+client/                Recetario (público)
+  mobile/recetario_app.py     app Kivy → APK
+  desktop/recetario_desktop.py  app customtkinter (PDF) → .exe (recetario.spec)
+  buildozer.spec
+manager/               Gestor de Recetas (privado)
+  mobile/gestor_app.py        app Kivy con pantalla de bloqueo → APK
+  desktop/gestor_desktop.py   edita ../BaseDatosRecetas → .exe (gestor.spec)
+  buildozer.spec
+shared/                código y recursos comunes
+  functions.py          lógica: descarga, caché, filtros, menú, lista de la compra, API de GitHub
+  mobile_ui.py          componentes visuales Kivy (paleta de los logos)
+  desktop_theme.py      tema customtkinter
+  assets/               logos (.ico/.jpg) e iconos PNG para Android
+  data/                 copia de la base de datos (para arrancar sin conexión)
+tools/                 stage_android.py · wsl_build.sh · make_icons.py · screenshot_app.py
+tests/                 tests de la lógica
+docs/                  ANDROID.md (compilar APK) · CHECKLIST.md (estado del proyecto)
+.github/workflows/     client.yml (tests + APK + Release) · manager.yml (manual) · build-apk.yml
+```
 
 ## Base de datos
 
-Las recetas están en otro repositorio: [`alherca25/BaseDatosRecetas`](https://github.com/alherca25/BaseDatosRecetas), archivo `CocinaArguinyano.json`:
+Las recetas están en el repositorio [`alherca25/BaseDatosRecetas`](https://github.com/alherca25/BaseDatosRecetas) (`CocinaArguinyano.json`):
 
 ```json
 { "Sopas": [ { "nombre": "...", "pagina": "185", "elaboracion": "...",
@@ -19,50 +49,28 @@ Las recetas están en otro repositorio: [`alherca25/BaseDatosRecetas`](https://g
                "ingredientes": [ { "nombre": "Tomate", "cantidad": "2", "unidad": "uds" } ] } ] }
 ```
 
-- **Recetario**: descarga el JSON al arrancar y guarda una copia, así funciona sin conexión. El APK también lleva una copia (`data/CocinaArguinyano.json`) por si el primer arranque es sin internet.
-- **Gestor móvil**: lee y guarda directamente en GitHub con un *token* personal (permiso *Contents: Read and write* sobre `BaseDatosRecetas`). Si alguien cambió el archivo mientras tanto, la app avisa y no pisa esos cambios.
-- **Gestor de escritorio**: edita el clon local `../BaseDatosRecetas/CocinaArguinyano.json`. Después hay que hacer *commit* y *push* a mano.
-
-Unidades admitidas: `uds`, `g`, `mL`, `cuch`.
-
-## Estructura
-
-```
-src/
-  functions.py         lógica común: descarga, caché, filtros, menú, agrupar ingredientes, API de GitHub
-  mobile_ui.py         componentes visuales de las apps móviles (paleta de los logos)
-  desktop_theme.py     tema de las apps de escritorio
-  MvInterface.py       Recetario móvil         (main.py lo lanza en el ordenador)
-  MvRecipeManager.py   Gestor móvil
-  PyInterface.py       Recetario escritorio
-  RecipeManager.py     Gestor escritorio
-assets/                logos (.ico/.jpg) y PNG generados para Android (tools/make_icons.py)
-data/                  copia de la BD y Excel original
-tests/                 tests de la lógica (python -m unittest discover -s tests)
-tools/                 stage_android.py, make_icons.py, screenshot_app.py
-legacy/                prototipo con pandas/Excel y script de migración a JSON
-buildozer_*.spec       configuración de cada APK
-```
+Unidades: `uds`, `g`, `mL`, `cuch`.
 
 ## Ejecutar en el ordenador
 
-```bash
+```powershell
 python -m venv venvArguinyano
 venvArguinyano\Scripts\activate
 pip install -r requirements_desktop.txt -r requirements_mobile.txt
 
-cd src
-python PyInterface.py        # Recetario escritorio (PDF en Documentos\Cocina Rápida)
-python RecipeManager.py      # Gestor escritorio
-python MvInterface.py        # Recetario móvil en una ventana
-python MvRecipeManager.py    # Gestor móvil en una ventana
+python client\desktop\recetario_desktop.py    # Recetario escritorio (PDF en Documentos\Cocina Rápida)
+python client\mobile\recetario_app.py         # Recetario móvil en una ventana
+python manager\desktop\gestor_desktop.py      # Gestor escritorio
+python manager\mobile\gestor_app.py           # Gestor móvil en una ventana
 ```
 
 Tests: `python -m unittest discover -s tests`
 
-## Compilar los APK
+## Compilar
 
-Cada *push* a `main` o `_dev` lanza **GitHub Actions** (`.github/workflows/build-android.yml`): pasa los tests y genera los artefactos `Recetario_APK` y `GestorRecetas_APK`. Para compilar en local (Linux/WSL) consulta [README_android.md](README_android.md).
+- **APK (Android):** ver [docs/ANDROID.md](docs/ANDROID.md). En resumen: `python tools\stage_android.py` en Windows y luego `bash tools/wsl_build.sh client` (o `manager`) en WSL. Los APK quedan en `apk/`.
+- **.exe (Windows):** `pip install pyinstaller`, y después `pyinstaller client/desktop/recetario.spec --distpath apk --workpath build/pyinstaller` (y lo mismo con `manager/desktop/gestor.spec`).
+- **Publicar el Recetario:** crea una etiqueta (`git tag v1.1.0 && git push --tags`) y el workflow `Recetario APK` lo publica como *Release*. Necesita GitHub Actions activo en la cuenta.
 
 ## Licencia
 

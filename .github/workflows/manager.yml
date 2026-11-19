@@ -1,0 +1,14 @@
+# Gestor de Recetas (uso privado del administrador): sólo se compila a mano y NO se publica.
+# El APK queda como artefacto del workflow (caduca a los 3 días). Sin un token con
+# permiso de escritura sobre BaseDatosRecetas la app no permite entrar.
+name: Gestor APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-apk.yml
+    with:
+      app: manager
+      retention-days: 3

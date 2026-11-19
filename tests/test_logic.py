@@ -5,7 +5,9 @@ import tempfile
 import unittest
 from unittest import mock
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src"))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "shared"))
+sys.path.insert(0, os.path.join(ROOT, "manager", "mobile"))
 os.environ.setdefault("KIVY_NO_ARGS", "1")
 os.environ.setdefault("KIVY_NO_CONSOLELOG", "1")
 
@@ -94,6 +96,39 @@ class FunctionsTests(unittest.TestCase):
                     functions.load_recipes_with_cache(os.path.join(d, "missing.json"))
 
 
+class AccessTests(unittest.TestCase):
+    def _resp(self, payload):
+        import json as _j
+        return (200, _j.dumps(payload).encode())
+
+    def test_access_ok(self):
+        with mock.patch.object(functions, "http_request",
+                               side_effect=[self._resp({"permissions": {"push": True}}),
+                                            self._resp({"login": "alherca25"})]):
+            self.assertEqual(functions.github_check_access("tok"), "alherca25")
+
+    def test_access_read_only_rejected(self):
+        with mock.patch.object(functions, "http_request",
+                               return_value=self._resp({"permissions": {"push": False, "pull": True}})):
+            with self.assertRaises(functions.GitHubError):
+                functions.github_check_access("tok")
+
+    def test_access_bad_token(self):
+        import urllib.error
+        err = urllib.error.HTTPError("u", 401, "Unauthorized", {}, None)
+        with mock.patch.object(functions, "http_request", side_effect=err):
+            with self.assertRaisesRegex(functions.GitHubError, "inválido"):
+                functions.github_check_access("tok")
+
+    def test_empty_token(self):
+        with self.assertRaises(functions.GitHubError):
+            functions.github_check_access("")
+
+    def test_bundled_db_exists(self):
+        db = functions.load_recipes(functions.LOCAL_DB, is_local=True)
+        self.assertGreater(sum(len(v) for v in db.values()), 0)
+
+
 try:
     import kivy  # noqa: F401
     HAS_KIVY = True
@@ -104,10 +139,10 @@ except ImportError:
 @unittest.skipUnless(HAS_KIVY, "kivy no instalado")
 class ManagerLogicTests(unittest.TestCase):
     def setUp(self):
-        import MvRecipeManager
-        self.mod = MvRecipeManager
+        import gestor_app
+        self.mod = gestor_app
         self.tmp = tempfile.TemporaryDirectory()
-        self.logic = MvRecipeManager.ManagerLogic(self.tmp.name)
+        self.logic = gestor_app.ManagerLogic(self.tmp.name)
         self.logic.save_token("tok")
 
     def tearDown(self):

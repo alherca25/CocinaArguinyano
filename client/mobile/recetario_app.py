@@ -9,6 +9,7 @@ Pantallas:
 """
 import json
 import os
+import sys
 import threading
 from datetime import datetime
 
@@ -19,6 +20,11 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
+
+# Desde el repositorio, los módulos comunes están en ../../shared; en el APK/.exe van junto a este archivo.
+_SHARED = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "shared")
+if os.path.isdir(_SHARED):
+    sys.path.insert(0, os.path.abspath(_SHARED))
 
 import functions
 from mobile_ui import (AppBar, AutoLabel, C, Card, Chip, Field, IconButton, RoundButton,
@@ -79,10 +85,7 @@ class PlannerLogic:
 
     # --- recetas ----------------------------------------------------------
     def load_recipes(self):
-        here = os.path.dirname(os.path.abspath(__file__))
-        fallbacks = [os.path.join(here, "CocinaArguinyano.json"),
-                     os.path.join(os.path.dirname(here), "data", "CocinaArguinyano.json")]
-        db, self.source = functions.load_recipes_with_cache(self.cache_path, fallbacks)
+        db, self.source = functions.load_recipes_with_cache(self.cache_path, [functions.LOCAL_DB])
         self.db = {cat: [functions.normalize_recipe(r) for r in recipes]
                    for cat, recipes in db.items()}
         self.clamp_selection()

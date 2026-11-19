@@ -1,6 +1,6 @@
 """Ejecuta una app Kivy en tamaño móvil, recorre sus pantallas y guarda capturas.
 
-Uso: python tools/screenshot_app.py interface|manager <carpeta_salida>
+Uso: python tools/screenshot_app.py client|manager <carpeta_salida>
 Sirve para revisar el diseño sin un móvil. No modifica datos remotos.
 """
 import os
@@ -14,7 +14,8 @@ Config.set("graphics", "height", "860")
 Config.set("graphics", "resizable", "0")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, "src"))
+for sub in ("shared", os.path.join("client", "mobile"), os.path.join("manager", "mobile")):
+    sys.path.insert(0, os.path.join(ROOT, sub))
 
 from kivy.clock import Clock  # noqa: E402
 from kivy.core.window import Window  # noqa: E402
@@ -38,8 +39,8 @@ def run_steps(app, plan):
     Clock.schedule_once(lambda *_: app.stop(), t + 1)
 
 
-if which == "interface":
-    from MvInterface import CocinaApp as AppClass
+if which == "client":
+    from recetario_app import CocinaApp as AppClass
 
     def pick(app):
         cats = app.logic.categories
@@ -60,7 +61,13 @@ if which == "interface":
         (0.8, lambda a: shot("6_recetario")()),
     ]
 else:
-    from MvRecipeManager import MvRecipeApp as AppClass
+    import functions
+    from gestor_app import MvRecipeApp as AppClass
+
+    # Sin token real: se simula el acceso y se lee la BD pública sin autenticar.
+    _real_get = functions.github_get_json
+    functions.github_check_access = lambda token, repo=None: "demo"
+    functions.github_get_json = lambda token=None, **kw: _real_get(None, **kw)
 
     def edit(app):
         s = app.screen
@@ -68,11 +75,12 @@ else:
         s.load_recipe(app.logic.categories[0], 0)
 
     plan = [
-        (6, lambda a: shot("1_add")()),
+        (4, lambda a: shot("0_lock")()),
+        (0.2, lambda a: a.try_unlock("demo", on_fail=print, busy=False)),
+        (5, lambda a: shot("1_add")()),
         (0.3, edit),
         (1.0, lambda a: shot("2_edit")()),
-        (0.3, lambda a: a.screen.show_settings()),
-        (0.8, lambda a: shot("3_settings")()),
+        (0.3, lambda a: a.logic.delete_token()),  # no dejar el token simulado guardado
     ]
 
 app = AppClass()

@@ -28,6 +28,9 @@ DEFAULT_CATEGORIES = ["Sopas", "Cremas", "Verduras", "Legumbres", "Huevos", "Arr
 
 HTTP_TIMEOUT = 20
 
+# Copia de la BD incluida con las apps (primer arranque sin conexión).
+LOCAL_DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "CocinaArguinyano.json")
+
 
 # ---------------------------------------------------------------------------
 # Red
@@ -114,6 +117,32 @@ def _gh_error_message(exc):
         return json.loads(exc.read().decode("utf-8")).get("message", str(exc))
     except Exception:
         return str(exc)
+
+
+def github_check_access(token, repo=DB_REPO):
+    """Comprueba que el token es válido y que su usuario puede escribir en el repositorio.
+
+    Devuelve el login del usuario. Lanza GitHubError con un mensaje claro si no hay acceso.
+    (Con tokens «fine-grained», que el token tenga permiso Contents: write se comprueba al guardar.)
+    """
+    if not token:
+        raise GitHubError("Introduce un token.")
+    try:
+        _, body = http_request(f"https://api.github.com/repos/{repo}", headers=_gh_headers(token))
+    except urllib.error.HTTPError as exc:
+        if exc.code == 401:
+            raise GitHubError("Token inválido o caducado.") from exc
+        if exc.code in (403, 404):
+            raise GitHubError("Este token no tiene acceso a la base de datos de recetas.") from exc
+        raise GitHubError(f"GitHub {exc.code}: {_gh_error_message(exc)}") from exc
+    perms = json.loads(body.decode("utf-8")).get("permissions") or {}
+    if not (perms.get("push") or perms.get("admin") or perms.get("maintain")):
+        raise GitHubError("Tu usuario no tiene permiso de escritura en la base de datos de recetas.")
+    try:
+        _, user = http_request("https://api.github.com/user", headers=_gh_headers(token))
+        return json.loads(user.decode("utf-8")).get("login", "")
+    except Exception:
+        return ""
 
 
 def github_get_json(token=None, repo=DB_REPO, path=DB_PATH, branch=DB_BRANCH):

@@ -1,29 +1,40 @@
+"""Gestor de Recetas — escritorio. Edita el clon local de BaseDatosRecetas (después: commit + push)."""
 import customtkinter as ctk
 import json
 import os
 import sys
 import tkinter.messagebox as messagebox
 
+# Desde el repositorio, los módulos comunes están en ../../shared; en el APK/.exe van junto a este archivo.
+_SHARED = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "shared")
+if os.path.isdir(_SHARED):
+    sys.path.insert(0, os.path.abspath(_SHARED))
+
 import desktop_theme as T
 import functions
 
 T.apply_theme()
 
-if getattr(sys, 'frozen', False):
-    # Si se ejecuta como .exe compilado, sys.executable es la ruta al .exe
-    base_dir = os.path.dirname(sys.executable)
-else:
-    # Si se ejecuta como script .py, usamos la ruta del script
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+def find_db_file():
+    """Busca el clon local de BaseDatosRecetas junto a este repositorio (o junto al .exe).
 
-# Asumimos que la carpeta BaseDatosRecetas está al mismo nivel que CocinaArguinyano (o al mismo nivel que el .exe)
-# Si el exe está en CocinaArguinyano/dist, entonces base_dir es dist.
-# Si queremos que funcione tanto en dist como fuera, lo mejor es buscar BaseDatosRecetas
-# Si base_dir es 'dist', subimos un nivel.
-if os.path.basename(base_dir).lower() == "dist":
-    base_dir = os.path.dirname(base_dir)
+    Estructura esperada:  GitHub/CocinaArguinyano/...  y  GitHub/BaseDatosRecetas/CocinaArguinyano.json
+    """
+    start = os.path.dirname(sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__))
+    folder = start
+    for _ in range(5):
+        candidate = os.path.join(os.path.dirname(folder), "BaseDatosRecetas", "CocinaArguinyano.json")
+        if os.path.exists(candidate):
+            return candidate
+        folder = os.path.dirname(folder)
+    # Por defecto: hermano de la raíz del repositorio (manager/desktop -> raíz -> GitHub)
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    return os.path.join(os.path.dirname(root), "BaseDatosRecetas", "CocinaArguinyano.json")
 
-JSON_FILE = os.path.join(os.path.dirname(base_dir), "BaseDatosRecetas", "CocinaArguinyano.json")
+
+JSON_FILE = find_db_file()
+
+
 class IngredientRow(ctk.CTkFrame):
     def __init__(self, master, delete_callback, init_data=None, **kwargs):
         super().__init__(master, **kwargs)

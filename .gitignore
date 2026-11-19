@@ -1,28 +1,22 @@
 # Entornos virtuales
 venvArguinyano/
-venvArguiñano/
 venv/
+.venv/
 
-# PyInstaller / Build
+# Salidas de compilación (se regeneran)
 build/
-#dist/
-RecipeManager.exe
-*.spec
-!buildozer_*.spec
-
-# Android (generado por tools/stage_android.py y buildozer)
-android_build/
+dist/
 apk/
 .buildozer/
 bin/
 
-# Secretos: token de GitHub del gestor de recetas
+# Secretos: token de GitHub del gestor
 token.txt
 
 # Caché de Python
 __pycache__/
 *.pyc
 
-# Logs y otros
-*.log
+# Editor y logs
 .vscode/
+*.log

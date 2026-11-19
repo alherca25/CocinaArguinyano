@@ -13,6 +13,7 @@ Seguridad de los datos:
 """
 import copy
 import os
+import sys
 import threading
 
 from kivy.app import App
@@ -22,6 +23,11 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.modalview import ModalView
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
+
+# Desde el repositorio, los módulos comunes están en ../../shared; en el APK/.exe van junto a este archivo.
+_SHARED = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "shared")
+if os.path.isdir(_SHARED):
+    sys.path.insert(0, os.path.abspath(_SHARED))
 
 import functions
 from mobile_ui import (AppBar, AutoLabel, Busy, C, Card, Chip, Dialog, Field, IconButton,
@@ -41,6 +47,7 @@ class ManagerLogic:
         self.data_dir = data_dir
         self.db = None          # None = no cargada todavía (no se permite guardar)
         self.sha = None
+        self.user = ""          # login de GitHub tras validar el token
 
     # --- token ------------------------------------------------------------
     @property
@@ -57,6 +64,18 @@ class ManagerLogic:
     def save_token(self, token):
         with open(self.token_path, "w", encoding="utf-8") as f:
             f.write(token.strip())
+
+    def delete_token(self):
+        try:
+            os.remove(self.token_path)
+        except OSError:
+            pass
+        self.user, self.db, self.sha = "", None, None
+
+    def unlock(self, token):
+        """Valida el token contra GitHub; si es correcto lo guarda. Lanza GitHubError si no."""
+        self.user = functions.github_check_access(token.strip())
+        self.save_token(token)
 
     # --- base de datos ---------------------------------------------------------
     @property
@@ -244,9 +263,9 @@ class ManagerScreen(BoxLayout):
         self.editing = None      # (categoría, índice) en modo edición
         self.category = ""
 
-        btn_settings = RoundButton(text="Token", variant="secondary", size_hint_x=None,
+        btn_settings = RoundButton(text="Salir", variant="secondary", size_hint_x=None,
                                    width=dp(84), height=dp(40), font_size=sp(14))
-        btn_settings.bind(on_release=lambda *_: self.show_settings())
+        btn_settings.bind(on_release=lambda *_: self.logout())
         self.bar = AppBar("Gestor de Recetas", "Cargando...", logo=LOGO, actions=[btn_settings])
         self.add_widget(self.bar)
 
@@ -291,8 +310,8 @@ class ManagerScreen(BoxLayout):
         self.btn_secondary.disabled = True
 
     def refresh_header(self):
-        token = "token configurado" if self.logic.get_token() else "sin token"
-        self.bar.set_subtitle(f"{self.logic.total} recetas · {token}")
+        who = f"@{self.logic.user}" if self.logic.user else "administrador"
+        self.bar.set_subtitle(f"{self.logic.total} recetas · {who}")
 
     # --- pestañas ----------------------------------------------------------
     def _on_tab(self, name):
@@ -449,7 +468,7 @@ class ManagerScreen(BoxLayout):
             show_info("Sin datos", "Primero hay que cargar la base de datos.")
             return
         if not self.logic.get_token():
-            self.show_settings("Para guardar en GitHub necesitas configurar un token.")
+            self.app.lock("Tu sesión ha caducado. Vuelve a introducir el token.")
             return
         recipe, errors = self.collect()
         if errors:
@@ -476,21 +495,58 @@ class ManagerScreen(BoxLayout):
             self.app.run_remote(lambda: self.logic.update(old_cat, idx, cat, recipe),
                                 "Cambios guardados", done)
 
-    def show_settings(self, message=""):
-        content = BoxLayout(orientation="vertical", size_hint_y=None, height=dp(120), spacing=dp(8))
-        field = Field(hint_text="ghp_... o github_pat_...", password=True,
-                      text=self.logic.get_token())
-        content.add_widget(field)
-        content.add_widget(muted_label(
-            "Token personal de GitHub con permiso «Contents: Read and write» sobre "
-            "alherca25/BaseDatosRecetas. Se guarda sólo en este dispositivo."))
+    def logout(self):
+        confirm("¿Cerrar sesión?", "Se borrará el token de este dispositivo y la app quedará bloqueada.",
+                self.app.logout, yes_text="Cerrar sesión")
 
-        def save():
-            self.logic.save_token(field.text)
-            self.refresh_header()
-            Toast.show("Token guardado")
-        Dialog("Token de GitHub", message, content=content,
-               buttons=(("Cancelar", "ghost", None), ("Guardar", "primary", save))).open()
+
+class LockScreen(BoxLayout):
+    """Pantalla de bloqueo: sólo el administrador (token con permiso de escritura) puede entrar."""
+
+    def __init__(self, app, message="", **kwargs):
+        super().__init__(orientation="vertical", padding=[dp(24), dp(40), dp(24), dp(24)],
+                         spacing=dp(16), **kwargs)
+        self.app = app
+        from kivy.uix.image import Image
+        if asset_path(LOGO):
+            self.add_widget(Image(source=asset_path(LOGO), size_hint_y=None, height=dp(150),
+                                  fit_mode="contain"))
+        t = title_label("Gestor de Recetas", size=24)
+        t.halign = "center"
+        self.add_widget(t)
+        info = muted_label("Acceso restringido al administrador del recetario.\n"
+                           "Introduce tu token personal de GitHub con permiso de escritura "
+                           "sobre alherca25/BaseDatosRecetas.", size=14)
+        info.halign = "center"
+        self.add_widget(info)
+        self.field = Field(hint_text="github_pat_...", password=True)
+        self.add_widget(self.field)
+        from kivy.uix.label import Label
+        self.error = Label(text=message, color=C.DANGER, halign="center", valign="middle",
+                           font_size=sp(14), size_hint_y=None, height=dp(36))
+        self.error.bind(size=lambda w, s: setattr(w, "text_size", s))
+        self.add_widget(self.error)
+        self.btn = RoundButton(text="Entrar")
+        self.btn.bind(on_release=lambda *_: self.submit())
+        self.add_widget(self.btn)
+        self.add_widget(Widget())
+        foot = muted_label("El token se guarda sólo en este dispositivo. "
+                           "Pulsa «Salir» dentro de la app para borrarlo.", size=12)
+        foot.halign = "center"
+        self.add_widget(foot)
+
+    def submit(self):
+        token = self.field.text.strip()
+        if not token:
+            self.error.text = "Introduce un token."
+            return
+        self.error.text = ""
+        self.btn.disabled = True
+        self.app.try_unlock(token, on_fail=self._failed)
+
+    def _failed(self, msg):
+        self.btn.disabled = False
+        self.error.text = msg
 
 
 class MvRecipeApp(App):
@@ -500,9 +556,34 @@ class MvRecipeApp(App):
         setup_window()
         self.icon = asset_path(LOGO)
         self.logic = ManagerLogic(user_dir())
-        self.screen = ManagerScreen(self)
-        self.load_data()
-        return self.screen
+        self.root_box = BoxLayout()
+        self.screen = None
+        token = self.logic.get_token()
+        if token:
+            self._show(LockScreen(self, "Comprobando acceso..."))
+            self.try_unlock(token, on_fail=lambda msg: self.lock(msg), busy=False)
+        else:
+            self.lock()
+        return self.root_box
+
+    def _show(self, widget):
+        self.root_box.clear_widgets()
+        self.root_box.add_widget(widget)
+
+    def lock(self, message=""):
+        self.screen = None
+        self._show(LockScreen(self, message))
+
+    def logout(self):
+        self.logic.delete_token()
+        self.lock("Sesión cerrada.")
+
+    def try_unlock(self, token, on_fail, busy=True):
+        def ok():
+            self.screen = ManagerScreen(self)
+            self._show(self.screen)
+            self.load_data()
+        self._run(lambda: self.logic.unlock(token), ok, lambda msg, _e=None: on_fail(msg), busy=busy)
 
     def load_data(self):
         self.screen.show_message("Cargando la base de datos...")

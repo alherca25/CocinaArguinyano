@@ -1,54 +1,55 @@
 """Prepara una carpeta limpia para compilar cada APK con Buildozer.
 
 Uso:
-    python tools/stage_android.py interface   # Recetario (usuarios)
+    python tools/stage_android.py client      # Recetario (usuarios)
     python tools/stage_android.py manager     # Gestor de Recetas (administrador)
 
-Crea android_build/<app>/ con:
-    main.py            <- src/MvInterface.py o src/MvRecipeManager.py
-    functions.py, mobile_ui.py
+Crea build/android/<app>/ con:
+    main.py                       <- client/mobile/recetario_app.py o manager/mobile/gestor_app.py
+    functions.py, mobile_ui.py    <- shared/
     assets/icon_*.png, assets/presplash_*.png
-    CocinaArguinyano.json (sólo Recetario: copia para el primer arranque sin conexión)
-    buildozer.spec     <- buildozer_<app>.spec
+    data/CocinaArguinyano.json    (sólo cliente: copia para el primer arranque sin conexión)
+    buildozer.spec                <- <app>/buildozer.spec
 
-Después:  cd android_build/<app> && buildozer android debug
+Después (Linux/WSL):  tools/wsl_build.sh <app>
 """
 import os
 import shutil
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SHARED = os.path.join(ROOT, "shared")
 
 APPS = {
-    "interface": {"main": "MvInterface.py", "logo": "main",
-                  "extra": [("data/CocinaArguinyano.json", "CocinaArguinyano.json")]},
-    "manager": {"main": "MvRecipeManager.py", "logo": "edit", "extra": []},
+    "client": {"main": "client/mobile/recetario_app.py", "logo": "main", "data": True},
+    "manager": {"main": "manager/mobile/gestor_app.py", "logo": "edit", "data": False},
 }
-SHARED = ["functions.py", "mobile_ui.py"]
+SHARED_MODULES = ["functions.py", "mobile_ui.py"]
 
 
 def stage(app):
     cfg = APPS[app]
-    out = os.path.join(ROOT, "android_build", app)
-    # Se conserva .buildozer/ y bin/ entre compilaciones (caché); el resto se regenera.
+    out = os.path.join(ROOT, "build", "android", app)
     os.makedirs(out, exist_ok=True)
+    # Se conservan .buildozer/ y bin/ (caché de compilación); el resto se regenera.
     for name in os.listdir(out):
         if name in (".buildozer", "bin"):
             continue
         path = os.path.join(out, name)
         shutil.rmtree(path) if os.path.isdir(path) else os.remove(path)
 
-    src = os.path.join(ROOT, "src")
-    shutil.copy2(os.path.join(src, cfg["main"]), os.path.join(out, "main.py"))
-    for name in SHARED:
-        shutil.copy2(os.path.join(src, name), os.path.join(out, name))
+    shutil.copy2(os.path.join(ROOT, cfg["main"]), os.path.join(out, "main.py"))
+    for name in SHARED_MODULES:
+        shutil.copy2(os.path.join(SHARED, name), os.path.join(out, name))
     os.makedirs(os.path.join(out, "assets"))
     for prefix in ("icon", "presplash"):
         name = f"{prefix}_{cfg['logo']}.png"
-        shutil.copy2(os.path.join(ROOT, "assets", name), os.path.join(out, "assets", name))
-    for rel_src, rel_dst in cfg["extra"]:
-        shutil.copy2(os.path.join(ROOT, rel_src), os.path.join(out, rel_dst))
-    shutil.copy2(os.path.join(ROOT, f"buildozer_{app}.spec"), os.path.join(out, "buildozer.spec"))
+        shutil.copy2(os.path.join(SHARED, "assets", name), os.path.join(out, "assets", name))
+    if cfg["data"]:
+        os.makedirs(os.path.join(out, "data"))
+        shutil.copy2(os.path.join(SHARED, "data", "CocinaArguinyano.json"),
+                     os.path.join(out, "data", "CocinaArguinyano.json"))
+    shutil.copy2(os.path.join(ROOT, app, "buildozer.spec"), os.path.join(out, "buildozer.spec"))
     print(f"Preparado: {os.path.relpath(out, ROOT)}")
     return out
 
