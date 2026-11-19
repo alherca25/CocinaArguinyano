@@ -19,12 +19,20 @@ Haz *push* a `main` o `_dev`, o lanza el workflow a mano (*Actions → Build And
 sudo apt update && sudo apt install -y build-essential git zip unzip autoconf automake libtool \
     pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev \
     libssl-dev libltdl-dev python3-pip python3-venv openjdk-17-jdk
-python3 -m venv ~/bzenv && ~/bzenv/bin/pip install Cython buildozer "virtualenv==20.21.0" setuptools
+# Buildozer con --user (NO en un virtualenv: buildozer usa «pip --user» internamente)
+python3 -m pip install --user --upgrade Cython buildozer "virtualenv==20.21.0" setuptools
+
+# PATH sin rutas de Windows (en WSL tienen espacios y rompen la compilación)
+export PATH="$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 python3 tools/stage_android.py interface      # o: manager
-cd android_build/interface
-~/bzenv/bin/buildozer -v android debug
+# Compilar fuera de /mnt/c (mucho más rápido y sin problemas de permisos)
+mkdir -p ~/cocina_build && cp -r android_build/interface ~/cocina_build/
+cd ~/cocina_build/interface
+buildozer -v android debug
 ```
+
+En WSL además hace falta internet: si no hay conexión, añade `networkingMode=mirrored` en `%USERPROFILE%\.wslconfig` (sección `[wsl2]`) y ejecuta `wsl --shutdown`.
 
 La primera compilación tarda entre 20 y 40 minutos (descarga el SDK/NDK). El APK queda en `android_build/<app>/bin/`.
 

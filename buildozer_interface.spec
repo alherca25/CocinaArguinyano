@@ -20,7 +20,9 @@ orientation = portrait
 fullscreen = 0
 
 android.permissions = INTERNET
-android.archs = arm64-v8a, armeabi-v7a
+# Solo arm64 (todos los móviles actuales). Con dos arquitecturas p4a recrea su venv
+# encima del anterior y deja pip roto (ImportError: open_rich_spinner).
+android.archs = arm64-v8a
 android.api = 34
 android.minapi = 24
 android.accept_sdk_license = True

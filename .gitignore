@@ -12,6 +12,7 @@ RecipeManager.exe
 
 # Android (generado por tools/stage_android.py y buildozer)
 android_build/
+apk/
 .buildozer/
 bin/
 
