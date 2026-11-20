@@ -22,6 +22,8 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.widget import Widget
 
+from i18n import _
+
 
 def hex_color(value, alpha=1.0):
     value = value.lstrip("#")
@@ -337,10 +339,10 @@ class TabBar(BoxLayout):
         super().__init__(orientation="horizontal", size_hint_y=None, height=dp(38),
                          spacing=dp(8), **kwargs)
         self.chips = {}
-        for name in tabs:
-            chip = Chip(text=name, group=group, allow_no_selection=False,
+        for name in tabs:  # el texto visible se traduce; on_select recibe el nombre interno
+            chip = Chip(text=_(name), group=group, allow_no_selection=False,
                         state="down" if name == (selected or tabs[0]) else "normal")
-            chip.bind(on_release=lambda c: on_select(c.text))
+            chip.bind(on_release=lambda c, n=name: on_select(n))
             self.chips[name] = chip
             self.add_widget(chip)
 
@@ -355,8 +357,9 @@ class TabBar(BoxLayout):
 class Dialog(ModalView):
     """Diálogo con tarjeta redondeada, título, mensaje y botones."""
 
-    def __init__(self, title, message="", buttons=(("Aceptar", "primary", None),),
-                 content=None, **kwargs):
+    def __init__(self, title, message="", buttons=None, content=None, **kwargs):
+        if buttons is None:
+            buttons = ((_("Aceptar"), "primary", None),)
         super().__init__(size_hint=(0.9, None), background="", background_color=(0, 0, 0, 0),
                          overlay_color=(0.13, 0.09, 0.06, 0.55), auto_dismiss=True, **kwargs)
         card = Card(padding=dp(20), spacing=dp(14), size_hint_y=None)
@@ -385,8 +388,9 @@ def show_info(title, message):
     Dialog(title, message).open()
 
 
-def confirm(title, message, on_yes, yes_text="Sí", variant="danger"):
-    Dialog(title, message, buttons=(("Cancelar", "ghost", None), (yes_text, variant, on_yes))).open()
+def confirm(title, message, on_yes, yes_text=None, variant="danger", no_text=None):
+    Dialog(title, message, buttons=((no_text or _("Cancelar"), "ghost", None),
+                                    (yes_text or _("Sí"), variant, on_yes))).open()
 
 
 class Toast(Label):
@@ -414,13 +418,18 @@ class Toast(Label):
 class Busy(ModalView):
     """Indicador de «trabajando…» que bloquea la pantalla."""
 
-    def __init__(self, text="Cargando...", **kwargs):
-        super().__init__(size_hint=(None, None), size=(dp(220), dp(90)), background="",
+    def __init__(self, text=None, **kwargs):
+        super().__init__(size_hint=(None, None), size=(dp(240), dp(90)), background="",
                          background_color=(0, 0, 0, 0), auto_dismiss=False,
                          overlay_color=(0.13, 0.09, 0.06, 0.4), **kwargs)
         card = Card(padding=dp(16))
-        card.add_widget(Label(text=text, color=C.INK, bold=True, font_size=sp(15)))
+        self.label = Label(text=text or _("Cargando..."), color=C.INK, bold=True,
+                           font_size=sp(15), halign="center")
+        card.add_widget(self.label)
         self.add_widget(card)
+
+    def set_text(self, text):
+        self.label.text = text
 
 
 class Tag(_Rounded, Label):
@@ -453,15 +462,15 @@ def recipe_tags(recipe, include_category=True):
     from functions import format_page
     tags = []
     if include_category and recipe.get("Tipo"):
-        tags.append((recipe["Tipo"], "peach"))
+        tags.append((_(recipe["Tipo"]), "peach"))
     filtros = recipe.get("filtros") or {}
     if filtros.get("vegetariano"):
-        tags.append(("Vegetariano", "green"))
+        tags.append((_("Vegetariano"), "green"))
     if filtros.get("gluten_free"):
-        tags.append(("Sin gluten", "green"))
+        tags.append((_("Sin gluten"), "green"))
     page = format_page(recipe.get("pagina", ""))
     if page:
-        tags.append((f"pág. {page}", "plain"))
+        tags.append((_("pág. {page}").format(page=page), "plain"))
     return tags
 
 
@@ -497,12 +506,12 @@ def share_text(text, subject="Cocina Rápida"):
         intent.setType("text/plain")
         intent.putExtra(Intent.EXTRA_SUBJECT, cast("java.lang.CharSequence", String(subject)))
         intent.putExtra(Intent.EXTRA_TEXT, cast("java.lang.CharSequence", String(text)))
-        chooser = Intent.createChooser(intent, cast("java.lang.CharSequence", String("Compartir")))
+        chooser = Intent.createChooser(intent, cast("java.lang.CharSequence", String(_("Compartir"))))
         PythonActivity.mActivity.startActivity(chooser)
         return ""
     from kivy.core.clipboard import Clipboard
     Clipboard.copy(text)
-    return "Copiado al portapapeles."
+    return _("Copiado al portapapeles.")
 
 
 def user_dir():

@@ -1,0 +1,925 @@
+{
+    "lang": "en",
+    "ingredientes": {
+        "Aceite de girasol": "Sunflower oil",
+        "Aceite de las abóndigas": "Oil from the meatballs",
+        "Aceite de oliva": "Olive oil",
+        "Aceitunas": "Olives",
+        "Aceitunas negras": "Black olives",
+        "Agua": "Water",
+        "Agua caliente": "Hot water",
+        "Agua con gas": "Sparkling water",
+        "Ajo en polvo": "Garlic powder",
+        "Ajos frescos": "Fresh garlic",
+        "Alachofa": "Artichoke",
+        "Albahaca": "Basil",
+        "Alcachofa": "Artichoke",
+        "Alcaparras": "Capers",
+        "Aleta de ternera": "Veal flank (aleta)",
+        "Alioli": "Aioli",
+        "Almejas": "Clams",
+        "Almendra": "Almond",
+        "Almidón de tapioca": "Tapioca starch",
+        "Alubias blancas": "White beans",
+        "Alubias negras": "Black beans",
+        "Apio": "Celery",
+        "Arroz": "Rice",
+        "Arroz basmati": "Basmati rice",
+        "Arroz integral": "Brown rice",
+        "Arroz largo": "Long-grain rice",
+        "Arándanos": "Blueberries",
+        "Atún": "Tuna",
+        "Azafrán": "Saffron",
+        "Azúcar": "Sugar",
+        "Azúcar glas": "Icing sugar",
+        "Azúcar moreno": "Brown sugar",
+        "Bacalao": "Cod",
+        "Berenjena": "Aubergine",
+        "Bicarbonato": "Bicarbonate of soda",
+        "Boletus": "Porcini mushrooms",
+        "Bonito": "Bonito tuna",
+        "Borraja": "Borage",
+        "Brandy": "Brandy",
+        "Butifarra blanca": "Butifarra blanca (Catalan white sausage)",
+        "Cabeza de ajos": "Garlic bulb",
+        "Cacao en polvo": "Cocoa powder",
+        "Calabacín": "Courgette",
+        "Calabaza": "Pumpkin",
+        "Calamar": "Squid",
+        "Caldo de ave": "Chicken stock",
+        "Caldo de carne": "Beef stock",
+        "Caldo de pescado": "Fish stock",
+        "Caldo de pollo": "Chicken stock",
+        "Caldo de verduras": "Vegetable stock",
+        "Canela": "Cinnamon",
+        "Canelón": "Cannelloni sheet",
+        "Canónigos": "Lamb's lettuce",
+        "Carne de cordero picada": "Minced lamb",
+        "Carne picada": "Minced meat",
+        "Carne picada mixto": "Mixed minced meat (beef and pork)",
+        "Carrilleras de ternera": "Beef cheeks",
+        "Cayena": "Cayenne pepper",
+        "Cayena en polvo": "Ground cayenne pepper",
+        "Cebolla": "Onion",
+        "Cebolla dulce": "Sweet onion",
+        "Cebolla en polvo": "Onion powder",
+        "Cebolla roja": "Red onion",
+        "Cebolleta": "Spring onion",
+        "Cebollino": "Chives",
+        "Cerezas": "Cherries",
+        "Chalota": "Shallot",
+        "Champiñones": "Button mushrooms",
+        "Champiñón": "Button mushrooms",
+        "Chocolate blanco de cobertura": "White cooking chocolate",
+        "Chocolate de cobertura": "Cooking chocolate",
+        "Chocolate negro de cobertura": "Dark cooking chocolate",
+        "Chorizo": "Chorizo",
+        "Chícharos": "Peas",
+        "Cilantro": "Coriander",
+        "Cintas de pasta": "Pasta ribbons",
+        "Codillo de cerdo": "Pork knuckle",
+        "Coles de bruselas": "Brussels sprouts",
+        "Comino": "Cumin",
+        "Conejo": "Rabbit",
+        "Copos de avena": "Rolled oats",
+        "Corteza de limón": "Lemon peel",
+        "Corteza de naranja": "Orange peel",
+        "Costilla de cerdo": "Pork ribs",
+        "Crocanti de almendra": "Almond brittle",
+        "Curry": "Curry powder",
+        "Cuscús precocido": "Instant couscous",
+        "Cúrcuma": "Turmeric",
+        "Diente de ajo": "Garlic clove",
+        "Eneldo": "Dill",
+        "Escarola": "Escarole (endive)",
+        "Esencia de vainilla": "Vanilla extract",
+        "Espaguetis": "Spaghetti",
+        "Espinacas": "Spinach",
+        "Espirales": "Fusilli",
+        "Espárragos verdes": "Green asparagus",
+        "Estragón": "Tarragon",
+        "Fabes": "Fabes (Asturian white beans)",
+        "Fettuccini": "Fettuccine",
+        "Fideos": "Noodles",
+        "Fideos udon": "Udon noodles",
+        "Fiedos": "Noodles",
+        "Filetes de anchoas": "Anchovy fillets",
+        "Frambuesas": "Raspberries",
+        "Fresas": "Strawberries",
+        "Galletas": "Biscuits",
+        "Galletas rectangulares": "Rectangular biscuits",
+        "Gamba": "Prawn",
+        "Gamba cocida": "Cooked prawn",
+        "Garbanzos": "Chickpeas",
+        "Garbanzos cocidos": "Cooked chickpeas",
+        "Garrofón": "Garrofón (lima beans)",
+        "Gotas de chocolate": "Chocolate chips",
+        "Gotas de cuajo líquido de farmacia": "Liquid rennet",
+        "Guindilla": "Chilli pepper",
+        "Guindillas": "Chilli pepper",
+        "Guisantes": "Peas",
+        "Gulas": "Gulas (imitation baby eels)",
+        "Harina": "Flour",
+        "Harina de fuerza": "Strong bread flour",
+        "Harina de garbanzo": "Chickpea flour",
+        "Harina de maíz": "Cornflour",
+        "Harina de tempura": "Tempura flour",
+        "Harina integral": "Wholemeal flour",
+        "Helado": "Ice cream",
+        "Helado de vainilla": "Vanilla ice cream",
+        "Hinojo": "Fennel",
+        "Hoja de col": "Cabbage leaf",
+        "Hojas de lechuga": "Lettuce leaves",
+        "Hueso de cañada": "Beef marrow bone",
+        "Hueso de jamón": "Ham bone",
+        "Huevas de trucha": "Trout roe",
+        "Huevo": "Egg",
+        "Huevos de codorniz": "Quail eggs",
+        "Jamón": "Ham",
+        "Jamón cocido": "Cooked ham",
+        "Jamón serrano": "Serrano ham",
+        "Jarrete de cordero": "Lamb shank",
+        "Jengibre": "Ginger",
+        "Judías verdes": "Green beans",
+        "Kétchup": "Ketchup",
+        "Lacón": "Lacón (cured pork shoulder)",
+        "Lagarto de cedo": "Pork lagarto (rib strip)",
+        "Lata atún": "Tinned tuna",
+        "Laurel": "Bay leaf",
+        "Leche": "Milk",
+        "Leche condensada": "Condensed milk",
+        "Leche de oveja": "Sheep's milk",
+        "Leche evaporada": "Evaporated milk",
+        "Lechuga": "Lettuce",
+        "Lentejas": "Lentils",
+        "Levadura": "Yeast",
+        "Levadura fresca": "Fresh yeast",
+        "Limón": "Lemon",
+        "Lomo adobado": "Marinated pork loin",
+        "Lomo de cerdo": "Pork loin",
+        "Lonchas panceta": "Pork belly slices",
+        "Lubina": "Sea bass",
+        "Lámina hojaldre": "Puff pastry sheet",
+        "Láminas de lasaña": "Lasagne sheets",
+        "Láminas de pasta brick": "Brick pastry sheets",
+        "Láminas hojaldre": "Puff pastry sheet",
+        "Láminas para canelones": "Cannelloni sheets",
+        "Macarrones": "Macaroni",
+        "Mango maduro": "Ripe mango",
+        "Manteca de cerdo": "Lard",
+        "Mantequilla": "Butter",
+        "Manzana": "Apple",
+        "Masa madre": "Sourdough starter",
+        "Matequilla": "Butter",
+        "Mayonesa": "Mayonnaise",
+        "Maíz": "Sweetcorn",
+        "Mejillones": "Mussels",
+        "Menta": "Mint",
+        "Merluza": "Hake",
+        "Mermelada de albaricoque": "Apricot jam",
+        "Mezcla rebozar": "Batter mix",
+        "Miel": "Honey",
+        "Miga de pan": "Soft breadcrumbs",
+        "Mirin": "Mirin",
+        "Morcilla": "Morcilla (black pudding)",
+        "Morcilla de verduras": "Vegetable morcilla (black pudding)",
+        "Mostaza": "Mustard",
+        "Muslo de pavo": "Turkey thigh",
+        "Muslo de pollo": "Chicken thigh",
+        "Muslo de pollo deshuesado": "Boneless chicken thigh",
+        "Naranja": "Orange",
+        "Nata": "Cream",
+        "Nata líquida": "Single cream",
+        "Nata montada": "Whipped cream",
+        "Nata para montar": "Whipping cream",
+        "Nueces de macadamia": "Macadamia nuts",
+        "Nuez moscada": "Nutmeg",
+        "Orégano": "Oregano",
+        "Pan del día anterior": "Day-old bread",
+        "Pan hamburguesa": "Burger bun",
+        "Pan rallado": "Breadcrumbs",
+        "Panceta": "Pork belly",
+        "Panceta gruesa": "Thick-cut pork belly",
+        "Pastilla de caldo de pollo": "Chicken stock cube",
+        "Patata": "Potato",
+        "Paté": "Pâté",
+        "Pechuga de pavo": "Turkey breast",
+        "Pechuga de pollo": "Chicken breast",
+        "Pedro Ximénez": "Pedro Ximénez sherry",
+        "Pepinillos": "Gherkins",
+        "Pepino": "Cucumber",
+        "Peras": "Pears",
+        "Perejil": "Parsley",
+        "Picatostes": "Croutons",
+        "Pimentón": "Paprika",
+        "Pimentón dulce": "Sweet paprika",
+        "Pimienta": "Pepper",
+        "Pimienta en grano": "Peppercorns",
+        "Pimienta negra": "Black pepper",
+        "Pimiento morrón": "Red bell pepper",
+        "Pimiento rojo": "Red bell pepper",
+        "Pimiento verde": "Green pepper",
+        "Pimientos del padrón": "Padrón peppers",
+        "Pimientos del piquillo": "Piquillo peppers",
+        "Pimieto morrón": "Red bell pepper",
+        "Pipas de calabaza": "Pumpkin seeds",
+        "Pistacho pelado": "Shelled pistachio",
+        "Plátano": "Banana",
+        "Polenta": "Polenta",
+        "Pollo": "Chicken",
+        "Puerro": "Leek",
+        "Queso": "Cheese",
+        "Queso azul": "Blue cheese",
+        "Queso crema": "Cream cheese",
+        "Queso cremoso": "Soft cheese",
+        "Queso curado de oveja": "Cured sheep's cheese",
+        "Queso en polvo": "Powdered cheese",
+        "Queso gratinar": "Cheese for gratin",
+        "Queso mascarpone": "Mascarpone",
+        "Queso parmesano": "Parmesan",
+        "Queso rallado": "Grated cheese",
+        "Ralladura de lima": "Lime zest",
+        "Ralladura de limón": "Lemon zest",
+        "Rama de apio": "Celery stick",
+        "Rape": "Monkfish",
+        "Rebanada de pan": "Slice of bread",
+        "Rigatoni": "Rigatoni",
+        "Rodajas de tomate": "Tomato slices",
+        "Romero": "Rosemary",
+        "Sake": "Sake",
+        "Sal": "Salt",
+        "Salmonete": "Red mullet",
+        "Salmón": "Salmon",
+        "Salmón ahumado": "Smoked salmon",
+        "Salsa de soja": "Soy sauce",
+        "Salsa de tomate": "Tomato sauce",
+        "Sepia": "Cuttlefish",
+        "Setas": "Wild mushrooms",
+        "Sidra": "Cider",
+        "Sofrito de tomate y cebolla": "Tomato and onion sofrito",
+        "Solomillo de cerdo": "Pork tenderloin",
+        "Tagliatelle": "Tagliatelle",
+        "Tallarines": "Tagliatelle",
+        "Tapioca": "Tapioca",
+        "Ternera": "Beef",
+        "Tinta de calamar": "Squid ink",
+        "Tomate": "Tomato",
+        "Tomate concentrado": "Tomato purée",
+        "Tomate frito": "Tomate frito (fried tomato sauce)",
+        "Tomate maduro": "Ripe tomato",
+        "Tomate pera": "Plum tomato",
+        "Tomate seco": "Sun-dried tomato",
+        "Tomate triturado": "Crushed tomatoes",
+        "Tomates cherry": "Cherry tomatoes",
+        "Tomates pera": "Plum tomato",
+        "Tomillo": "Thyme",
+        "Tomillo seco": "Dried thyme",
+        "Vainilla": "Vanilla",
+        "Vermut blanco": "White vermouth",
+        "Vinagre": "Vinegar",
+        "Vinagre blanco": "White vinegar",
+        "Vinagre de jerez": "Sherry vinegar",
+        "Vinagre de módena": "Balsamic vinegar",
+        "Vino blanco": "White wine",
+        "Vino de oporto": "Port wine",
+        "Vino tinto": "Red wine",
+        "Yema de huevo": "Egg yolk",
+        "Yogur griego natural": "Plain Greek yogurt",
+        "Yogur natural": "Plain yogurt",
+        "Zanahoria": "Carrot",
+        "Zancarrón": "Beef shank",
+        "Zumo de limón": "Lemon juice"
+    },
+    "recetas": {
+        "Salmorejo con guindillas fritas": {
+            "hash": "cd733ff8808a",
+            "nombre": "Salmorejo with fried green chillies",
+            "elaboracion": "Wash the tomatoes, cut them into pieces, put them in a blender jug and blend well. Strain the purée and return it to the blender jug.\n\nAdd the breadcrumb (torn into pieces), the garlic clove (peeled), salt (to taste) and 100 ml of oil. Blend everything well until you have a smooth cream. Pour the salmorejo into a jug, put it in the fridge and leave it to chill thoroughly.\n\nHeat plenty of oil in a frying pan. When it is very hot, add the chillies and fry them for 2 minutes on each side. Transfer them to a plate and season.\n\nServe the salmorejo in four bowls and arrange the chillies on top (to one side). Garnish with a few parsley leaves."
+        },
+        "Sopa de cocido con tapioca": {
+            "hash": "76e21b00a557",
+            "nombre": "Cocido broth with tapioca",
+            "elaboracion": "Soak the chickpeas the night before.\n\nDrain the chickpeas and put them in a pulse-cooking net.\n\nHeat 2 litres of water in a pressure cooker. Add a few sprigs of parsley, the chicken thigh, the beef shin, the bones, the leek (cleaned and chopped), the spring onion (peeled and chopped) and the garlic cloves (peeled). When the water is hot, add the chickpeas, season, close the pressure cooker and cook everything for 20-25 minutes.\n\nRemove the vegetables, meat and bones. Strain the broth, skim off the fat and set aside.\n\nChop the meat and set aside. Scoop the marrow out of the bones, spread it on the slices of bread and season them.\n\nHeat the broth. When it starts to boil, add the tapioca and cook it for the time stated on the packet. Add half the chickpeas (keep the rest for another time), the chopped meat (chicken and beef shin) and a little chopped parsley.\n\nDivide the soup between 4 soup bowls, serve with the marrow toasts and garnish with a few parsley leaves."
+        },
+        "Sopa de udon con pollo": {
+            "hash": "e11038a4cd08",
+            "nombre": "Chicken udon soup",
+            "elaboracion": "Pound the garlic (peeled) in a mortar, add the pepper, the coriander leaves and a pinch of salt and pound everything together. Add the vinegar and soy sauce, mix and set aside.\n\nHeat 2-3 tablespoons of oil in a casserole. Dice the spring onion, add it to the casserole and fry gently over a low heat. Clean the leek, cut it into quarter moons and add it. Peel the carrot, cut it the same way and add it. Remove the stalk and seeds from the green pepper, dice it and add it. Peel the red pepper, dice it and add it. Wash the celery stick, dice it and add it. Season and cook the vegetables over a low heat for about 5 minutes. Remove the vegetables, transfer them to a dish and set aside.\n\nAdd 1 more tablespoon of oil to the casserole. Dice the chicken breast, season it, add it to the casserole and fry until golden. Add the reserved vegetables, cover with plenty of water and crumble the stock cube over the top. Add the udon and the garlic paste. Grate a little nutmeg over the top and cook everything for 7-8 minutes.\n\nDivide the soup between soup bowls and garnish with a few parsley leaves."
+        },
+        "Gazpacho andaluz": {
+            "hash": "c79144ef465f",
+            "nombre": "Andalusian gazpacho",
+            "elaboracion": "Wash the tomatoes, cucumber and pepper. Peel the cucumber and the garlic clove, deseed the pepper and chop all the vegetables.\n\nPut them in the blender jug with the vinegar, a pinch of salt and a glass of cold water. Blend until very smooth.\n\nWith the blender running, add the oil little by little so that the gazpacho emulsifies. Taste and adjust the salt and vinegar.\n\nStrain it if you want it smoother and keep it in the fridge for at least 2 hours. Serve well chilled with a little chopped cucumber on top."
+        },
+        "Sopa de ajo castellana": {
+            "hash": "af36d51b675b",
+            "nombre": "Castilian garlic soup",
+            "elaboracion": "Peel and slice the garlic cloves. Cut the day-old bread into thin slices and the ham into strips.\n\nHeat the oil in a casserole and brown the garlic over a low heat. Add the ham and the bread and fry gently for 2 minutes, stirring so that the bread soaks up the oil.\n\nTake the casserole off the heat, add the paprika and stir quickly so that it does not burn. Pour in the hot stock, season and simmer for 15 minutes over a low heat.\n\nBeat the eggs and pour them into the soup in a thin stream, stirring with a fork so that they set in strands. Serve straight away with chopped parsley."
+        },
+        "Crema de calabacín": {
+            "hash": "7febc4b28bfe",
+            "nombre": "Cream of courgette soup",
+            "elaboracion": "Peel the onion, remove the stalk and seeds from the pepper, dice them and fry them gently in a casserole with 2-3 tablespoons of oil.\n\nClean the courgettes well, dice ½ courgette and set aside. Cut the rest into quarter moons and add them to the casserole. Fry gently for 4-5 minutes and add the stock and the rice. Season with salt and pepper and cook everything for 20-25 minutes.\n\nMeanwhile, heat 2 tablespoons of oil in a frying pan and sauté the diced courgette. Set aside.\n\nCut the brick pastry sheets into 4, place a small portion of roe on each piece and wrap them up to make 8 little parcels. Fry them on both sides in a frying pan with plenty of hot oil, remove them, drain on a plate lined with kitchen paper and set aside.\n\nTake the casserole with the vegetables and rice off the heat and blend everything with a hand blender. Add the evaporated milk and mix well.\n\nDivide the soup and the diced courgette between 4 soup bowls. Serve with the brick pastry parcels and garnish with a few parsley leaves."
+        },
+        "Sopa fría de zanahoria": {
+            "hash": "c53d19d00808",
+            "nombre": "Chilled carrot soup",
+            "elaboracion": "Heat 1,250 ml of water in a pressure cooker. Peel the carrots, put them in the cooker, season, close the cooker and cook them for 4 minutes. Remove them, drain and leave to cool. Set the cooking water aside separately.\n\nChop the carrots and put them in the blender jug, add the apple (peeled and chopped), the cumin, some of the cooking water (according to taste: thinner or thicker) and the vinegar. Blend everything until you have a smooth cream. Add the oil little by little and keep blending until it emulsifies. Adjust the salt, put the soup in the fridge and leave it to chill thoroughly.\n\nTo make the garnish, cut the spring onion, pepper and ham into small dice, and the tomatoes into quarters.\n\nDivide the soup between 4 soup bowls, scatter the garnish over them and decorate with a few parsley leaves."
+        },
+        "Crema de calabaza y zanahoria": {
+            "hash": "a51b672d784d",
+            "nombre": "Cream of pumpkin and carrot soup",
+            "elaboracion": "Peel the pumpkin, carrots, onion and potato, and cut them into medium-sized pieces.\n\nSoften the onion in a casserole with the oil for 5 minutes. Add the rest of the vegetables, fry gently for 2 more minutes and cover with the vegetable stock.\n\nSeason and cook over a medium heat for about 25 minutes, until everything is tender.\n\nBlend with the cream until the soup is smooth. Serve hot with a few toasted pumpkin seeds and a drizzle of oil."
+        },
+        "Vichyssoise": {
+            "hash": "a72c7ab1a4da",
+            "nombre": "Vichyssoise",
+            "elaboracion": "Clean the leeks and keep the white part. Cut it into thin rounds. Peel the potatoes and chop them.\n\nMelt the butter in a casserole and soften the leek over a low heat for 10 minutes, without letting it brown.\n\nAdd the potatoes, cover with the stock, season and cook for 20 minutes. Blend with the cream and pass the soup through a fine sieve.\n\nChill it in the fridge and serve cold with chopped chives on top. It is also good hot."
+        },
+        "Crema de champiñones": {
+            "hash": "8c0a27041948",
+            "nombre": "Cream of mushroom soup",
+            "elaboracion": "Clean the mushrooms and slice them. Set a few aside for garnish. Peel the onion, garlic and potato and chop them.\n\nSoften the onion and garlic in a casserole with oil. Add the mushrooms and sauté over a high heat until they release their water.\n\nAdd the potato and the stock, season and cook for 20 minutes. Blend with the milk until you have a smooth soup.\n\nSauté the reserved mushrooms with a little oil and thyme and place them on top of each bowl."
+        },
+        "Albóndigas de hortalizas": {
+            "hash": "d60ffb8d9a98",
+            "nombre": "Vegetable balls",
+            "elaboracion": "Wash the potatoes, put them in a saucepan, cover with water and cook them for 30-35 minutes (counting from when the water comes to the boil). Remove them and leave to cool slightly.\n\nFor the sauce, heat 3 tablespoons of oil in a casserole. Peel 2 garlic cloves and the onion, dice them and add them to the casserole. Trim the bottom and top of the leek and remove 2-3 outer layers, wash it, cut it into quarter moons and add it to the casserole. Peel 2 carrots, cut them the same way and add them. Season and cook the vegetables over a low-medium heat for 15 minutes. Add the tablespoon of flour and fry it well. Pour in the wine and bring to the boil. Add 300 ml of water and cook everything for 10 minutes. Blend with a hand blender until you have a smooth sauce. Set it aside and warm it up a little just before serving.\n\nWash the courgette, cut it into small dice and fry it gently in a frying pan with 3 tablespoons of oil. Peel the other carrot, grate it and add it. Peel the other garlic clove, cut it into small dice and add it. Season and cook the vegetables over a low-medium heat for 10 minutes. Drain them well and set aside.\n\nPeel the potatoes, put them in a bowl and crush them with a potato masher. Season, add the drained vegetables (courgette, carrot and garlic) and mix well. Add the breadcrumbs little by little, mixing all the time, until you have a smooth mixture.\n\nTake small portions of the mixture and roll them into balls. Coat them in flour and fry them in a frying pan with plenty of oil. Drain them on a dish lined with kitchen paper.\n\nSpoon the sauce onto the base of the plates and place 3-4 vegetable balls on top. Garnish with parsley powder and a few parsley leaves."
+        },
+        "Berenjenas rellenas con bechamel de queso azul": {
+            "hash": "6d40fe19fac1",
+            "nombre": "Stuffed aubergines with blue cheese béchamel",
+            "elaboracion": "Heat plenty of water in a large saucepan and season it. Cut the aubergines in half lengthways, add them and cook them for 15 minutes. Remove them, drain, dry them well and scoop out the flesh without breaking the skin. Cut the flesh into small dice and set aside. Keep the 4 shells as well.\n\nPeel the garlic cloves and cut them into small dice. Peel the carrot and cut it the same way. Wash the pepper, remove the stalk and seeds and cut it into small dice as well. Fry the vegetables gently in a frying pan with 3 tablespoons of oil, season them and cook them for 6-8 minutes.\n\nMince the turkey meat, season with salt and pepper, add it to the frying pan and cook briefly. Add the aubergine flesh and cook together for 5 minutes. Fill the aubergine shells with the stuffing and set aside.\n\nTo make the béchamel, heat the oil, add the flour and cook it for a little while. Add the milk little by little, stirring constantly until everything is well combined. Season and cook the béchamel for 6-8 minutes, stirring constantly. When it is almost ready, add the blue cheese and cook until it has melted into the béchamel.\n\nCoat the aubergines with the cheese béchamel, put them in the oven and grill them (3-5 minutes) until golden.\n\nServe half an aubergine on each plate and garnish with a few parsley leaves."
+        },
+        "Pastel de patatas, jamón cocido y panceta": {
+            "hash": "d3b5fe908663",
+            "nombre": "Potato, cooked ham and pancetta bake",
+            "elaboracion": "Crack the eggs into a bowl. Add the milk and a little chopped parsley and season with salt and pepper. Peel the boiled potatoes, chop them and add them. Mix well and set aside.\n\nDice the pancetta and the ham and sauté them in a frying pan with 2 tablespoons of oil. Remove them, drain and add them to the bowl with the eggs and potato.\n\nGrease a mould with butter and dust it with a little flour. Pour in the mixture and bake at 180 ºC for 30 minutes. Remove the bake and leave it to cool slightly.\n\nTurn the bake out of the mould, serve it with the tomato sauce. Garnish the plates with a few parsley leaves."
+        },
+        "Pastel de calabacín al horno": {
+            "hash": "6bd15338fcdf",
+            "nombre": "Baked courgette bake",
+            "elaboracion": "Spread 1 tablespoon of oil over a rectangular ovenproof dish or mould. Lay a piece of baking paper along the dish, leaving a flap at each end. Brush it with another tablespoon of oil, dust it with the 2 tablespoons of flour and spread it out well.\n\nPeel the onions, slice them thinly and fry them gently for 6-8 minutes in a frying pan with 4-5 tablespoons of oil.\n\nWash the courgettes (leave the skin on), cut them into half moons and add them to the frying pan. Season and cook everything together for about 15 minutes. Drain well and set aside.\n\nCrack the eggs into a large bowl. Add the milk, the cream, the oregano and a pinch of salt and beat everything well. Add the onion and courgette mixture to the bowl and mix gently.\n\nPour the mixture into the ovenproof dish, sprinkle it with the cheese and bake at 180 ºC for 30 minutes. Take the bake out of the oven and leave it to cool slightly.\n\nTurn the bake out, cut it into portions and serve. Accompany each portion with a little hot tomato sauce. Garnish the plates with a few parsley leaves."
+        },
+        "Pisto con huevo frito": {
+            "hash": "5c15176ab8b2",
+            "nombre": "Pisto with fried egg",
+            "elaboracion": "Dice the onion and the peppers. Cut the courgette and aubergine into slightly larger dice.\n\nSoften the onion and peppers in a large frying pan with oil over a low heat for 15 minutes.\n\nAdd the aubergine and courgette, season and cook for 10 more minutes. Add the crushed tomatoes and a pinch of sugar and leave to cook over a low heat for another 20 minutes.\n\nFry the eggs in very hot oil and serve each one on a portion of pisto."
+        },
+        "Escalivada": {
+            "hash": "de0dbe54c1f1",
+            "nombre": "Escalivada",
+            "elaboracion": "Preheat the oven to 200 ºC. Wash the aubergines, peppers and onions and place them whole on a baking tray with a splash of oil.\n\nRoast them for 50-60 minutes, turning them halfway through, until they are tender and the skin is charred.\n\nCover them with a tea towel for 10 minutes so that they sweat and peel easily. Peel them and cut them into strips.\n\nArrange them on a serving dish, dress with oil, salt and the finely chopped garlic, and leave to rest for a while before serving."
+        },
+        "Judías verdes rehogadas con jamón": {
+            "hash": "789f323f80e1",
+            "nombre": "Sautéed green beans with ham",
+            "elaboracion": "Top and tail the beans, remove the strings and cut them into pieces. Cook them in salted water for 10-12 minutes and drain.\n\nPeel the potatoes, dice them and cook them with the beans for the last 8 minutes, or separately if they are large.\n\nIn a frying pan with oil, brown the sliced garlic and the diced ham. Add the paprika and take off the heat.\n\nAdd the beans and potatoes to the frying pan, sauté for 2 minutes so that the flavours blend and serve."
+        },
+        "Alubias blancas con butifarra": {
+            "hash": "92453fa63db5",
+            "nombre": "White beans with butifarra sausage",
+            "elaboracion": "The night before, put the white beans in a large bowl, cover them with water, put them in the fridge and leave them to soak. Drain them, put them in a pressure cooker and cover them with water.\n\nClean the leek (trim the bottom and top, remove the first layer and rinse it), cut it into 3-4 pieces and put it in a pulse-cooking net. Peel the onion and add it to the net. Close the net and put it in the cooker with the bay leaf. Season, close the cooker and cook the beans for 3 minutes. Drain the beans and set aside. When ready to serve, take the vegetables out of the net, chop them a little and put them on a serving dish. Season them and drizzle with a splash of oil.\n\nHeat 3 tablespoons of oil in a large frying pan. Prick the butifarra sausages with a paring knife, put them in the frying pan and cook them over a medium heat for 3-4 minutes on each side. Remove them and set aside on a plate. When ready to serve, cut them into thick slices.\n\nAdd the drained beans to the frying pan in which you cooked the sausages and sauté them for 2 minutes.\n\nServe a good portion of beans and a few slices of butifarra on each plate. Accompany with the leek and onion and garnish the plates with a few parsley leaves."
+        },
+        "Chícaros con codillo": {
+            "hash": "72bef7f29b7b",
+            "nombre": "Chícharos (dried peas) with ham hock",
+            "elaboracion": "Heat 3-4 tablespoons of oil in a pressure cooker. Peel the garlic cloves, dice them and add them to the cooker. Peel the onion, cut it into small dice and add it. Remove the stalk and seeds from the pepper, cut it the same way and add it. Season and cook the vegetables over a low heat for 10 minutes. Add the tomato sauce and cook for 4-5 more minutes.\n\nHeat 1 tablespoon of oil in a frying pan. Slice the chorizos and cut the pancetta into 1 cm pieces, add them to the frying pan and brown them well. Add them (without the fat) to the cooker.\n\nPeel the pumpkin and cut it into bite-sized pieces. Peel the potatoes and break them into chunks (snapping them rather than cutting cleanly). Add them (pumpkin and potatoes) to the cooker. Also add the chícharos, the ham hock, the bay leaf, the paprika and the cumin. Cover everything with water, close the cooker and cook over a low-medium heat for 15 minutes.\n\nOpen the cooker, remove the ham hock and cut it into 6 pieces.\n\nDivide the stew between 6 plates and put a piece of ham hock on each. Garnish with a few parsley leaves."
+        },
+        "Lentejas con chorizo y panceta": {
+            "hash": "0851cbca4f3a",
+            "nombre": "Lentils with chorizo and pancetta",
+            "elaboracion": "Put the pancetta in a pressure cooker, cover it with water, season, close the cooker and cook it for 30 minutes. Remove it and leave it to cool.\n\nHeat 2-3 tablespoons of oil in a casserole. Peel the spring onion and the carrot and clean the leek well (trim the bottom and top, remove 1-2 outer layers and rinse it). Dice the spring onion, and cut the carrot and leek into thin quarter moons. Add the vegetables to the casserole, season and cook them over a low-medium heat for 8-10 minutes.\n\nCut the chorizo into 4 pieces and add it to the casserole. Add the lentils, cover them with plenty of water (3-4 times the volume of lentils), season and simmer over a low heat for 40-45 minutes. Add the paprika and mix well.\n\nHeat a frying pan without oil. Cut the pancetta into 4 pieces, put them in the pan and brown them on both sides.\n\nServe the lentils with chorizo on 4 plates and place a piece of pancetta on each. Garnish the plates with a few parsley leaves."
+        },
+        "Alubias con panceta asada": {
+            "hash": "846c6df48a13",
+            "nombre": "Beans with roast pork belly",
+            "elaboracion": "Season the pork belly, place it in an ovenproof dish, drizzle with a splash of oil and roast it in the oven at 170 ºC for 30 minutes. Raise the temperature to 190 ºC and roast for another 10 minutes. Remove it and cut it into 4 pieces.\n\nPeel the spring onion and cut it into small dice. Clean the leeks (trimming the bottom and top and removing 1-2 outer layers), rinse them well and cut them into small dice. Peel the carrot and cut it the same way. Heat 2 tablespoons of oil in a pressure cooker, add the vegetables, season and fry gently for 10 minutes. Peel the tomato, chop it finely and add it. Cook everything together for 6-8 minutes.\n\nAdd the beans, cover them with water and season. Put the lid on, close the cooker and cook them for about 15 minutes.\n\nHeat water in a saucepan, add the morcilla and simmer it over a low heat for 30 minutes (15 on each side). Remove it and cut it into 4 pieces.\n\nDivide the beans between 4 plates and top each one with 1 piece of morcilla and 1 piece of pork belly. Garnish the plates with a few parsley leaves."
+        },
+        "Alubias con chorizo y arroz integral": {
+            "hash": "2c7565af2b73",
+            "nombre": "Beans with chorizo and brown rice",
+            "elaboracion": "Soak the beans the night before.\n\nDrain the beans and put them in a pressure cooker, cut the chorizo into 8 pieces and add them. Peel the spring onion and 2 garlic cloves, cut them into small dice and add them. Season, add 1 tablespoon of oil and the paprika and add water to cover. Close the cooker and cook the beans for 15 minutes.\n\nPeel the other 2 garlic cloves and brown them in a casserole with 2 tablespoons of oil. Add the rice, season, cover with water (three times the volume of rice) and cook for 30 minutes.\n\nDivide the beans with chorizo and the rice between 4 plates. Garnish with a few parsley leaves."
+        },
+        "Garbanzos con panceta ibérica": {
+            "hash": "5efc990bb482",
+            "nombre": "Chickpeas with Iberian pork belly",
+            "elaboracion": "Soak the chickpeas the night before. Heat plenty of water in the pressure cooker. Add the chickpeas (drained), the pork belly and the black peppercorns. Season, close the cooker and cook everything for 20 minutes.\n\nRemove the pork belly, dice it and set aside. Remove the chickpeas, drain and set aside.\n\nPeel the garlic cloves and the spring onion, cut them into small dice and fry them gently in a large frying pan with 4 tablespoons of oil for 10 minutes. Add the chickpeas, season and sauté them.\n\nHeat another frying pan, add 1 tablespoon of oil and the diced Iberian pork belly and cook until lightly browned.\n\nDivide the chickpeas and the diced pork belly between 4 plates. Garnish with a few parsley leaves."
+        },
+        "Lentejas con zanahorias y cúrcuma": {
+            "hash": "0b897139d5b0",
+            "nombre": "Lentils with carrots and turmeric",
+            "elaboracion": "Heat plenty of water in a pressure cooker and add the lentils.\n\nPeel the onion, cut it into 4 and put it in a pulse-cooking net. Clean the leek (trim the bottom and top, remove 1-2 outer layers and rinse it), cut it into 4 and put it in the net. Wash the tomato, cut it into 4 and add it. Peel the garlic clove and add it. Add the bay leaf as well. Close the net and put it in the cooker.\n\nSeason, close the cooker and cook the lentils over a medium heat for 15-20 minutes.\n\nRemove the net, open it, take out the bay leaf, transfer the vegetables to a blender beaker and blend them with a hand blender until you have a smooth purée. Add it to the cooker and stir until everything is well combined.\n\nPeel the carrots and cut them into thin rounds. Heat 2-3 tablespoons of oil in a frying pan, add the carrots and sauté them for 4-5 minutes. Add the turmeric and a pinch of salt and sauté briefly (1 minute), until the turmeric coats the carrots.\n\nDivide the lentils between 4 plates and place a portion of carrots on each. Garnish with a few parsley leaves."
+        },
+        "Falafel con salsa de yogur": {
+            "hash": "ef0306b0c14e",
+            "nombre": "Falafel with yoghurt sauce",
+            "elaboracion": "Heat water in a pressure cooker. When it starts to boil, add the chickpeas, season, close the cooker and cook them for 15 minutes. Drain and set aside.\n\nPeel the onion and the garlic clove, chop them finely and fry them gently for 5-6 minutes in a frying pan with 2 tablespoons of oil.\n\nPass the chickpeas and the vegetables (drained) through a food mill into a large bowl. Add the chopped parsley, coriander, cumin, pepper and a pinch of salt and mix well. Add the chickpea flour and mix well until you have a smooth mixture.\n\nDivide the mixture into small portions and roll them into balls. Fry them in a saucepan with plenty of oil until golden. Remove them and drain on a plate lined with kitchen paper.\n\nTo make the yoghurt sauce, grate the garlic (or chop it finely), put it in a bowl, add the yoghurt, lemon juice, zest, parsley, pepper and salt and mix well.\n\nServe the falafel with the yoghurt sauce. Garnish the plates with a few parsley leaves."
+        },
+        "Guiso del maestro": {
+            "hash": "3814592211b9",
+            "nombre": "Master's stew (chickpeas and noodles)",
+            "elaboracion": "The night before, soak the chickpeas.\n\nHeat plenty of water in a pressure cooker. Add the chickpeas (drained), the ham bone, the bay leaf and 2 garlic cloves (unpeeled), lightly crushed. Peel 1 onion and add it. Close the cooker and cook the chickpeas for 20 minutes. Set aside the stock and the chickpeas.\n\nHeat 3 tablespoons of oil in a shallow casserole. Peel the other 2 garlic cloves, chop them (diced or sliced) and add them to the casserole. Peel the other onion, cut it into small dice and add it. Cook the vegetables for 6-8 minutes over a low heat.\n\nDice the ham, add it and fry briefly (1 minute). Pour in the wine and bring quickly to the boil so that the alcohol evaporates. Add the tomato sauce and the noodles and mix well. Add 600 ml of the reserved stock and cook the noodles for about 8 minutes.\n\nAdd the chickpeas and cook everything together for 4-5 more minutes. Add a little chopped parsley and stir the casserole.\n\nServe and garnish the plates with a few parsley leaves."
+        },
+        "Lentejas estofadas con verduras": {
+            "hash": "0bb8227e11d0",
+            "nombre": "Lentil and vegetable stew",
+            "elaboracion": "Chop the onion, pepper, carrot and garlic. Soften everything in a pot with oil for 10 minutes.\n\nAdd the grated tomato and the paprika, stir for a minute and add the lentils, the potato in chunks and the bay leaf.\n\nCover with the stock, season and simmer over a low heat for about 40 minutes, until the lentils are tender. Add more stock if needed.\n\nLeave to rest off the heat for 5 minutes and serve."
+        },
+        "Garbanzos con espinacas": {
+            "hash": "3d77366c21a0",
+            "nombre": "Chickpeas with spinach",
+            "elaboracion": "Fry the garlic cloves and the slice of bread in a frying pan with oil until golden. Transfer them to the mortar.\n\nAdd the cumin, paprika and a splash of vinegar to the mortar and pound to a paste.\n\nIn the same frying pan, sauté the spinach until it wilts. Add the cooked chickpeas, the paste from the mortar and a glass of water.\n\nSimmer for 10 minutes over a low heat so that it thickens, adjust the salt and serve."
+        },
+        "Fabada asturiana": {
+            "hash": "7ba8a020b4c8",
+            "nombre": "Asturian fabada",
+            "elaboracion": "Soak the fabes in cold water the night before.\n\nDrain them and put them in a pot with the chorizo, morcilla, pancetta and lacón (cured pork shoulder). Cover with cold water and bring to the boil.\n\nSkim off the foam, turn the heat down to the minimum and add the saffron. Cook for 2 and a half hours, adding a little cold water from time to time to «shock» the fabes. Do not stir them: shake the pot instead.\n\nSeason at the end, leave to rest for 15 minutes and serve the fabes with the meats (compango) cut into pieces."
+        },
+        "Huevos escoceses": {
+            "hash": "14b63a006a47",
+            "nombre": "Scotch eggs",
+            "elaboracion": "Heat water in a saucepan, add the quail eggs and cook them for 4 minutes. Remove them, cool them in cold water, peel them and set aside.\n\nCut the onion into small dice and put it in a bowl. Add the meat, the egg yolks and the tablespoon of breadcrumbs. Peel the apple, grate it and add it. Also add the ketchup and the grated ginger. Season with salt and pepper and mix well until everything is thoroughly combined.\n\nDivide the mixture into 8 portions. Take a portion of meat, flatten it out a little, place a quail egg in the centre and wrap the meat around it to cover it completely and form a ball. Repeat with the rest of the meat and eggs.\n\nCoat them in flour, egg and breadcrumbs and fry them in a frying pan with plenty of oil over a medium heat for about 5 minutes. Remove them and drain on a dish lined with kitchen paper.\n\nDress the escarole with oil, vinegar and salt.\n\nServe 2 Scotch eggs and a portion of escarole on each plate. Accompany with the mustard and garnish the plates with a few parsley leaves."
+        },
+        "Huevos napoleón": {
+            "hash": "101db40f4e85",
+            "nombre": "Eggs Napoleon",
+            "elaboracion": "Cut the bread into cubes, put them on a baking tray and bake them at 220 ºC until golden. Remove them and set aside.\n\nPeel the garlic cloves, chop them and brown them in a frying pan with 3-4 tablespoons of oil. Slice the spring onions thinly and add them. Remove the stalks and seeds from the peppers, cut them into large dice and add them. Season and cook the vegetables for 10-15 minutes.\n\nDivide the vegetables between 4 ovenproof dishes and top them with the toasted bread cubes and the cheese. Crack the eggs, put 2 in each dish and season them. Put them in the oven at 180 ºC for about 8 minutes.\n\nServe and garnish with a few parsley leaves."
+        },
+        "Rollitos de tortilla, queso y panceta": {
+            "hash": "976dc4f36830",
+            "nombre": "Omelette, cheese and pancetta rolls",
+            "elaboracion": "Peel the garlic clove and the onion, dice them and fry them gently in a casserole with 3-4 tablespoons of oil. Remove the stalk and seeds from the pepper, cut it the same way and add it. Season and cook the vegetables for 10 minutes. Add 250 ml of water and leave it to reduce for 10 minutes. Blend everything with a hand blender until you have a smooth sauce and set aside.\n\nCrack 1 egg into a bowl, season it, add a little chopped parsley and beat it. Heat a small frying pan with a few drops of oil, pour in the egg and cook a thin omelette (like a crêpe). Repeat with the rest of the eggs.\n\nFry the pancetta rashers (without letting them brown) in a frying pan with a drop of oil. Transfer them to a plate and set aside.\n\nCut 8 sticks of cheese and grate the rest.\n\nLay out the omelettes, place 1 stick of cheese along one edge of each and roll them up around it. Wrap each omelette in 1 rasher of pancetta and place the rolls on an ovenproof tray or dish. Sprinkle them with the grated cheese and grill them in the oven until lightly golden.\n\nSpoon the sauce onto the base of 4 plates and place 2 rolls on each. Garnish the plates with a few parsley leaves."
+        },
+        "Huevos teresita": {
+            "hash": "89b2f1e0eed4",
+            "nombre": "Teresita eggs (stuffed eggs in ham and pea sauce)",
+            "elaboracion": "Heat water in a small pan, add the eggs and boil them for 10 minutes from the moment the water comes to the boil (to keep the yolks centred, stir them in a circular motion with a wooden spoon). Remove them, cool them in cold water, peel them and cut them in half. Separate the yolks from the whites and set them aside separately.\n\nHeat water in a saucepan and, when it comes to the boil, add the peas. Season them and cook for 10-15 minutes (depending on size).\n\nFor the filling, peel the garlic, chop it, put it in the mortar and crush it well. Add the yolks, 1 tablespoon of chopped parsley and a pinch of salt. Crush again until you have a smooth paste (if it is too dry, you can add a little water).\n\nFill the egg whites with the paste and brown them (in batches) face down in a frying pan with 2-3 tablespoons of hot oil. Once sealed, remove them and set aside.\n\nCut the ham into small dice and brown it in a tartera (a wide, shallow casserole) with 3 tablespoons of oil. When it takes on a little colour, add the flour, cook it briefly and add the paprika. Add the stock, the peas and the eggs (face down). Cover the casserole and cook them in the sauce for 6-8 minutes.\n\nUsing a small round pastry cutter, cut 4 circles from each slice of bread. Heat plenty of oil in a frying pan and fry 1 slice of bread and 4 circles on both sides. Remove them and drain on a plate lined with kitchen paper. Repeat with the other 3 slices of bread and the 12 circles.\n\nPlace the slices of bread on 4 plates, set the stuffed egg whites in the holes and spoon over the sauce. Garnish the plates with a few parsley leaves and the fried bread circles."
+        },
+        "Tortilla de patatas": {
+            "hash": "d6f16b8db71f",
+            "nombre": "Spanish potato omelette (tortilla de patatas)",
+            "elaboracion": "Peel the potatoes and cut them into thin slices. Peel the onion and cut it into thin strips.\n\nSoften the potatoes and onion in plenty of oil over a medium heat for about 20 minutes, until tender but not browned. Drain them well.\n\nBeat the eggs with salt, add the potatoes and leave the mixture to rest for 5 minutes.\n\nHeat a frying pan with a little oil, pour in the mixture and set it over a medium heat for 3 minutes. Turn it over using a plate and cook for 2 minutes on the other side."
+        },
+        "Huevos rotos con jamón": {
+            "hash": "bc10ca9e0ac8",
+            "nombre": "Broken eggs with ham (huevos rotos)",
+            "elaboracion": "Peel the potatoes and cut them into thick sticks. Pat them dry with kitchen paper.\n\nFry them in plenty of oil over a medium heat until tender, then turn up the heat at the end to brown them. Drain and salt them.\n\nFry the eggs in the same oil, leaving the yolks runny.\n\nArrange the potatoes on a serving dish, top with the eggs and the sliced ham, and break the yolks with a fork just before serving."
+        },
+        "Huevos al plato con tomate y pimientos": {
+            "hash": "1e40d5156651",
+            "nombre": "Baked eggs with tomato and peppers",
+            "elaboracion": "Chop the onion and peppers and soften them in a frying pan with oil for 15 minutes.\n\nAdd the crushed tomatoes, the cumin and the paprika, season and cook for 10 minutes until thickened.\n\nMake four hollows in the sauce and crack an egg into each one. Cover and cook over a low heat for 5-6 minutes, until the whites are set and the yolks still runny.\n\nSprinkle with chopped parsley and serve in the pan."
+        },
+        "Arroz al horno": {
+            "hash": "ec678121b496",
+            "nombre": "Oven-baked rice (arroz al horno)",
+            "elaboracion": "Wash the tomatoes, peel one and dice it. Cut the other 2 in half.\n\nHeat an ovenproof tartera (a wide, shallow casserole) with 3 tablespoons of oil. Add the diced tomato, the whole head of garlic and the halved tomatoes and cook for 3-4 minutes. Peel the potatoes, cut them into 1 cm slices, add them and season.\n\nAdd the rice and stir it briefly in the oil. Add the chickpeas, the hot stock, the saffron threads and the paprika. Season and cook the rice over a high heat for 6-8 minutes. Put the casserole in the oven and bake the rice at 200 ºC for 12-14 minutes.\n\nTake the casserole out of the oven and serve. Garnish the plates with a few parsley leaves."
+        },
+        "Arroz con costilla de cerdo": {
+            "hash": "30eee45769fa",
+            "nombre": "Rice with pork ribs",
+            "elaboracion": "Heat water in the pressure cooker and season it. Clean the leek (trim off the bottom and top, remove 1-2 outer layers and rinse it), cut it into pieces and add it to the pot. Add the ribs, close the pressure cooker and cook for 10-15 minutes. Remove the ribs, drain them and season with salt and pepper.\n\nHeat 3-4 tablespoons of oil in a tartera (a wide, shallow casserole), add the pieces of rib and fry until well browned. Transfer to a plate and set aside.\n\nPeel the spring onion, red pepper and garlic, cut them into small dice and add them to the casserole. Season and cook the vegetables over a low-medium heat for 10-15 minutes. Add the rice and stir it briefly in the oil. Add the paprika, the ribs and hot water (a little more than double the amount of rice) and cook everything for 20 minutes.\n\nServe the rice and garnish the plates with a few parsley leaves."
+        },
+        "Pasteles de arroz, zanahorias y panceta": {
+            "hash": "21e10bee02c0",
+            "nombre": "Rice, carrot and pancetta bakes",
+            "elaboracion": "Bring water to the boil in a pressure cooker, add the rice and season. Close the cooker, cook for 5 minutes, drain and set aside.\n\nPeel the carrots and boil them for 15 minutes in a saucepan of water with a pinch of salt. Set aside.\n\nPeel the onion and garlic cloves, dice them and fry gently for 8-10 minutes over a low heat in a frying pan with 3 tablespoons of oil. Dice the pancetta, add it and cook until browned.\n\nPut the eggs in a bowl and beat them. Add the milk and beat again. Add the vegetables with the pancetta and the rice and mix well. Slice the carrots into rounds and add them. Mix gently, divide the mixture between 4 individual ovenproof dishes and bake at 200 ºC for 12 minutes.\n\nServe the bakes and garnish them with a few parsley leaves."
+        },
+        "Croquetas de arroz con pollo y espinacas": {
+            "hash": "7b92115cb2e8",
+            "nombre": "Rice croquettes with chicken and spinach",
+            "elaboracion": "Peel the garlic clove, dice it finely and brown it in a saucepan with 3 tablespoons of oil. Add the rice and the water (a little more than double the amount of rice), crumble the stock cube over the top, stir and cook the rice for 18-20 minutes. Leave it to cool.\n\nHeat a frying pan with 1 tablespoon of oil, season the chicken breast, add it to the pan and brown it on both sides. Remove the breast, cut it into small dice and put it in a large bowl. Clean the spinach leaves, dry them, chop them finely and add them to the bowl. Add the rice and mix everything well. Crack an egg, beat it, add it to the bowl and mix again.\n\nTake small portions of the mixture, roll them into balls, coat them in flour and beaten egg and fry them over a medium heat in a frying pan with oil. Drain them on a plate lined with kitchen paper.\n\nHeat the tomato sauce.\n\nServe 5 croquettes on each plate with a little tomato sauce. Garnish with a few parsley leaves."
+        },
+        "Arroz con lomo, panceta y jamón cocido": {
+            "hash": "d228fd3f4c98",
+            "nombre": "Rice with pork loin, pancetta and cooked ham",
+            "elaboracion": "Heat a tartera (a wide, shallow casserole) with 4 tablespoons of oil. Dice the ham, pancetta and pork loin, add them and fry until browned. Transfer to a plate and set aside.\n\nPeel the onion, carrot and garlic cloves, cut them into small dice and add them to the casserole. Remove the stalk and seeds from the pepper, cut it the same way and add it. Season and cook the vegetables for 12-15 minutes.\n\nAdd the rice to the casserole, stir it in the oil for a moment, pour over the hot stock and cook for 12 minutes. Add the meats, stir and cook everything for 6-8 minutes more (you can finish it in the oven if you like).\n\nServe the rice and garnish the plates with a few parsley leaves."
+        },
+        "Ensalada de arroz al curry": {
+            "hash": "20f10b90cf21",
+            "nombre": "Curried rice salad",
+            "elaboracion": "Peel the garlic cloves, cut them in half and brown them in a tartera (a wide, shallow casserole) with 2-3 tablespoons of oil. Add the rice, stir it briefly, pour over water (the same amount as the rice), season and cook for the time stated on the packet. Leave it to rest for 2 more minutes. Drain it, cool it under cold water, transfer it to a large bowl and set aside.\n\nHeat a saucepan of water. Dice the courgette and the (peeled) carrots, add them to the pan, season and cook for 5-6 minutes. Remove, drain and leave to cool.\n\nIn the same pan you cooked the vegetables in, cook the prawns for 1 minute. Remove them, leave them to cool slightly, peel them and set aside. Put the prawn heads in a mortar, crush them, add 100 ml of oil and mix well. Strain the mixture through a fine conical sieve into a bowl, add a splash of vinegar, a pinch of salt and the curry powder and mix well.\n\nAdd the courgette, carrot, half the prawns (chopped), the spring onion (finely diced), the sweetcorn and the olives (chopped) to the bowl of rice and mix everything together.\n\nDivide the salad between 4 bowls. Garnish with the rest of the prawns and a few parsley leaves and dress with the curry vinaigrette."
+        },
+        "Arroz cuatro delicias": {
+            "hash": "5432c9195813",
+            "nombre": "Special fried rice (arroz cuatro delicias)",
+            "elaboracion": "Heat plenty of water in a saucepan. Add the rice, season and cook for 18-20 minutes (from the moment the water comes to the boil). Remove it, cool it under cold water, drain it and set aside.\n\nHeat a frying pan with 1 teaspoon of oil. Beat the eggs in a bowl, season them and pour them into the pan. Cook the omelette until set, transfer it to a plate, dice it and set aside.\n\nDice the ham and peel the prawns.\n\nMix the rice, the diced omelette and ham, the prawns and the peas in a salad bowl.\n\nDivide the rice between 4 plates, dress with the soy sauce and garnish with a few parsley leaves."
+        },
+        "Arroz con chorizo y jamón": {
+            "hash": "77147bcaf771",
+            "nombre": "Rice with chorizo and ham",
+            "elaboracion": "Heat water in a small pan, add the eggs and boil them for 10 minutes (from the moment the water comes to the boil). Remove them, cool them in cold water, peel them, chop them and set aside.\n\nHeat water in a saucepan and season it. When it comes to the boil, add the rice and cook for 18 minutes. Remove, drain and set aside.\n\nCut the peppers into strips. Heat a frying pan with 2 tablespoons of oil and cook the peppers over a low heat for 10 minutes. Remove and set aside.\n\nCut the chorizo and ham into small dice and fry them briefly in another frying pan with 2-3 tablespoons of oil. Pour off some of the oil, add the rice, mix well and stir-fry very briefly (just to heat the rice through).\n\nServe the rice on 4 plates, top with the pepper strips and sprinkle with the chopped hard-boiled egg. Garnish the plates with a few parsley leaves."
+        },
+        "Arroz con tortilla y panceta": {
+            "hash": "86566398fa93",
+            "nombre": "Rice with omelette and pancetta",
+            "elaboracion": "Clean the lettuce, dry it, tear it into pieces and put it in a bowl. Cut the spring onion into fine strips and add it. Just before serving, dress the salad with oil, vinegar and salt.\n\nPeel the garlic cloves, cut them in half and fry them briefly in a saucepan with 2 tablespoons of oil. Add the rice, stir it in the oil and pour over the same amount of water as rice (or the amount stated on the packet). Season, cover the pan and cook over a medium heat for 8-10 minutes (or the time stated on the packet). Remove from the heat and transfer to a large bowl.\n\nBeat 2 eggs, season them and add a little chopped parsley. Heat a frying pan with a little oil, pour in the beaten eggs and cook until you have a thin, round omelette. Make another omelette in the same way with the other 2 eggs. Dice the omelettes and add them to the bowl with the rice.\n\nCut the pancetta into small dice and sauté (until browned) in a frying pan with 2 tablespoons of oil. Add it to the bowl and mix well.\n\nServe the rice with the lettuce and spring onion salad. Garnish the plates with a few parsley leaves."
+        },
+        "Risotto con panceta y pollo": {
+            "hash": "b31b6069f0f6",
+            "nombre": "Risotto with pancetta and chicken",
+            "elaboracion": "Dice the spring onion and the (peeled) pepper and fry gently for 8-10 minutes over a medium heat in a tartera (a wide, shallow casserole) with 3-4 tablespoons of oil.\n\nChop the pancetta, add it to the pan and fry until lightly browned. Cut the chicken into bite-sized pieces, season with salt and pepper, add it and fry until browned.\n\nAdd the rice and saffron threads to the casserole. Stir briefly and pour over 500 ml of (hot) water. Season and stir often. As the rice absorbs the water, add another 500 ml of water. Repeat until the rice is done (about 18 minutes). Add the cheese and stir until melted.\n\nServe the risotto and garnish the plates with a few parsley leaves."
+        },
+        "Risotto de champiñones con solomillo de cerdo": {
+            "hash": "412bb33f84a7",
+            "nombre": "Mushroom risotto with pork tenderloin",
+            "elaboracion": "Peel the onion and garlic cloves, cut them into small dice and fry gently for 6-8 minutes in a tartera (a wide, shallow casserole) with 3-4 tablespoons of oil.\n\nCut the green garlic into 1 cm slices, add it to the casserole and cook for 2 minutes. Wash the mushrooms, quarter them and add them. Season and cook for 4-5 minutes. Pour over the brandy and boil hard until the alcohol has evaporated.\n\nAdd the rice, stir it for a moment and add half the stock. Cook, stirring often, until the stock is absorbed. Pour in more stock and repeat until the rice is done (about 18 minutes in total).\n\nCut the pork tenderloin into bite-sized pieces, season with salt and pepper and fry them in a frying pan with 2-3 tablespoons of oil.\n\nDivide the risotto between 4 plates and top with a few pieces of pork tenderloin. Garnish the plates with a few parsley leaves."
+        },
+        "Arroz familiar": {
+            "hash": "2e35a9324a8d",
+            "nombre": "Family-style rice",
+            "elaboracion": "Dice the spring onion finely and fry gently in a tartera (a wide, shallow casserole) with 3 tablespoons of oil. Remove the stalk from the pepper, cut it into thin strips about 3 cm long and add it. Fry the vegetables gently for 6-8 minutes.\n\nSeason the chicken with salt and pepper, add it to the casserole and brown it lightly. Slice the chorizo, add it and fry briefly. Wash the tomato, cut it in half, grate it and add it. Add the saffron threads and the rice, stir briefly, pour over the stock and season. Cook the rice for 18 minutes. Remove from the heat and leave to rest for 2-3 minutes.\n\nServe the rice and garnish the plates with a few parsley leaves."
+        },
+        "Paella valenciana": {
+            "hash": "def7381d1414",
+            "nombre": "Valencian paella",
+            "elaboracion": "Cut the chicken and rabbit into pieces, salt them and brown them well in the paella pan with the oil.\n\nPush the meat to the edges, add the green beans and the garrofón (large white lima beans) and fry for 5 minutes. Add the grated tomato and the paprika and fry gently for a couple of minutes.\n\nPour in the water, add the saffron and rosemary and simmer for 25 minutes. Taste the stock and adjust the salt.\n\nSpread the rice evenly across the paella pan and cook for 10 minutes over a high heat and 8 minutes over a low heat, without stirring. Leave to rest for 5 minutes covered with a cloth."
+        },
+        "Arroz negro con sepia": {
+            "hash": "ed673ad048f9",
+            "nombre": "Black rice with cuttlefish (arroz negro)",
+            "elaboracion": "Clean the cuttlefish and dice it. Chop the onion, pepper and garlic.\n\nBrown the cuttlefish in a paella pan with oil. Add the chopped vegetables and soften for 10 minutes. Add the grated tomato and fry gently until its liquid has evaporated.\n\nAdd the rice, stir for a minute and pour in the hot fish stock mixed with the squid ink. Season.\n\nCook for 18 minutes without stirring, over a high heat for the first few minutes and then over a low heat. Leave to rest for 5 minutes and serve with alioli."
+        },
+        "Arroz con verduras de temporada": {
+            "hash": "0a485a7f8c54",
+            "nombre": "Rice with seasonal vegetables",
+            "elaboracion": "Dice the courgette, aubergine, peppers and onion. Chop the trimmed artichokes and the mushrooms.\n\nFry the onion and peppers gently in a casserole with oil. Add the rest of the vegetables and sauté for 8 minutes.\n\nAdd the grated tomato and the paprika, stir and add the rice. Stir for a minute and pour in the hot stock with the saffron.\n\nCook for 18 minutes over a medium heat, without stirring. Leave to rest for 5 minutes before serving."
+        },
+        "Canelones a la boloñesa": {
+            "hash": "3abc521ea502",
+            "nombre": "Bolognese cannelloni",
+            "elaboracion": "Heat plenty of water in a saucepan. When it comes to the boil, salt it, add the cannelloni and cook for the time stated on the packet. Remove them, drain them and lay them on a clean tea towel.\n\nHeat 3-4 tablespoons of oil in a saucepan. Peel the garlic cloves, cut them into small dice and add them. Peel the onion, dice it finely and add it. Remove the stalk and seeds from the pepper, cut it the same way and add it. Peel the carrots, cut them into quarter-moons and add them. Dice the celery stick finely and add it. Season and fry the vegetables gently for 10-12 minutes.\n\nAdd the minced meats, season with salt and pepper and fry them briefly.\n\nPour over the white wine and bring to the boil. Add the tomato, stir and cook the bolognese for 10-15 minutes.\n\nFill the cannelloni with the bolognese and divide them between 4 ovenproof plates (or one dish).\n\nTo make the béchamel, melt the butter in a saucepan, add the flour and cook it well. Add the milk a little at a time, stirring constantly, until well combined. Cook the béchamel over a low heat for 8-10 minutes. Season with salt, a pinch of nutmeg and the chopped parsley.\n\nCover the cannelloni with the béchamel sauce, sprinkle the cheese on top and grill until the cheese is golden. Serve and garnish the plates with a few parsley leaves."
+        },
+        "Cintas con tomate y queso": {
+            "hash": "e2e20e3e5c75",
+            "nombre": "Ribbon pasta with tomato and cheese",
+            "elaboracion": "Heat plenty of water in a saucepan. Wash the tomatoes, score a shallow cross in the base, put them in the pan and blanch them for 2 minutes. Remove, peel and cut into small dice.\n\nPeel the garlic cloves and cut each into 3 slices. Trim the bottom of the asparagus and cut into 1 cm pieces. Heat a large frying pan with 3 tablespoons of oil, add the garlic and asparagus and cook for 3-5 minutes over a low heat. Add the tomatoes, season, cook for 15 minutes over a medium heat and sprinkle with the oregano.\n\nHeat plenty of water in a saucepan. When it comes to the boil, salt the water, add the pasta ribbons and cook for the time stated on the packet. Lift them out and put them straight into the frying pan with the vegetables. Mix well and divide between 4 plates.\n\nSprinkle the plates with the cheese and garnish with a few parsley leaves."
+        },
+        "Espirales con sofrito y anchoas": {
+            "hash": "1ee94385651b",
+            "nombre": "Fusilli with sofrito and anchovies",
+            "elaboracion": "Heat plenty of water in a large saucepan. When it comes to the boil, add the pasta and salt. Cook for slightly less than the time stated on the packet (it should be very al dente).\n\nHeat 3 tablespoons of oil in a tartera (a wide, shallow casserole). Clean the green garlic (trimming the bottom and top and removing 1 outer layer), cut it into 1 cm slices, add it to the casserole and fry gently over a low heat for 3-4 minutes.\n\nAdd the tomato and onion sofrito to the casserole. Cut the basil leaves into fine strips and add them. Cut 12 olives in half (reserve the rest) and add them. Cook everything together for 8-10 minutes.\n\nAdd the (drained) pasta to the sofrito, mix well and cook everything for 2-3 minutes.\n\nDivide the pasta between 4 plates and grind a little pepper over the top. Place 4 anchovy fillets and 4 olives on top of each (for a special touch, you can wrap the anchovy fillets around the olives). Garnish the plates with a few parsley leaves."
+        },
+        "Lasaña de hortalizas con queso": {
+            "hash": "a6d0dabb93e1",
+            "nombre": "Vegetable lasagne with cheese",
+            "elaboracion": "Heat 6 tablespoons of oil in a large saucepan. Dice the spring onions finely and add them. Peel the carrots, cut them into thin quarter-moons and add them. Remove the stalk and seeds from the pepper, peel it, dice it finely and add it. Season and fry the vegetables gently for 6-8 minutes. Wash the courgette, cut it into thin half-moons and add it. Trim the base of the mushrooms, rinse them, dry them, cut them first in half and then into slices and add them to the pan. Season and cook everything together for 10-12 minutes more. Chop the sun-dried tomatoes and add them. Add the thyme too and cook everything together for 6-8 minutes more.\n\nHeat plenty of water with a pinch of salt in a large saucepan. When it comes to the boil, add the lasagne sheets one at a time and cook them for the time stated on the packet. Once cooked, drain them and spread them out on a clean cloth to dry well.\n\nTo make the béchamel, heat the oil in a saucepan, add the flour and cook it for a moment. Pour in the milk a little at a time, stirring constantly, and cook the sauce for 6-8 minutes (it does not need to be very thick). Season it, grate a little nutmeg over it, add the chopped parsley, stir and set aside.\n\nTo assemble the lasagne, place in the base of an ovenproof dish 3 lasagne sheets, half the vegetables, 3 lasagne sheets, the rest of the vegetables and 3 lasagne sheets. Cover with the béchamel and pour the tomato sauce over the top in lines. Grate the cheese and sprinkle it over the whole surface of the lasagne.\n\nPut the lasagne in the oven and grill until heated through and the cheese is golden.\n\nCut the lasagne into portions and garnish the plates with a few parsley leaves."
+        },
+        "Fettuccini alfredo con salmón": {
+            "hash": "19b5759f016e",
+            "nombre": "Fettuccine Alfredo with salmon",
+            "elaboracion": "To make the Alfredo sauce, cut the butter into pieces and melt it (over a low heat) in a saucepan. Peel the garlic, chop it finely and add it to the pan. Pour over the cream and leave it to reduce over a low heat for 5-6 minutes. Gradually add the cheese and stir gently. Keep the sauce warm (over a low heat).\n\nHeat plenty of water in a saucepan. When it comes to the boil, salt it and add the fettuccine. Cook for the time stated on the packet (about 8 minutes).\n\nCut the salmon into small pieces, season with salt and pepper and sauté briefly (2-3 minutes) over a high heat in a frying pan with 2 tablespoons of oil.\n\nDrain the pasta (reserving a little of the cooking water), return it to the pan, pour over the Alfredo sauce and mix well.\n\nDivide the pasta between 4 plates and top with a few pieces of salmon. Sprinkle the plates with a little chopped parsley and garnish with a few parsley leaves."
+        },
+        "Rigatoni con setas y pollo": {
+            "hash": "8d34c9572257",
+            "nombre": "Rigatoni with wild mushrooms and chicken",
+            "elaboracion": "Heat a frying pan with 4 tablespoons of oil. Peel 1 garlic clove, chop it and add it. Dice the chicken breast, season with salt and pepper, add it to the pan and sauté for 3-5 minutes. Transfer to a plate and set aside.\n\nPeel and chop the other garlic clove and add it to the pan. Add the mushrooms, season and sauté for 3-5 minutes. Transfer them to the plate with the chicken.\n\nWash the tomatoes, cut them in half and grate them. Add 2 tablespoons of oil to the pan in which you sautéed the chicken and mushrooms, pour in the wine and bring to the boil. Add the oregano and the (grated) tomato, season and cook for 12-13 minutes.\n\nHeat plenty of water in a saucepan and salt it. When the water comes to the boil, add the rigatoni and cook for a little less than the time stated on the packet (they should be very al dente).\n\nLift the rigatoni out of the pan and add them to the frying pan with the tomato sauce. Add the chicken and mushrooms, stir and cook everything together for 3-4 minutes. Add a little chopped parsley and serve. Sprinkle the plates with a little grated cheese and garnish with a few parsley leaves."
+        },
+        "Pastel de macarrones y pollo": {
+            "hash": "0e2fcbb2b781",
+            "nombre": "Macaroni and chicken bake",
+            "elaboracion": "Heat plenty of water in a large saucepan. When it comes to the boil, add the macaroni, salt and cook for 2 minutes less than stated on the packet. Remove, drain and set aside.\n\nHeat 3 tablespoons of oil in a large frying pan. Peel the onion, dice it finely and add it to the pan. Remove the stalk and seeds from the pepper, cut it the same way and add it. Season and cook the vegetables over a low heat for 10 minutes.\n\nRemove the skin from the chicken thighs, dice the meat, season with salt and pepper, add it to the pan and cook for 4-5 minutes. Pour over the tomato sauce. Chop the basil leaves, add them and cook everything over a moderate heat for 3-4 minutes.\n\nHeat 2 tablespoons of oil in a large frying pan, add the macaroni and a little chopped parsley and sauté for 3-4 minutes.\n\nLine a round springform tin with a large piece of baking paper and fill it with the macaroni. Beat 4 eggs in a large bowl, add the cream and yoghurt and beat again until well combined. Pour the mixture over the macaroni and spread the meat on top. Sprinkle the surface with the grated cheese and bake at 180 ºC for about 35 minutes.\n\nTake it out of the oven, leave it to cool slightly and unmould it. Cut into portions and serve. Garnish the plates with a few parsley leaves."
+        },
+        "Fideos a la cazuela con costilla": {
+            "hash": "66b26441cacb",
+            "nombre": "Noodle casserole with pork ribs (fideos a la cazuela)",
+            "elaboracion": "Put 1.500 ml of water in a pressure cooker, add the ribs, season, close the cooker and cook for 5 minutes. Remove the ribs, take the meat off the bones, chop it a little and set aside. Strain the cooking stock and reserve it separately.\n\nPeel the garlic and onions, cut them into small dice and fry gently in a tartera (a wide, shallow casserole) with 4 tablespoons of oil. When the vegetables are golden (10-15 minutes), add the rib meat and brown it lightly (3-4 minutes).\n\nCut the tomatoes in half, grate them, add them to the casserole and cook for 8-10 minutes. Add the pâté, the paprika and the cinnamon and mix well. Add the noodles and 400 ml of the reserved stock, season and cook for the time stated on the packet (11-13 minutes). During cooking, as they dry out, add a little more stock (about 200 ml).\n\nSprinkle the noodles with a little chopped parsley and serve. Garnish the plates with a few parsley leaves."
+        },
+        "Tallarines con panceta y queso": {
+            "hash": "2006ea6172a8",
+            "nombre": "Tagliatelle with pancetta and cheese",
+            "elaboracion": "Heat water in a saucepan and salt it. Add the peas and cook for 10-12 minutes. Drain and set aside.\n\nPeel 1 garlic clove, chop it finely and fry gently in a saucepan with 3 tablespoons of oil. Dice the spring onion finely and add it. Fry everything gently for 8-10 minutes over a low heat. Add the tomato sauce and the drained peas. Season and cook the sauce for 6-8 minutes.\n\nHeat 2-3 tablespoons of oil in a frying pan. Peel the other 2 garlic cloves, slice them and add them. Brown them lightly, transfer to a plate and set aside. Dice the pancetta, season it, add it to the pan and brown it well. Remove it and leave to drain in a colander. Keep the pan for sautéing the tagliatelle.\n\nGrate the cheese and set aside.\n\nHeat plenty of water in a large saucepan. When it comes to the boil, salt it and add the tagliatelle. Cook for the time stated on the packet (about 2-3 minutes).\n\nAdd the tagliatelle (in two batches) to the pan in which you browned the pancetta, add a pinch of oregano (fresh or dried) and sauté briefly.\n\nSpread the tomato and pea sauce over the base of the plates and top each with a portion of the sautéed pasta (twirled into a large nest with the help of a fork), some diced pancetta, a few slices of garlic and the grated cheese. Garnish with a few parsley leaves."
+        },
+        "Tagliatelle a la carbonara": {
+            "hash": "9b40a89391f8",
+            "nombre": "Tagliatelle carbonara",
+            "elaboracion": "Heat plenty of water in a large saucepan. When it comes to the boil, salt it and add the tagliatelle. Cook for 6-8 minutes (or the time stated on the packet). Remove and drain.\n\nHeat 4 tablespoons of oil in a large frying pan. Peel the garlic cloves, slice them, add them to the pan and fry them gently for a moment. Cut the pancetta into thin strips, add it and cook for 2-3 minutes. Add the pasta to the pan and sauté briefly.\n\nPut the egg yolks in a large bowl, season them, add the cheese and mix well. Add the tagliatelle and mix again until well combined.\n\nDivide the pasta between 4 deep plates and grind a little pepper over each. Scatter the basil leaves over them and garnish the plates with a few parsley leaves."
+        },
+        "Canelones de pescado y hortalizas": {
+            "hash": "714aa8b5aa99",
+            "nombre": "Fish and vegetable cannelloni",
+            "elaboracion": "The day before, leave the hake to thaw in the least cold part of the fridge.\n\nHeat plenty of water in a large saucepan. Add the cannelloni sheets, salt and cook for the time stated on the packet. Remove them, drain them on a clean tea towel and set aside.\n\nHeat 3 tablespoons of oil in a frying pan. Dice the leeks finely and add them. Peel the carrots, cut them the same way and add them. Season and cook the vegetables for 6-8 minutes.\n\nCut the hake into small dice, season and add it to the pan. Add the tomato sauce, mix well and cook everything for 3-4 minutes. Set the filling aside.\n\nTo make the velouté sauce, heat 4 tablespoons of oil in a saucepan, add the flour and cook it well. Add the milk a little at a time and stir until combined. Pour in the fish stock and keep stirring until well combined. Season and cook the sauce over a low heat for 8-10 minutes, stirring constantly.\n\nAdd 1 ladleful of the velouté to the filling (reserve the rest) and mix well.\n\nFill the cannelloni and divide them between 4 (ovenproof) plates or place them all in one ovenproof dish. Cover with a thin layer of velouté, sprinkle with the cheese and grill until golden.\n\nServe and garnish the plates with a few parsley leaves."
+        },
+        "Tallarines con jamón y panceta": {
+            "hash": "98facc9d9ec4",
+            "nombre": "Tagliatelle with ham and pancetta",
+            "elaboracion": "Heat plenty of water in a large saucepan. When it comes to the boil, salt it and add the tagliatelle. Cook for the time stated on the packet. Remove and drain. Reserve a little of the cooking water as well.\n\nPeel the garlic cloves and slice them. Dice the ham and pancetta.\n\nHeat a large frying pan (or wok) with 3 tablespoons of oil. Add the garlic, the chilli, the pancetta and the ham and sauté briefly. Add the tagliatelle and a little of the cooking water. Sauté briefly, sprinkle with a little chopped parsley and serve."
+        },
+        "Espaguetis con tomate y albahaca": {
+            "hash": "73339071eb39",
+            "nombre": "Spaghetti with tomato and basil",
+            "elaboracion": "Cook the spaghetti in plenty of salted water for the time stated on the packet.\n\nMeanwhile, brown the sliced garlic in a frying pan with oil. Add the halved cherry tomatoes and cook for 5 minutes until softened.\n\nLightly crush the tomatoes, season and add the drained spaghetti with a splash of the cooking water. Sauté for a minute.\n\nServe topped with fresh basil leaves and grated Parmesan cheese."
+        },
+        "Macarrones con chorizo gratinados": {
+            "hash": "b88834663e59",
+            "nombre": "Macaroni and chorizo gratin",
+            "elaboracion": "Cook the macaroni in salted water and drain it one minute before the time stated on the packet.\n\nChop the onion and soften it in a frying pan with oil. Add the sliced chorizo and the mince and cook until browned.\n\nStir in the tomato sauce and the oregano, mix with the macaroni and transfer to an ovenproof dish.\n\nCover with the grated cheese and grill in the oven at 220 ºC for about 10 minutes, until the cheese is golden."
+        },
+        "Fideuá": {
+            "hash": "19c3ea9608a4",
+            "nombre": "Fideuá (seafood noodle paella)",
+            "elaboracion": "Brown the noodles in a paella pan with a little oil, stirring so they toast evenly. Set them aside.\n\nIn the same pan, brown the squid pieces and the peeled prawns. Remove the prawns and add the garlic and grated tomato; fry gently for 5 minutes with the paprika.\n\nAdd the noodles, pour in the hot fish stock with the saffron and season. Cook for about 10 minutes over a medium heat until the stock has been absorbed.\n\nArrange the prawns on top, leave to rest for 3 minutes and serve with alioli."
+        },
+        "Albóndigas con tomate y puré de patata": {
+            "hash": "58089d063fb2",
+            "nombre": "Meatballs in tomato sauce with mashed potato",
+            "elaboracion": "Break the breadcrumb (the soft inside of the bread) into pieces and put it in a large bowl. Pour the wine over it and wait until the bread is well soaked. Drain it in a sieve and set aside.\n\nHeat water in a saucepan and season it. Peel the potatoes, cut them into pieces, add them to the pan and cook for 15-20 minutes. Drain them and pass them through a food mill (or mash them with a potato masher) into a bowl. Add the (hot) milk a little at a time and mix gently. Season with salt and pepper, add a little chopped parsley and mix again. Set the mash aside.\n\nPut the mince (beef and pork) in a bowl. Peel 2 garlic cloves, chop them finely (into small dice) and add them together with the egg yolk and 1 teaspoon of chopped parsley. Season with salt and pepper and mix. Add the (drained) bread and keep mixing until everything is well combined. Shape into small balls, coat them in flour and fry them in a frying pan with oil.\n\nHeat the tomato and onion sofrito in a shallow casserole, add the meatballs and cook for 5-6 minutes. If the sauce is too thick, you can thin it with a little water.\n\nCover the base of the plates with the mashed potato and serve the meatballs on top. Garnish with a few parsley leaves."
+        },
+        "Albóndigas en salsa de almendras": {
+            "hash": "48e6aaad2d9b",
+            "nombre": "Meatballs in almond sauce",
+            "elaboracion": "Break the breadcrumb (the soft inside of the bread) into pieces and put it in a bowl. Pour in the milk and wait until it is well soaked.\n\nPut the meats (beef and pork) in a bowl and mix them. Peel 3 garlic cloves, chop them finely and add them. Also add the egg yolks, 1 tablespoon of chopped parsley, the juice of half a lemon, the drained bread, and salt and pepper (to taste). Mix well. Shape into small balls, coat them in flour and fry them in a frying pan with 150 ml of oil. Remove them and set aside on a dish.\n\nStrain the oil left over from frying the meatballs, transfer it to another frying pan, add the almonds, toast them until golden and set them aside on a plate.\n\nPeel the onion, dice it, add it to the pan and soften for 8-10 minutes.\n\nWash the tomatoes, cut them in half and grate them. Add the tomato pulp, 1 teaspoon of sugar, the cumin, the pepper and the bay leaf to the pan. Cook for 8-10 minutes.\n\nAdd the almonds and the white wine. Season and cook everything for 15 minutes over a low heat. Remove the bay leaf and blend the mixture in a blender.\n\nPut the meatballs in the pan, pour the sauce over them (if it is too thick, you can thin it with a little hot water) and cook for 6-8 minutes."
+        },
+        "Aleta rellena de pimientos y tortilla": {
+            "hash": "ff7e6356e1e7",
+            "nombre": "Beef flank stuffed with peppers and omelette",
+            "elaboracion": "Beat the eggs in a bowl with a pinch of salt. Heat a frying pan with 1 teaspoon of oil, pour in the eggs and cook on both sides to make a thin omelette. Transfer it to a plate and set aside.\n\nLay the (butterflied) flank out on a board, season with salt and pepper and place the omelette and the peppers (opened in half) on top. Season the peppers, roll up the flank and tie it with kitchen string. Season the outside and brown it in a frying pan with a splash of oil for 3-4 minutes. Transfer the flank to an ovenproof dish.\n\nPeel the garlic, onion and carrots and dice them. Sauté the vegetables for 2 minutes in the same pan in which you browned the meat. Add the wine and bring to the boil. Add the vegetables to the dish with the flank and roast at 190-200 ºC for 35-40 minutes.\n\nRemove the meat, leave it to cool slightly, slice it and set aside. Transfer the vegetables to a blender jug and blend with a hand blender. Set the sauce aside.\n\nTrim the Brussels sprouts (removing the outer leaves) and cut them in half. Heat a frying pan with 3-4 tablespoons of oil, add the Brussels sprouts, season and cook over a low-medium heat for 6-8 minutes.\n\nServe 2 slices of flank, 4 Brussels sprouts (8 halves) and a little sauce on each plate. Garnish with a few parsley leaves."
+        },
+        "Brochetas de pollo con salsa teriyaki": {
+            "hash": "767ce4e16588",
+            "nombre": "Chicken skewers with teriyaki sauce",
+            "elaboracion": "To make the teriyaki sauce, put the soy sauce, sugar, sake, mirin, cornflour mixed with a little cold water, ginger and spring onion greens (sliced) in a small saucepan. Heat over a low heat for 5 minutes (until thickened). Strain the sauce into a bowl and set aside.\n\nPut the minced chicken in a bowl. Trim the bottom and top of the leek and remove 2-3 outer leaves, rinse it, chop it finely and add it to the bowl. Peel the ginger, grate it and add it. Add the egg and the breadcrumbs. Season with salt and pepper and mix well until smooth. Cover the bowl with cling film and leave to rest in the fridge for 1 hour.\n\nTake a portion of meat, roll it into a ball and then shape it into an elongated form (like a long croquette). Push a skewer into the centre (like an ice lolly) and set aside. Repeat with the rest of the meat to make 12 skewers. Drizzle them with a little oil and cook them on a griddle.\n\nClean the endive, dry it, tear it into pieces and put it in a bowl. Dress it with oil, vinegar and salt.\n\nServe the chicken skewers, drizzle them with the teriyaki sauce and accompany them with a little salad. Garnish with a few parsley leaves."
+        },
+        "Carrilleras de ternera con pastel de patata": {
+            "hash": "c46ed80c33f3",
+            "nombre": "Beef cheeks with potato cake",
+            "elaboracion": "To make the potato cake, peel the potatoes, slice them very thinly (to get even slices, you can use a mandoline), and cut the pancetta rashers in half.\n\nGrease the base of an (ovenproof) tin with butter, lay a layer of potatoes on top, season with a pinch of salt, dot with a little more butter, sprinkle with a little grated cheese, add another layer of potatoes, season with another pinch of salt, spread with butter, add a little more cheese and finally lay the pancetta rashers on top. Finish assembling the cake by alternating layers of potato, butter and cheese until all the ingredients are used up. Bake the cake at 180 ºC for 40 minutes. Remove from the oven and drain off the excess fat.\n\nRemove the membrane covering the cheeks and season with salt and pepper. Heat 3-4 tablespoons of oil in a pressure cooker, add the cheeks and brown them well on both sides. Remove them and set aside on a plate.\n\nPeel the garlic cloves, onion and carrot. Dice everything and add to the pressure cooker. Soften the vegetables for 10-12 minutes. Return the cheeks to the pressure cooker and add the wines (red and port), the thyme, the bay leaf and 200 ml of water. Adjust the salt, close the pressure cooker and cook the cheeks for 40 minutes.\n\nRemove the cheeks, blend the sauce (if it is too thin, bring it to the boil and thicken it with a little cornflour mixed with cold water) and add a little chopped parsley.\n\nSlice the cheeks, serve 3-4 slices on each plate and spoon over the sauce. Cut the potato cake into 4 portions and place one on each plate. Garnish with a few parsley leaves."
+        },
+        "Crepes de pavo, puerro y queso": {
+            "hash": "b1ceb7a34dac",
+            "nombre": "Turkey, leek and cheese crêpes",
+            "elaboracion": "Cook the turkey breast in a saucepan with water and a pinch of salt for 15-20 minutes. Once cooked, transfer it to a plate, leave it to cool slightly, shred it and set aside.\n\nPeel the carrots and slice them thinly. Cook them for 8-10 minutes in a saucepan of boiling water seasoned with a pinch of salt. Transfer them to a blender jug, add the cream and blend with a hand blender (if it is too thick, add a little of the carrot cooking water until it has the consistency of a cream soup). Set the carrot cream aside.\n\nTo make the crêpe batter, crack the eggs into a blender jug and add the milk, flour, a pinch of salt and the oil. Blend with a hand blender until smooth.\n\nHeat a frying pan with 1 teaspoon of oil and spread it well. Pour in a little batter, spread it over the whole base of the pan and wait until it sets slightly; turn it over and cook briefly (if it comes out too greasy, discard it). Repeat until all the batter is used up.\n\nClean the leeks, trimming the bottom and top and removing the outer layer, rinse them, cut them into pieces about 5-6 centimetres long and then into fine julienne strips. Peel the garlic cloves, chop them finely and soften them in a frying pan with 3 tablespoons of oil. Add the leeks, season and cook over a low-medium heat for 6-8 minutes.\n\nGrate the cheese and set it aside.\n\nFill the crêpes with the leeks, turkey and cheese and roll them up.\n\nServe a little carrot cream and 2 crêpes on each plate. Garnish with a few parsley leaves."
+        },
+        "Guiso de pollo y costillas con patatas y tortilla de arroz": {
+            "hash": "58066211ccf7",
+            "nombre": "Chicken and pork rib stew with potatoes and rice omelette",
+            "elaboracion": "Heat 4 tablespoons of oil in a large casserole. Season the chicken and the ribs, add them and fry them for a while until golden. Grate the onion and add it. Stir and continue to soften over a low heat for 5 minutes.\n\nWash the tomato, cut it in half, grate it and add it. Peel the red pepper and cut it into strips. Peel the carrots and slice them. Wash the green beans, top and tail them and cut them in half. Add the vegetables to the stew.\n\nPeel the potatoes, break them into pieces (snapping them rather than cutting cleanly) and add them to the casserole.\n\nAdd the paprika, saffron and bay leaf, season and cover everything with water (1,500-2,000 ml).\n\nCrack the eggs into a bowl and beat them. Add the rice and a pinch of salt and mix well. Heat a splash of oil in a frying pan, add the beaten eggs with the rice and cook the omelette on both sides.\n\nPlace the omelette on top of the stew, cover the casserole and cook everything together for about 35 minutes.\n\nServe and garnish with a few parsley leaves."
+        },
+        "Guiso de jarretes de cordero con arroz": {
+            "hash": "230ea364c868",
+            "nombre": "Lamb shank stew with rice",
+            "elaboracion": "Peel 2 garlic cloves, crush them with the flat of a knife, chop them roughly and put them in a mortar. Chop the rosemary and thyme and add them. Season and pound everything. Add 5-6 tablespoons of oil and mix well.\n\nSeason the shanks and place them in a dish. Pour the herb paste over them, rub it in well and leave them to rest for at least 30 minutes (better still, marinate them overnight).\n\nHeat 3 tablespoons of oil in a pressure cooker. Peel the onions, dice them and add them to the pressure cooker. Peel the carrots, cut them into quarter-moons and add them. Wash the mushrooms, quarter them and add them. Season and cook the vegetables for about 15 minutes.\n\nRemove the shanks from the herb paste (set it aside) and brown them well in a large frying pan with 2 tablespoons of oil.\n\nPut the shanks in the pressure cooker and add the herb paste, tomato purée, wine and stock. Adjust the salt, close the pressure cooker and cook for 30-35 minutes. Remove the shanks from the pressure cooker and blend the vegetables with a hand blender. Transfer the sauce to a wide, shallow casserole and add the shanks.\n\nHeat a saucepan with 1 tablespoon of oil. Crush the other 2 garlic cloves (unpeeled) with the flat of the knife and add them. Add the rice and the water (the same amount as the rice), season, cover the pan and cook over a medium heat for 10 minutes.\n\nServe one shank on each plate, spoon over the sauce and accompany with a portion of rice. Garnish with a few parsley leaves."
+        },
+        "Moussaka de cordero": {
+            "hash": "ce6373fea8a1",
+            "nombre": "Lamb moussaka",
+            "elaboracion": "Wash the aubergines and, using a mandoline, cut them lengthways into ½ cm slices. Sprinkle a dish with a little salt, lay the aubergine slices in it and season the tops. Repeat until all are used. Leave them for 30 minutes to release some of their water (you can tilt the dish so the water collects at the lower end).\n\nPeel the potatoes and, using the mandoline, cut them into 1 cm slices. Heat plenty of oil in a frying pan, add the potatoes and fry them (in batches) on both sides. Remove them and drain on a dish lined with kitchen paper.\n\nPat the aubergine slices dry and fry them (in batches) in the same pan in which you fried the potatoes. Remove them and drain on another dish lined with kitchen paper.\n\nHeat 3-4 tablespoons of oil (you can use the oil left over from frying the potatoes and aubergines) in a wide, shallow casserole. Peel the garlic and onion, cut them into small dice and add them to the casserole. Remove the stalk and seeds from the pepper, cut it in the same way and add it. Soften the vegetables for 6-8 minutes.\n\nAdd the minced lamb, thyme, rosemary and oregano. Season with salt and pepper, mix well and cook over a high heat for 2 minutes. Add the tomato sauce and cook the meat filling for 8-10 minutes.\n\nTo make the béchamel, heat 3 tablespoons of oil in a saucepan, add the flour and cook it briefly. Add the milk a little at a time and cook, stirring constantly, for 8-10 minutes. Season, grate over a little nutmeg and mix well.\n\nAssemble the moussaka in an ovenproof dish, starting with a layer of potatoes on the base. Top with a layer of aubergine, then one of meat, another of aubergine and, finally, one of béchamel. Sprinkle the surface with the grated cheese, put the dish in the oven and bake the moussaka at 180 ºC for 15-20 minutes.\n\nServe and garnish with a few parsley leaves."
+        },
+        "Pavo en salsa con patatas fritas": {
+            "hash": "eb2196de69d3",
+            "nombre": "Turkey in sauce with chips",
+            "elaboracion": "Season the turkey thighs with salt and pepper and brown them for 3-4 minutes in a pressure cooker with 2-3 tablespoons of oil. Also add the cayenne chilli.\n\nPeel the garlic cloves, cut them in half and add them. Pour in the wine and bring to the boil.\n\nPut the peppers in a blender jug, add 100 ml of water and blend. Add the purée to the pressure cooker. Pour another 100 ml of water into the jug, swirl it round (to pick up the purée left in the jug) and add it to the stew. Also add the peppercorns and the sprigs of thyme and rosemary, adjust the salt and close the pressure cooker. Cook the turkey for 13 minutes.\n\nPeel the potatoes, dice them and fry them in a frying pan with plenty of oil. Remove them and drain on a plate lined with kitchen paper. Season them and sprinkle with a little chopped parsley.\n\nWhen ready to serve, remove the turkey thighs and divide them between 4 plates. To thicken the sauce, add a little cornflour mixed with cold water and bring to the boil until it thickens.\n\nSpoon the sauce over the plates and scatter the potatoes on top. Garnish with a few parsley leaves."
+        },
+        "Sarmale": {
+            "hash": "871578e101f5",
+            "nombre": "Sarmale (Romanian cabbage rolls)",
+            "elaboracion": "Heat 2 tablespoons of oil in a frying pan. Peel the onion, cut it into small dice, add it to the pan, season and cook for 6-8 (until it starts to turn translucent). Add the rice and fry for a couple of minutes. Transfer to a plate and leave to cool.\n\nPut the meats in a bowl, season with salt and pepper, add the paprika and thyme and mix well. Add the rice and onion and mix again until everything is well combined. Take small portions of meat (45-50 g), shape them into croquettes and set aside.\n\nCut the cabbage leaves in half and remove the thickest part of the central rib. Lay half a leaf on a flat surface (worktop or board), place a portion of meat on it (to one side of the leaf) and wrap it in the cabbage leaf to form a roll (it is important to fold the sides inwards so the meat does not escape). Repeat until all the ingredients (meat and cabbage leaves) are used up.\n\nTransfer the sarmale to a wide casserole, add the crushed tomatoes and cover with water (approx. 1,500 ml). Season, cover and cook for 90 minutes over a low heat.\n\nHeat water in a saucepan. When it starts to boil, add the polenta, season, cook for 4-5 minutes, transfer to a dish and leave to cool.\n\nDivide the sarmale and polenta between 6 plates and garnish with a few parsley leaves."
+        },
+        "Ternera guisada con setas": {
+            "hash": "489d0da7a48f",
+            "nombre": "Beef stew with mushrooms",
+            "elaboracion": "Heat 4 tablespoons of oil in a pressure cooker. Peel the onion, dice it and add it to the pressure cooker. Wash the pepper, remove the stalk and seeds, dice it and add it. Clean the leek, trimming the bottom and top and removing the outer layer, rinse it, dice it and add it. Peel the carrot, dice it and add it. Peel the garlic cloves and add them whole. Season and soften the vegetables for 8-10 minutes.\n\nHeat a frying pan with 3-4 tablespoons of oil. Season the pieces of meat and add half to the pan. Brown them over a high heat, transfer them to a plate and set aside. Repeat with the rest of the meat.\n\nPut the meat in the pressure cooker. Grate the tomato over it and pour in the cider and about 500 ml of water (enough to cover the meat). Season and add the rosemary, thyme and peppercorns. Close the pressure cooker and cook for 15 minutes. Remove the herbs, transfer the meat to a wide, shallow casserole and blend the sauce with a hand blender. Strain the sauce and pour it over the meat.\n\nPeel the potatoes, dice them and fry them in a frying pan with plenty of oil. Remove them, drain, season, sprinkle with a little chopped parsley and add them to the casserole.\n\nPour off some of the oil used for frying the potatoes. Clean the ceps, slice them and add them to the pan. Season and sauté for 3-4 minutes. Add them to the casserole.\n\nDivide the stew between 6 plates and garnish with a few parsley leaves."
+        },
+        "Lagarto con patatas hasselback": {
+            "hash": "138f2e071f0a",
+            "nombre": "Iberian pork lagarto with hasselback potatoes",
+            "elaboracion": "Put the sugar and the Pedro Ximénez in a small saucepan and reduce over a low heat for about 15-20 minutes. Transfer to a bowl and leave to cool.\n\nWash the potatoes well and dry them. Make parallel cuts (½ cm apart) without cutting right through to the base (to do this, you can set the potato in a container with a low rim, or between 2 chopsticks; the rim stops the knife from reaching the bottom so the slices stay joined at the base).\n\nPut the potatoes in an ovenproof dish, open them out slightly, season them and drizzle with a splash of oil. Put a knob of butter on each one. Chop the thyme finely and sprinkle it over them. Roast at 180-200 ºC for 40 minutes (if they are browning too much, you can cover them with a piece of foil).\n\nDice the spring onion and soften it for 4-5 minutes in a frying pan with 2-3 tablespoons of oil. Add the flour and cook it briefly. Pour in the meat stock and the Pedro Ximénez reduction. Chop the rosemary finely and add it. Season and cook the mixture over a low heat for 4-5 minutes.\n\nHeat a frying pan with 3-4 tablespoons of oil. Season the lagarto strips with salt and pepper, put half of them in the pan, fry them briefly on both sides and transfer to a plate. Fry the rest of the meat in the same way and transfer to the plate.\n\nPour the fat out of the pan, put all the lagarto strips back in, add the sauce, turn off the heat and stir until they are well coated in the sauce.\n\nServe a few lagarto strips and 1 hasselback potato on each plate. Garnish with a few parsley leaves."
+        },
+        "Albóndigas de pollo con salsa de mango y curry": {
+            "hash": "10bece1bc4e9",
+            "nombre": "Chicken meatballs with mango and curry sauce",
+            "elaboracion": "Chop the chicken with a knife (or put it through a mincer) and put it in a bowl. Add the onion powder, garlic powder, egg and grated cheese, season with salt and pepper and mix well. Add the breadcrumbs a little at a time and keep mixing until everything is well combined. Cover the bowl with cling film, put it in the fridge and leave the mixture to rest for about 30 minutes.\n\nHeat 3 tablespoons of oil in a casserole. Dice the spring onion, add it and soften for about 5 minutes. Peel the mangoes, chop them and add them. Add the curry powder and the cream and adjust the salt. Cook over a low-medium heat for 20 minutes. Blend with a hand blender until you have a smooth sauce and set aside.\n\nTake the meatball mixture out of the fridge, take small portions, roll them into balls, coat them in flour and fry them in a frying pan with plenty of hot oil (about 200 ml). Remove them and drain on a dish lined with kitchen paper.\n\nPut the meatballs in a wide, shallow casserole, pour the sauce over them and cook for 5 minutes over a low heat.\n\nServe and garnish with a few parsley leaves."
+        },
+        "Pollo al ajillo": {
+            "hash": "e96ae9521a81",
+            "nombre": "Garlic chicken (pollo al ajillo)",
+            "elaboracion": "Cut the chicken into small pieces, season and brown well on all sides in a casserole with oil.\n\nAdd the whole garlic cloves, lightly crushed so they split open, and the bay leaf. Cook for 5 minutes over a low heat so the garlic cooks without burning.\n\nPour in the white wine, let the alcohol evaporate and cover. Cook for a further 20 minutes, stirring from time to time.\n\nSprinkle with chopped parsley and serve with chips or a salad."
+        },
+        "Solomillo de cerdo a la pimienta": {
+            "hash": "6dec43b12980",
+            "nombre": "Pork tenderloin with peppercorn sauce",
+            "elaboracion": "Cut the tenderloin into medallions two fingers thick and season with salt.\n\nSear them in a frying pan with very hot oil, 2 minutes on each side. Remove and set aside.\n\nIn the same pan, brown the chopped shallot, add the crushed peppercorns and flambé with the brandy. Add the cream and cook for 5 minutes until the sauce thickens.\n\nReturn the medallions to the sauce, cook for a further 2 minutes and serve."
+        },
+        "Estofado de ternera con patatas": {
+            "hash": "00889ad2d1b5",
+            "nombre": "Beef and potato stew",
+            "elaboracion": "Cut the beef into chunks, season and brown them in a pot with oil. Remove them.\n\nIn the same pot, soften the chopped onion, garlic, pepper and carrot for 10 minutes. Add the grated tomato and fry gently for a further 5 minutes.\n\nReturn the meat to the pot, pour in the red wine and let it reduce. Cover with the stock, add the bay leaf and thyme and simmer, covered, over a low heat for 1½ hours.\n\nAdd the potatoes in chunks and cook for a further 25 minutes, until tender. Check the seasoning and serve."
+        },
+        "Bacalao a la riojana con guindillas fritas": {
+            "hash": "3936f10aba03",
+            "nombre": "Rioja-style cod with fried green chillies",
+            "elaboracion": "Peel the garlic, slice it and soften it in a frying pan with 4-5 tablespoons of oil. Peel the onions, cut them into large dice and add them. Peel the peppers, remove the stalks and seeds, cut them into large dice and add them to the pan. Season and cook the vegetables for about 10 minutes.\n\nWash the tomatoes, cut them in half, grate them and add them to the pan. Cook everything for 15-20 minutes.\n\nCut each cod loin in two and add them to the pan (skin side up first). Cook over a low heat for 5 minutes on each side.\n\nFry the green chillies in a frying pan with very hot oil. Transfer them to a plate and season.\n\nServe a piece of cod with its sauce on each plate, accompanied by the fried chillies. Garnish with a few parsley leaves."
+        },
+        "Bacalao gratinado con mayonesa de ajo fresco": {
+            "hash": "84defecdcadc",
+            "nombre": "Cod gratin with green garlic mayonnaise",
+            "elaboracion": "Mix 2 glasses of water and the paprika in a bowl. Place the slices of bread in a deep dish, pour the water and paprika mixture over them and leave them to stand until they have absorbed all the liquid.\n\nPlace each slice between two plates and press them until well drained. Line a baking tray with baking paper, lay the bread slices on top, cover them with another sheet of baking paper and weigh them down with another baking tray on top. Bake at 180 ºC for 25-30 minutes. Remove and set aside.\n\nChop 8 green garlic shoots (set the rest aside) and cook them over a low heat in a frying pan with 4 tablespoons of oil until soft (about 10 minutes), transfer them to a mortar and pound well to a garlic cream. Set aside.\n\nTo make the mayonnaise, crack the egg into a blender jug and add the vinegar, a pinch of salt and 250 ml of oil. Push the hand blender right to the bottom and start blending without moving it. When it starts to emulsify, move it gently. Add the green garlic cream with its oil and keep blending until you have a smooth sauce. Set the mayonnaise aside.\n\nCut the cod into 8 pieces, flatten them with a knife (giving them a few taps), season, coat in flour and fry briefly (1 minute on each side) in a frying pan with 8 tablespoons of hot oil. Remove them and place them on a baking tray. Cover each piece with a little green garlic mayonnaise and grill for 2-3 minutes (until golden).\n\nClean the rest of the green garlic, cut the shoots in half and make two lengthways cuts in each without cutting right through (as you would to clean leeks). Mix the tempura flour with very cold water (in the proportions stated on the packet). Dip the garlic shoots in the batter and fry them in a frying pan with very hot oil. Remove them and drain on a plate lined with kitchen paper.\n\nServe 2 pieces of cod, 4 green garlic tempura shoots and 1 slice of paprika bread on each plate. Garnish with a few parsley leaves."
+        },
+        "Brocheta de salmón con salsa de yogur": {
+            "hash": "0aa5d8b5e3f4",
+            "nombre": "Salmon skewers with yoghurt sauce",
+            "elaboracion": "Gently heat the oil in a small frying pan. Slice the spring onion greens and add them. Peel the garlic clove and add it. Add the thyme, dill and peppercorns. Cook over a very low heat for 10-12 minutes. Remove the pan from the heat and leave to cool slightly. Strain the oil into a large rectangular container.\n\nTrim the salmon, cut it into 16 large cubes and thread them, 4 at a time, onto 4 skewers. Place the skewers in the container and coat them well in the oil. Leave them to marinate for at least 1 hour (better still, overnight).\n\nTo make the yoghurt sauce, peel the shallot, cut it into small dice and put it in a bowl. Add the mayonnaise, yoghurt, a few drops of lemon juice, a pinch of salt and half of the chives, finely chopped.\n\nHeat a griddle, place the salmon skewers on it and cook for 1-2 minutes on each side (depending on how you like it done). Remove them and season with salt and pepper.\n\nServe one skewer per portion, accompanied by the yoghurt sauce. Chop the remaining chives and sprinkle them over the sauce. Garnish with a few parsley leaves."
+        },
+        "Bacalao fresco con cuscús": {
+            "hash": "eeb1fbc19532",
+            "nombre": "Fresh cod with couscous",
+            "elaboracion": "Put the cod bones, the fennel stalks and a few sprigs of parsley in a saucepan with 500 ml of water. Season and cook for 10 minutes. Strain the stock and set aside.\n\nPeel the spring onion and the carrot, dice them and soften them in a saucepan with 3 tablespoons of oil. Cut the fennel in the same way and add it. Season and soften the vegetables for about 10-12 minutes.\n\nAdd the couscous and the same volume of stock as couscous (set the rest aside). Cover the pan, remove it from the heat and leave the couscous to absorb the liquid. Add a little chopped parsley.\n\nPut the rest of the stock in a saucepan. Season the cod loins with salt and pepper, place them in a steamer basket and set it over the pan. Cover and cook the fish for 6-8 minutes.\n\nUsing a ring mould, divide the couscous between 4 plates, place the pieces of cod on top and drizzle with a splash of oil. Garnish with a few fennel fronds."
+        },
+        "Hamburguesa de salmón": {
+            "hash": "922026efee44",
+            "nombre": "Salmon burger",
+            "elaboracion": "Cut the spring onion into rings, dust them with flour and fry them in a frying pan with plenty of hot oil (150 ml). Remove them, drain on a plate lined with kitchen paper and set aside.\n\nFinely chop the fresh salmon, smoked salmon and gherkins and put them in a bowl. Season and mix well. Shape into 4 burgers and set aside.\n\nHeat a frying pan with 1 tablespoon of oil, add the burgers and cook for 2-3 minutes on each side. Sprinkle the burgers with a few drops of lemon juice and transfer them to a dish.\n\nSplit the buns and toast the cut sides in a frying pan. Spread them with mayonnaise and fill them with the lettuce leaves, tomato slices and burgers.\n\nServe a burger and a few onion rings on each plate. Garnish with a few parsley leaves."
+        },
+        "Gulas al ajillo con huevo flor": {
+            "hash": "471297aaad71",
+            "nombre": "Garlic gulas (mock baby eels) with flower eggs",
+            "elaboracion": "Cut a large piece of cling film, lay it over a small bowl and pour a few drops of oil into it. Crack an egg on top, season it and sprinkle with a little chopped parsley. Twist the film around the egg and close it by tying it with a piece of kitchen string. Repeat with the rest of the eggs and set aside.\n\nHeat water in a saucepan. When it starts to boil, lower the heat, add the eggs and cook for 3-4 minutes. Transfer them to a plate and, when ready to serve, cut and remove the film.\n\nHeat 4 tablespoons of oil in a frying pan. Peel the garlic cloves, slice them and add them to the pan. Also add the chilli and let everything brown a little. Remove the garlic and chilli to a plate and set aside.\n\nAdd the gulas to the pan and sauté briefly (1-2 minutes).\n\nDivide the gulas between 4 plates and add 1 flower egg and a few garlic slices to each. Garnish with a few parsley leaves."
+        },
+        "Salmonete en costra de hojaldre con espárragos": {
+            "hash": "dd83e915455b",
+            "nombre": "Red mullet in puff pastry with asparagus",
+            "elaboracion": "To make the sauce, heat the oil in a small saucepan. Peel the shallots, cut them into small dice, add them and season. Chop the dill finely and add it together with the tarragon. Add the vermouth and bring to the boil to evaporate the alcohol. Add the cream and cook the sauce for 5 minutes. Set aside.\n\nWith a sharp knife, fillet the red mullet (removing the head and backbone), season the fillets with salt and pepper and put them together in pairs.\n\nRoll the puff pastry sheets out on the board, place 1 red mullet (2 fillets) on one side of the pastry and trim it leaving a border of about 3 cm all round. Cut another piece of pastry (slightly larger than the fish) and cover the fish with it. Press the edges of the pastry (top and bottom) together so they stick and cut it into the shape of a fish with a tail. With the back of a knife blade, mark out the shape of the head and place 1 peppercorn as an eye. Mark the scales with a piping nozzle. Place the fish on a baking tray lined with baking paper. Repeat with the rest of the red mullet and pastry. Beat the egg in a bowl and brush it over the top of the pastry. Bake the red mullet at 200 ºC for 20 minutes.\n\nWash the asparagus, trim off the woody ends and cut the spears in half. Heat 2 tablespoons of oil in a frying pan, add the asparagus, season and sauté for 4-5 minutes.\n\nServe 2 red mullet, a portion of asparagus and a little sauce on each plate. Garnish with a few parsley leaves."
+        },
+        "Merluza a la sidra con patatas": {
+            "hash": "d8d5699c7ae6",
+            "nombre": "Hake in cider with potatoes",
+            "elaboracion": "Peel the garlic cloves and the onion, dice them and soften them over a medium-low heat in a casserole with 3 tablespoons of oil for 4-5 minutes. Peel the apple, chop it, add it, season and cook for 4 minutes. Add the paprika, tomato sauce and cider and cook everything over a low-medium heat for 15-20 minutes. Blend with a hand blender until you have a smooth sauce and set aside.\n\nPeel the potatoes, cut them into ½ centimetre slices and fry them in a frying pan with plenty of hot oil until tender and lightly golden. Remove them, drain and arrange them over the base of a wide, shallow casserole. Add the sauce and cook the potatoes over a low heat for 4-5 minutes.\n\nSeason the pieces of hake with salt and pepper, coat them in flour and fry them briefly (30 seconds on each side) in the same pan in which you fried the potatoes. Remove them, drain and add them to the casserole. Pour in the fish stock (until you reach the consistency you want) and cook everything together for 2-3 minutes.\n\nDivide the hake and potatoes between 4 plates and garnish with a few parsley leaves."
+        },
+        "Rape al vapor con crema de calabaza": {
+            "hash": "7e4d920ea35c",
+            "nombre": "Steamed monkfish with pumpkin cream",
+            "elaboracion": "For the pumpkin cream, heat 250 ml of water and the milk in a saucepan. Peel the potato, chop it and add it. Peel the pumpkin, dice it and add it. Season and cook for 10-12 minutes. Blend everything with a hand blender and set the cream aside.\n\nHeat a little water in a wide, shallow casserole. Season it and add a few sprigs of parsley. Cut the monkfish loins into 8 medallions, season with salt and pepper and place them in a steamer basket lined with a piece of baking paper. Cover the steamer and set it in the casserole. Cook the monkfish for about 6-8 minutes.\n\nPeel the artichokes, removing 2-3 layers of leaves, and trim off the tops. Cut them into 6-8 wedges. Heat 2 tablespoons of oil in a frying pan, add the artichokes, season and cook for 4-5 minutes.\n\nTo make the vinaigrette, chop the pistachios finely and put them in a bowl. Add the vinegar, oil and chopped parsley and mix well.\n\nSpoon a little pumpkin cream onto the base of the plates, place 2 monkfish medallions on each, dress them with a little vinaigrette and add a few artichoke wedges. Sprinkle the plates with the paprika and garnish with a few parsley leaves."
+        },
+        "Salmón al limón con borraja": {
+            "hash": "3e5b40beb8d2",
+            "nombre": "Lemon salmon with borage",
+            "elaboracion": "Cut the borage into 3 centimetre pieces, wash it and cook it for 10 minutes in a saucepan of boiling water with a pinch of salt. Drain and set aside.\n\nTo make the sauce, melt the butter in a small saucepan and add the oil. Peel the garlic cloves, dice them and add them. Cut the spring onion in the same way and add it. Add the bay leaf, wine, mustard and cream and let the sauce reduce for 10 minutes. Strain it and heat it in a small saucepan. Squeeze the lemons, pour the juice into a bowl, add the cornflour mixed with cold water, mix well and pour the mixture into the pan. Bring to the boil until it thickens.\n\nSeason the salmon loins with salt and pepper and cook them on a griddle (skin side up first) for 4 minutes (2 on each side).\n\nHeat a frying pan with 2 tablespoons of oil, add the borage and sauté briefly.\n\nSpoon a little lemon sauce onto the base of 4 plates, place the salmon on top and the borage alongside. Garnish with a few parsley leaves."
+        },
+        "Salmón cajún al horno": {
+            "hash": "65ec2a897426",
+            "nombre": "Baked Cajun salmon",
+            "elaboracion": "To make the Cajun sauce, put the onion, cayenne, paprika, salt, sugar, thyme, oregano and lemon zest in a blender (blender jug or food processor). Blitz everything to a coarse powder. Peel the garlic cloves, chop them and add them to the blender. Also add the vinegar, oil and mustard. Blend again to a paste and transfer it to a small bowl.\n\nLine a baking tray with baking paper. Spread the Cajun sauce over the salmon loins, place them on the tray and bake at 220 ºC for 8 minutes.\n\nDress the lamb's lettuce with oil and salt and divide it between 4 plates. Place 1 salmon loin on each and garnish with a few parsley leaves."
+        },
+        "Bacalao a la tranca": {
+            "hash": "39fa58360eef",
+            "nombre": "Bacalao a la tranca (Asturian-style cod)",
+            "elaboracion": "Put the pepper in an ovenproof dish. Drizzle it with a splash of oil, season and roast at 190 ºC for 35-40 minutes. Remove it, leave it to cool slightly, remove the stalk and seeds, peel it, cut it into strips and set aside.\n\nPut the potato (washed and unpeeled) in a pressure cooker, cover with water, close the pressure cooker and cook for 8-10 minutes. Remove it, leave it to cool slightly, peel it and set aside.\n\nHeat water in a small saucepan, add the egg and cook for 10 minutes (counted from when the water starts to boil). Cool it in cold water, peel it, cut it into small dice, sprinkle with a little chopped parsley and set aside.\n\nHeat 6-8 tablespoons of oil in a large frying pan. Peel 1 garlic clove and add it. Dust the cod loins with flour, put them in the pan and fry them for 3 minutes on each side (until golden). Remove them and transfer to a plate. Also remove the garlic clove.\n\nLeave 1-2 tablespoons of the oil in which you fried the cod in the pan and set the rest aside. Return the pan to the heat. Peel the other 2 garlic cloves, slice them and add them. Add the paprika, the pepper strips and 225 ml of fish stock (set the rest aside). Cook everything over a low-medium heat for 8-10 minutes.\n\nAdd 1-2 tablespoons of vinegar and the cod loins (skin side up) to the pan and cook for about 5 minutes.\n\nChop the cooked potato and put it in a blender jug. Add 2 tablespoons of the reserved oil and the rest of the stock (75 ml). Blend with a hand blender until you have a smooth purée.\n\nSpoon the potato purée onto the base of the plates, place 1 cod loin and a few strips of pepper on each and sprinkle with the chopped egg. Garnish with a few parsley leaves."
+        },
+        "Atún con puré de patata y cebolla": {
+            "hash": "ec2d04bc409a",
+            "nombre": "Tuna with potato and onion purée",
+            "elaboracion": "Heat plenty of oil (150 ml) in a frying pan. Peel the garlic cloves, slice them and add them to the pan. Peel the onions, dice them and add them. Peel the potatoes, cut them into thin quarter-moons and add them. Season and cook everything over a low heat for 15-20 minutes.\n\nDrain the vegetables (keep the oil in a bowl) and put them in a blender. Add the milk and blend until you have a smooth purée. Set aside.\n\nHeat 2-3 tablespoons of oil (you can use the oil left over from frying the potatoes) in a frying pan, add the peppers and fry them for 5-6 minutes over a low-medium heat. Season and set aside.\n\nCut the tuna into 8-12 steaks, season with salt and pepper and fry them briefly (1 minute on each side) in a frying pan with 3-4 tablespoons of oil (you can use the oil left over from frying the potatoes). Transfer the tuna to a dish.\n\nAdd the vinegar and 1 teaspoon of chopped parsley to the pan in which you cooked the tuna and mix well.\n\nServe 3 peppers, a portion of potato purée and 2-3 tuna steaks on each plate. Spoon over the sauce and garnish with a few parsley leaves."
+        },
+        "Brocheta de bonito con salsa teriyaki y guindillas": {
+            "hash": "81a3fb54d516",
+            "nombre": "Bonito skewers with teriyaki sauce and green chillies",
+            "elaboracion": "Put 4 skewer sticks in a jug or tall glass of water and leave them to soak for 30 minutes. Remove the sticks from the water, brush them with oil and set aside. To make the teriyaki sauce, put the soy sauce, sake, mirin, sugar and cornflour in a saucepan. Mix well until the ingredients are fully combined. Peel the ginger, cut 6 thin slices and add them. Thinly slice the spring onion stalk and add it. Cook the ingredients for 4-5 minutes. Strain the sauce into a bowl and set aside.\n\nCut the bonito into 24 chunks. Season them with salt and pepper, thread 6 chunks onto each stick and drizzle the skewers with a little oil.\n\nHeat a griddle, place the skewers on it and cook them briefly (2-3 minutes).\n\nHeat 5-6 tablespoons of oil in a frying pan, add the green chillies and fry them for 3-5 minutes. Transfer them to a serving dish and season them.\n\nServe 1 skewer on each plate and dress with the teriyaki sauce. Divide the chillies between the 4 plates and garnish with a few parsley leaves."
+        },
+        "Calamares a la romana": {
+            "hash": "b2b172665bf4",
+            "nombre": "Calamares a la romana (battered squid rings)",
+            "elaboracion": "For the orly batter, crack the eggs into a bowl and whisk them with an electric whisk. Add the flour and the baking powder and whisk again. Season, add the sparkling water and finish whisking the batter. Leave it to rest while you prepare the squid.\n\nSeparate the head from the body of the squid, remove the quill and the fins (also removing the skin) from the body, turn it inside out and rinse it well inside and out. Remove the beak from the head, separate the tentacles and the collar and rinse everything well. Cut the body into rings, the tentacles in pairs and the fins into strips. Season the squid, dip it in the orly batter, coat it well, let the excess drip off and fry it briefly in a frying pan with plenty of hot oil. Remove and drain on a plate lined with kitchen paper.\n\nServe the calamares a la romana with a few lemon wedges. Garnish the plates with a few parsley leaves."
+        },
+        "Merluza en salsa verde": {
+            "hash": "ae1553967d7e",
+            "nombre": "Hake in green sauce",
+            "elaboracion": "Season the hake steaks. Gently brown the chopped garlic in the oil in an earthenware casserole over a low heat.\n\nAdd the flour and stir for one minute. Pour in the white wine and the fish stock little by little, shaking the casserole so that the sauce emulsifies.\n\nAdd the hake and the clams and cook for 5-6 minutes, swirling the casserole back and forth. Turn the hake halfway through.\n\nWhen the clams open, sprinkle with plenty of chopped parsley and serve."
+        },
+        "Lubina al horno con patatas panaderas": {
+            "hash": "4e8a8e0fa114",
+            "nombre": "Baked sea bass with baker's potatoes",
+            "elaboracion": "Preheat the oven to 180 ºC. Peel the potatoes and cut them into thin slices. Cut the onion and the pepper into thin strips.\n\nPlace the potatoes, onion and pepper in a baking tray, season, drizzle with oil and bake for 25 minutes.\n\nPlace the cleaned sea bass on top of the potatoes, with lemon slices inside. Season, drizzle with the white wine and bake for a further 15-20 minutes.\n\nBrown the sliced garlic in a frying pan with oil, add a splash of vinegar off the heat and pour this garlic dressing over the fish when serving."
+        },
+        "Mejillones a la marinera": {
+            "hash": "9df887f00d9f",
+            "nombre": "Mussels marinera style",
+            "elaboracion": "Clean the mussels thoroughly and remove their beards. Steam them open in a covered pan with the bay leaf and a little water. Strain the cooking liquid and set it aside.\n\nChop the onion and garlic and soften them in a frying pan with oil. Add the paprika and the crushed tomato and cook for 10 minutes.\n\nPour in the white wine and a little of the mussel liquid and leave to reduce for 5 minutes.\n\nAdd the mussels, stir so they are coated in the sauce and serve with chopped parsley."
+        },
+        "Flan de chocolate con nata": {
+            "hash": "53515988573d",
+            "nombre": "Chocolate flan with cream",
+            "elaboracion": "To make the caramel, heat the sugar in a frying pan. Wait until it melts and turns lightly golden. Pour it into a flan mould (with a lid) and spread it (taking care not to burn yourself) over the base and the lower part of the sides of the mould. Leave it to cool slightly.\n\nCrack the eggs into a bowl, add the condensed milk and beat well with a hand whisk.\n\nPut the cocoa and the milk in a blender jug and blend them with a hand blender. Add the cocoa milk to the bowl of eggs and condensed milk and mix well. Pour the mixture into the flan mould and put the lid on.\n\nPour a little water (2 fingers deep) into a pressure cooker, put the flan mould in it and cook the flan for 4 minutes.\n\nWhen the valve drops, open the pressure cooker, remove the flan and wait until it is warm. Turn it out and serve. Decorate with the whipped cream, the raspberries and the mint leaves."
+        },
+        "Tarta de galletas y chocolate con macadamia": {
+            "hash": "baadd17fc281",
+            "nombre": "Biscuit and chocolate cake with macadamia nuts",
+            "elaboracion": "Lay a strip of baking paper along a rectangular (loaf) tin so that a flap sticks out at each end.\n\nSpread the biscuits out on a large dish, pour the milk over them, grate a little orange zest over them and leave them to soak well.\n\nHeat the cream in a saucepan. Add the chopped chocolate and stir gently until it melts. Turn off the heat, add the cheese and stir until it is combined into the mixture.\n\nCover the base of the tin with some of the chocolate, cream and cheese mixture. Lay 5 biscuits on top, cover them with a little more of the chocolate cream and top with another layer of biscuits. Repeat until all the ingredients are used up (finish with 6 biscuits). Cover the cake with cling film, put it in the fridge and leave it to chill for at least 2 hours.\n\nRun a small knife around the edge of the cake and turn it out. Decorate it with the raspberries and the grated macadamia nuts. Garnish with a few mint leaves and serve."
+        },
+        "Palmeritas de chocolate": {
+            "hash": "0011e4fca4f7",
+            "nombre": "Chocolate palmiers",
+            "elaboracion": "Lay the puff pastry out on the worktop, sprinkle it with a little sugar and roll the rolling pin gently over it. Turn it over, sprinkle with a little more sugar and roll again. Roll the pastry up from one of the (long) edges to the centre. Do the same with the other edge, until the two rolls meet in the middle.\n\nCut the pastry into slices about 2 cm thick, lay them on a baking tray lined with baking paper and bake them at 190 ºC for 20 minutes. Remove the palmiers and leave them to cool on a wire rack.\n\nMelt the chocolates separately, either in the microwave or in a bain-marie. Dip one side of the palmiers in the dark chocolate, lay them out on a large dish and wait for the chocolate to set. Dip the other side of the palmiers in the white chocolate and wait for it to set (to make the chocolate cool faster, you can put the palmiers in the fridge).\n\nServe and garnish the plates with a few mint leaves."
+        },
+        "Mousse de fresa": {
+            "hash": "1f0f02f6e87b",
+            "nombre": "Strawberry mousse",
+            "elaboracion": "Wash the strawberries, hull them, chop them, put them in the blender jug and blend them with a hand blender until you have a smooth purée. Set aside.\n\nPut the cheese in a large bowl and beat it with an electric whisk. Add the sugar (in three goes) and beat. Add the cream (in 3 goes) and beat. Gradually add the strawberry purée (keep a little back for decoration) and beat the mixture until the ingredients are fully combined. Cover the bowl with cling film, put it in the fridge and leave it to chill.\n\nServe the mousse in 4 glasses and decorate with the reserved strawberry purée and a few mint leaves."
+        },
+        "Peras al vino con yogur": {
+            "hash": "f3cac9df3df4",
+            "nombre": "Pears in wine with yoghurt",
+            "elaboracion": "Heat 200 ml of water, the wine, the cinnamon stick and the sugar in a saucepan over a low heat.\n\nPeel the pears, put them in the pan, cover and simmer gently for 25-30 minutes, turning them from time to time (roughly every 5 minutes). Remove the pears and set them aside on a plate.\n\nReduce the wine (uncovered), cooking it over a low heat until it has reduced by half. To thicken it a little more, leave it to cool.\n\nSpoon half a yoghurt onto the base of each plate, place the pears on top and coat them with the port reduction. Garnish the pears with a few mint leaves."
+        },
+        "Tarta de arándanos": {
+            "hash": "cbf6357daf1a",
+            "nombre": "Blueberry tart",
+            "elaboracion": "To make the shortcrust pastry, mix the flour, salt, baking powder and sugar in a large bowl. Add the butter and mix a little. Add the egg and mix a little more. Turn the dough out onto the worktop and knead it until the ingredients are fully combined. Divide the dough into two portions, wrap them in cling film, put them in the fridge and leave them to chill for (at least) 2 hours so it firms up. Take them out of the fridge and knead them gently until they soften slightly.\n\nDust the worktop with a little flour, place one of the portions of dough on it, roll it out well with a rolling pin and use it to line a 23 cm loose-bottomed tin.\n\nFor the filling, mix the cornflour with the sugar and cinnamon in a bowl. Add the blueberries and mix again. Add the lemon juice and mix once more. Spread the filling over the pastry base and fold the overhanging edges in towards the centre.\n\nDust the worktop with a little more flour, place the other portion of shortcrust pastry on it and roll it out well. Cut long strips 2 cm wide and lay them over the tart in a lattice (criss-crossed strips). Beat the egg yolk and brush the lattice with it using a pastry brush.\n\nPlace the tart on the oven rack (put a tray underneath in case any liquid leaks out) and bake it at 200 ºC for 40 minutes. Remove it from the oven, wait for it to cool and turn it out of the tin.\n\nPut the icing sugar in a sieve and dust the tart with it. Garnish with a few mint leaves."
+        },
+        "Tarta de cerezas": {
+            "hash": "a3f1f7edbe23",
+            "nombre": "Cherry tart",
+            "elaboracion": "To make the pastry, put the flour, sugar, baking powder and salt in a bowl and mix gently. Dice the butter and add it. Add 1 egg and knead the ingredients until they come together. Turn the dough out onto the worktop and keep kneading until the ingredients are fully combined. Shape the shortcrust pastry into a log and wrap it in cling film. Leave it to rest in the fridge for at least 2 hours (preferably overnight).\n\nWash the cherries, stone them and put them in a large bowl. Add the sugar, the vanilla essence and the lime zest and mix well. Cover the bowl with cling film and put it in the fridge. Leave the cherries to rest for at least 2 hours (preferably overnight).\n\nTake the shortcrust pastry out of the fridge. Cut off a quarter of the dough and set it aside. Place the rest of the dough on the worktop and knead it a little (just enough to soften it slightly). Dust the worktop with a little flour, place the dough on it, dust it with a little more flour and roll it out with the rolling pin. Use it to line a round loose-bottomed tin, leaving about 2-3 cm of pastry overhanging all the way round. Fill the tart with the cherries, sprinkle them with the cornflour and fold the edges of the pastry over the cherries. Beat the other egg in a bowl and brush the pastry edges with it.\n\nRoll out the reserved piece of shortcrust pastry in the same way as the base and cut it into 1 ½ cm strips. Lay the strips over the cherries in a lattice and (carefully) brush them with the beaten egg.\n\nBake the tart at 200 ºC for 35-40 minutes. Remove it, leave it to cool and turn it out of the tin.\n\nDecorate with a little whipped cream, a few cherries and a few mint leaves."
+        },
+        "Tarta de chocolate del diablo": {
+            "hash": "c6d2a750011c",
+            "nombre": "Devil's food chocolate cake",
+            "elaboracion": "Heat 160 ml of water with the cocoa in a saucepan. When it starts to boil and the cocoa dissolves, take the pan off the heat and add the milk and the vanilla extract.\n\nPut the butter and sugar in a bowl and beat them with an electric whisk. Add 1 egg and beat until fully combined. Add the other egg and beat again until combined. Pour the mixture from the saucepan (water, cocoa, milk and vanilla) into the bowl and stir well until you have a smooth batter.\n\nMix the flour, bicarbonate of soda, baking powder and a pinch of salt in another bowl, sift it over the first bowl and stir the ingredients with a hand whisk until you have a smooth batter.\n\nGrease a round tin with a little butter and line the inside with baking paper. Pour in the batter and bake at 180 ºC for 60 minutes. Take the sponge out of the oven and let it cool slightly. Turn it out and leave it to cool on a wire rack. Cut it into 3 layers.\n\nTo make the ganache, heat the cream and the vanilla extract in a saucepan. Add the cocoa and the icing sugar. Heat the ingredients, stirring constantly (with a hand whisk), until fully combined (there is no need to let them boil). Take the pan off the heat, add the butter and keep stirring until it is fully combined. Transfer the mixture to a container and let it cool slightly.\n\nPlace one sponge layer on a large plate set on top of an upturned bowl. Cover it with a little ganache, place another sponge layer on top and cover it with ganache too. Finally, add the last layer and cover it with the rest of the ganache so that it runs over the whole top and sides of the 3-layer cake. Serve the cake, arrange the raspberries on top and garnish with a few mint leaves."
+        },
+        "Cuajada con salsa de fresa": {
+            "hash": "213ac84dbfda",
+            "nombre": "Cuajada (sheep's milk junket) with strawberry sauce",
+            "elaboracion": "Put 3 drops of rennet into each of 4 glasses or pots.\n\nPour the sheep's milk into a saucepan and heat it over a medium heat until it reaches a temperature of about 50 ºC (check the temperature with a kitchen thermometer). Divide the milk between the 4 pots and wait for it to set. For the strawberry sauce, clean the strawberries, chop 6 of them and put them in a saucepan. Add the sugar and heat until they break down. Chop the rest of the strawberries as you like (into dice or irregular pieces) and set aside.\n\nTo serve, spoon a little strawberry sauce over the cuajadas and scatter the chopped strawberries on top. Decorate with a few mint leaves."
+        },
+        "Tarta de manzana clásica": {
+            "hash": "2e4634a085d4",
+            "nombre": "Classic apple tart",
+            "elaboracion": "For the shortcrust pastry, mix the flour, salt and butter in a bowl and knead a little. Add the water and keep kneading until the ingredients are fully combined.\n\nDust the worktop with a little flour, place the dough on it and roll it out with a rolling pin. Line a loose-bottomed tin with the pastry and trim off the excess (by rolling the rolling pin over the top). Cover the pastry case with a piece of baking paper, fill it with baking beans and bake it at 200 ºC for 20 minutes. Take the pastry case out of the oven and remove the paper and the beans. Set the pastry case aside.\n\nFor the crème pâtissière, heat the milk (keep a little back) in a saucepan with the vanilla pod (split open) and the lemon peel for 5 minutes, so that the milk is well infused.\n\nIn a large bowl, mix the sugar, the cornflour and the reserved (cold) milk. Add the yolks and the egg and whisk until you have a smooth paste. Strain the infused milk over it, mix and transfer everything to the saucepan. Cook over a low heat, stirring constantly, until it thickens (about 5 minutes).\n\nSpread the crème pâtissière over the pastry case. Peel the apples, cut them into thin slices and cover the whole surface with them. Bake the tart at 200 ºC for 45 minutes. Remove it, leave it to cool and turn it out of the tin.\n\nBrush the top of the tart with the apricot jam and decorate with the raspberries, the redcurrants and a few mint leaves."
+        },
+        "Torrija caramelizada con helado": {
+            "hash": "1dfe3f8e53c5",
+            "nombre": "Caramelised torrija with ice cream",
+            "elaboracion": "Mix the milk and the condensed milk in a saucepan and heat them over a low heat. Add the cinnamon stick and the orange and lemon peel and simmer everything gently for about 6-8 minutes, until the milk is well infused.\n\nCut the slices of sandwich bread in half and place them in a deep dish. Cover them with the infused milk and wait until they are well soaked.\n\nTo stop them breaking, lift them out of the dish with a spatula and place them on a plate. Cover them with the sugar and caramelise them with a blowtorch.\n\nServe 1 torrija, 1 scoop of ice cream and a few mint leaves on each plate."
+        },
+        "Pastelitos de queso con mermelada": {
+            "hash": "674aeff988da",
+            "nombre": "Little cheesecakes with jam",
+            "elaboracion": "To line the moulds, cut 4 large pieces of baking paper, squeeze and scrunch them up well (as if you were making balls with them). Open them out again and spread them over 4 round ovenproof dishes. To help the paper fit the mould better, you can press it down by putting a glass inside. Place the moulds on a baking tray.\n\nCrack the eggs into a jug. Add the cheese, sugar, flour and cream and blend the ingredients with a hand blender until you have a smooth cream. Divide the cream between the 4 moulds and bake at 200 ºC for 20 minutes. Take the tray out of the oven and leave them to cool.\n\nTurn out the little cheesecakes, serve them and spoon the apricot jam over them. Decorate the plates with a few mint leaves."
+        },
+        "Tortilla de chocolate con chantillí": {
+            "hash": "56ba3cc2c59a",
+            "nombre": "Chocolate omelette with Chantilly cream",
+            "elaboracion": "Heat 1 tablespoon of oil in a frying pan. Beat 3 eggs in a bowl, add half the sugar, half the chocolate and half the cocoa and mix well. Pour the mixture into the pan and let it set little by little, stirring the ingredients gently. Transfer the omelette to a plate and set aside. Repeat with the remaining ingredients to make another omelette.\n\nTo make the Chantilly cream, put the cold cream in a bowl, add the icing sugar and the vanilla essence and whisk the ingredients with an electric whisk until they form peaks. Put the Chantilly cream into a piping bag fitted with a (plain or star) nozzle.\n\nWash the strawberries, hull them and slice them. Peel the banana and cut it into rounds.\n\nTo serve, cut the omelettes in half and serve half on each plate (if you prefer, you can cut it into strips). Accompany with the Chantilly cream, the strawberry slices and the banana rounds. Garnish the plates with a few mint leaves."
+        },
+        "Sándwich helado": {
+            "hash": "152f24b16d55",
+            "nombre": "Ice cream sandwich",
+            "elaboracion": "Take the ice cream out of the freezer and leave it at room temperature for 15 minutes.\n\nUsing an ice cream scoop, make a ball of ice cream and place it on a biscuit, cover the ice cream with another biscuit and press them together a little to make a sandwich. Using a paring knife (small knife), trim off any ice cream that sticks out. Repeat with the rest of the biscuits and the rest of the ice cream.\n\nPlace the sandwiches on a dish, cover them with cling film and put them in the freezer until ready to eat.\n\nMelt the chocolate in a bain-marie and transfer it to a small bowl. Put the almond brittle in another bowl as well.\n\nTake the sandwiches out of the freezer. Dip a sandwich halfway into the melted chocolate and then into the almond brittle. Repeat with the rest of the sandwiches. Serve 2 sandwiches on each plate and garnish with a few mint leaves."
+        },
+        "Arroz con leche": {
+            "hash": "44905bc449a5",
+            "nombre": "Rice pudding",
+            "elaboracion": "Put the milk in a saucepan with the lemon peel and the cinnamon stick and bring it to the boil.\n\nAdd the rice and simmer over a very low heat for about 40 minutes, stirring often so that it does not stick.\n\nWhen the rice is creamy, remove the cinnamon and the peel, add the sugar and cook for a further 5 minutes.\n\nDivide between bowls, leave to cool and sprinkle with ground cinnamon before serving."
+        },
+        "Natillas caseras": {
+            "hash": "588aeb43efae",
+            "nombre": "Homemade natillas (Spanish custard)",
+            "elaboracion": "Heat the milk with the cinnamon stick and the lemon peel. When it boils, take it off the heat and leave it to infuse for 10 minutes.\n\nWhisk the yolks with the sugar and the cornflour until there are no lumps.\n\nStrain the milk over the yolks, mix and return everything to the saucepan. Cook over a low heat, stirring constantly, until it thickens, without letting it boil.\n\nDivide between bowls, leave to cool and sprinkle with ground cinnamon."
+        },
+        "Bizcocho de yogur": {
+            "hash": "5c02d988521e",
+            "nombre": "Yoghurt sponge cake",
+            "elaboracion": "Preheat the oven to 180 ºC and grease a tin with a little oil.\n\nWhisk the eggs with the sugar until pale. Add the yoghurt, the oil and the lemon zest and mix well.\n\nGently fold in the flour sifted with the baking powder until there are no lumps.\n\nPour the batter into the tin and bake for about 40 minutes, until a cocktail stick inserted comes out clean. Leave to cool before turning out."
+        },
+        "Focaccia": {
+            "hash": "c6d365290e4f",
+            "nombre": "Focaccia",
+            "elaboracion": "The day before, make the dough: put the flour, milk, egg yolk, honey, salt and crumbled yeast in a bowl and mix the ingredients until the flour is fully incorporated. Cover the bowl with cling film and leave it to rest for 30 minutes at room temperature (autolyse).\n\nDust the worktop with a little flour, place the dough on it, spread it out a little and add the butter. Knead (wrapping the butter in the dough) until the butter is fully incorporated.\n\nPut a little oil in the bottom of a large bowl, put the dough in it, cover it with cling film and leave it to rest in the fridge for 24 hours.\n\nDust the worktop with a little flour, take the dough out of the fridge and stretch it out on the worktop (first with your hands and then with a rolling pin) into a rectangle. Place it on a baking tray lined with baking paper.\n\nScatter the olives (sliced into rings) and the tomatoes (halved) over the top. Cover the dough with a clean tea towel and leave it to rise until doubled in size (about 1 hour).\n\nIn a small bowl, mix the oil with 2 tablespoons of water, 1 sprig of rosemary (chopped) and a pinch of salt.\n\nPress the dough with your fingertips, brush it well with the rosemary oil and sprinkle with the flaky sea salt.\n\nHeat the oven to 230 ºC. Lower the temperature to 190 ºC, put the focaccia in and bake it at 190 ºC for 12-15 minutes. Take it out of the oven and let it cool slightly. Serve and garnish the plates with a few parsley leaves and a few small pieces of rosemary sprig."
+        },
+        "Pan de chocolate": {
+            "hash": "2cbf12657abe",
+            "nombre": "Chocolate bread",
+            "elaboracion": "Put the flour, water, salt, crumbled yeast, sourdough starter and cocoa powder in a bowl and mix the ingredients (first with a spatula and then by hand) until the flour is incorporated. Cover the bowl with cling film and leave it to rest at room temperature for 30 minutes (autolyse).\n\nDust the worktop with a little flour, place the dough on it, dust it with a little more flour and add the butter and the chocolate chips. Knead for 5 minutes, until the ingredients are fully combined.\n\nPut a little flour in a bowl. Place the dough in it, cover with cling film and leave it to rest in the fridge for 24 hours.\n\nRemove the cling film and dust the dough with a little flour. Dust the worktop with a little more flour, place the dough on it, cut it into 4 portions and shape them into 2 round rolls and 2 long rolls. Place the rolls on a baking tray lined with baking paper, slash them down the middle, cover them with a clean tea towel and leave them to prove at room temperature until doubled in size (about 2 hours). Spray the rolls with a little water.\n\nHeat the oven to 200 ºC. Put the rolls in, lower the temperature to 185 ºC and bake them for 20 minutes. Take them out and leave them to cool on a wire rack. Serve."
+        },
+        "Coca de trampó con atún": {
+            "hash": "019c5fdd9a3e",
+            "nombre": "Coca de trampó with tuna (Majorcan flatbread with vegetables)",
+            "elaboracion": "To make the dough, put the flour in a large bowl and add the lard, oil, water, baking powder and a pinch of salt. Mix well, turn the dough out onto the worktop and knead it until smooth.\n\nDust the worktop with a little flour, place the dough on it, roll it out with a rolling pin and place it on a baking tray lined with baking paper. Prick it with a fork and bake it at 180 ºC for about 20 minutes.\n\nPeel the spring onion, removing the outer layer, cut it into large dice and put them in a bowl. Peel the tomatoes, dice them and add them. Wash the peppers (peel the red one), remove the stalks and seeds, dice them and add them. Dress the vegetables with 2-3 tablespoons of oil, the paprika, a pinch of salt and a pinch of pepper. Mix well and leave to marinate for 15 minutes. Drain them well.\n\nTake the base out of the oven (leave the oven on) and spread the vegetables over it. Put the coca in the oven and bake it at 180 ºC for about 20 minutes. Take the coca out of the oven (without turning the oven off), scatter over the capers and the flaked tuna, return it to the oven and bake for a further 5 minutes at the same temperature.\n\nServe the coca de trampó and garnish with a few parsley leaves."
+        },
+        "Tartaletas de avena rellenas de pisto y lomo": {
+            "hash": "0a9559e1e4ef",
+            "nombre": "Oat tartlets filled with pisto and pork loin",
+            "elaboracion": "To make the dough for the tartlets, put the oat flakes and the flour in a large bowl and mix them. Add the water little by little. Add the oil and a pinch of salt and knead by hand until you have a smooth dough.\n\nCut the dough into 4 pieces, roll them out with a rolling pin and use them to line 4 individual tartlet tins. To stop the tartlets puffing up, cover them with baking paper and fill them with baking beans. Bake them at 180 ºC for 20 minutes. Remove the tartlets and set aside.\n\nPeel the garlic cloves and dice them. Cut the spring onion the same way. Heat 3 tablespoons of oil in a frying pan and gently fry the garlic and spring onion. Remove the stalk and seeds from the pepper, dice it and add it to the pan. Dice the courgette as well and add it. Cook the vegetables for 6-8 minutes. Peel the tomatoes, dice them and add them. Season with salt to taste and cook everything together for 15 minutes.\n\nDice the pork loin, season with salt and pepper and sauté it over a high heat in a frying pan with 2 tablespoons of oil. Add it to the pan with the pisto and mix well. Fill the tartlets.\n\nServe one tartlet on each plate and garnish with a few parsley leaves."
+        },
+        "Quiche de panceta y queso": {
+            "hash": "bb92a7cf18d5",
+            "nombre": "Bacon and cheese quiche",
+            "elaboracion": "To make the pastry, put the flour, salt, butter and egg in a large bowl. Knead until the ingredients are fully combined, put the dough in the fridge and leave it to rest for 30 minutes.\n\nTurn the dough out onto the worktop, roll it out with a rolling pin and use it to line a round loose-bottomed tin. Cover the pastry case with baking paper and fill it with a layer of baking beans so that it does not puff up. Bake it at 180 ºC for 30 minutes. Take it out of the oven, remove the beans and set the pastry case aside.\n\nDice the spring onion, remove the stalk and seeds from the pepper and cut it the same way. Heat 3 tablespoons of oil in a frying pan and gently fry the vegetables for 8-10 minutes. Dice the pancetta, add it and brown it. Chop the cheese, add it, cook briefly and transfer the filling to the pastry case.\n\nBeat the eggs with the cream and a pinch of salt. Pour the mixture into the pastry case so it covers the filling. Bake the quiche at 180 ºC for 20 minutes. Take it out of the oven, let it cool slightly and turn it out of the tin.\n\nCut the quiche into slices and serve. Garnish the plates with a few parsley leaves."
+        },
+        "Bollos de pan integral": {
+            "hash": "54d75aaa9db9",
+            "nombre": "Wholemeal bread rolls",
+            "elaboracion": "Put the flour in a large bowl. Add the sourdough starter, the crumbled fresh yeast and the water and mix the ingredients a little. Add the salt and keep mixing until the flour is fully incorporated. Cover the bowl with cling film and leave the dough to rest at room temperature for 20-30 minutes (autolyse).\n\nDust the worktop and the dough with a little flour, take it out of the bowl and knead it for 3-5 minutes. Put it back in the bowl, cover it with cling film, put it in the fridge and leave it to rest for 24 hours.\n\nDust the worktop with a little flour. Take the dough out of the fridge, dust it with a little more flour and place it on the worktop. Divide the dough into 5 portions and flatten them slightly (to knock the air out). Shape each piece into a ball and then form them into 5 long rolls.\n\nPlace the rolls (seam side down) on a baking tray lined with baking paper. Cover them with a clean cotton tea towel and leave them to prove for 2 hours. Score the rolls (make a few cuts in the top with a small knife).\n\nHeat the oven to 220 ºC, put the tray in the oven and pour a glass of water into the bottom of the oven. Lower the temperature to 190 ºC and bake the rolls for 10 minutes. Open the oven to let the steam out. Close the oven again and bake for a further 15 minutes. Take the rolls out of the oven, place them on a wire rack and leave them to cool.\n\nServe."
+        },
+        "Pan casero": {
+            "hash": "1df776ada691",
+            "nombre": "Homemade bread",
+            "elaboracion": "Dissolve the yeast in the lukewarm water. Mix the flour with the salt in a large bowl and add the water little by little.\n\nKnead for 10 minutes until the dough is smooth and elastic. Cover it and leave it in a warm place until doubled in size, about 1 hour.\n\nKnock back the dough, shape it into a round loaf and leave it to rise for another 45 minutes on a floured tray.\n\nBake at 230 ºC with a container of water in the bottom of the oven for 30-35 minutes. Leave to cool on a wire rack."
+        },
+        "Panecillos de queso": {
+            "hash": "334039527354",
+            "nombre": "Cheese bread rolls",
+            "elaboracion": "Preheat the oven to 200 ºC. Heat the milk with the oil and salt until it boils.\n\nPour the liquid over the tapioca starch and mix with a spoon until it forms a sticky dough. Leave it to cool slightly.\n\nAdd the egg and the grated cheese and knead by hand until the dough is smooth.\n\nShape into walnut-sized balls, place them on a tray lined with baking paper and bake for 20-25 minutes, until golden."
+        }
+    }
+}
