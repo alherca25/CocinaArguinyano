@@ -5,7 +5,7 @@
             "pagina": "185.0",
             "elaboracion": "Lava los tomates, trocéalos, colócalos en un vaso americano y tritúralos bien. Cuela el puré y ponlo de nuevo en el vaso americano.\n\nAgrega la miga de pan (troceada), el diente de ajo (pelado), sal (al gusto) y 100 ml de aceite. Tritura todo bien hasta conseguir una crema homogénea. Pasa el salmorejo a una jarra, introdúcelo en el frigorífico y deja que se enfríe bien.\n\nCalienta abundante aceite en una sartén. Cuando esté bien caliente, añade las guindillas y fríelas durante 2 minutos por cada lado. Retíralas a un plato y sazónalas.\n\nSirve el salmorejo en cuatro platos y reparte encima (a un lado) las guindillas. Decora los platos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -212,6 +212,113 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Gazpacho andaluz",
+            "pagina": "",
+            "elaboracion": "Lava los tomates, el pepino y el pimiento. Pela el pepino y el diente de ajo, quita las semillas al pimiento y trocea todas las hortalizas.\n\nPonlas en el vaso de la batidora con el vinagre, una pizca de sal y un vaso de agua fría. Tritura hasta que quede muy fino.\n\nCon la batidora en marcha, añade el aceite poco a poco para que el gazpacho emulsione. Prueba y corrige de sal y vinagre.\n\nCuélalo si lo quieres más suave y guárdalo en el frigorífico al menos 2 horas. Sírvelo bien frío con un poco de pepino picado por encima.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Tomate pera",
+                    "cantidad": "1000",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Pepino",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Vinagre de jerez",
+                    "cantidad": "2",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Agua",
+                    "cantidad": "200",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Sopa de ajo castellana",
+            "pagina": "",
+            "elaboracion": "Pela y lamina los dientes de ajo. Corta el pan del día anterior en rebanadas finas y el jamón en tiras.\n\nCalienta el aceite en una cazuela y dora los ajos a fuego suave. Añade el jamón y el pan y rehoga 2 minutos, removiendo para que el pan se empape.\n\nAparta la cazuela del fuego, añade el pimentón y remueve rápido para que no se queme. Vierte el caldo caliente, sazona y cuece 15 minutos a fuego suave.\n\nBate los huevos y échalos en la sopa en hilo, removiendo con un tenedor para que cuajen en hebras. Sirve enseguida con perejil picado.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "6",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pan del día anterior",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Jamón serrano",
+                    "cantidad": "80",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Caldo de pollo",
+                    "cantidad": "1500",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "4",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Perejil",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Cremas": [
@@ -292,7 +399,7 @@
             "elaboracion": "Calienta 1.250 ml de agua en una olla rápida. Pela las zanahorias, introdúcelas en la olla, sazónalas, cierra la olla y cuécelas durante 4 minutos. Retíralas, escúrrelas y deja que se enfríen. Reserva por separado el agua de la cocción.\n\nTrocea las zanahorias y ponlas en el vaso americano, agrega la manzana (pelada y troceada), el comino, parte del agua de la cocción (según tus preferencias: más ligera o más espesa) y el vinagre. Tritura todo hasta conseguir una crema homogénea. Añade el aceite poco a poco y sigue triturando hasta que emulsione. Pon a punto de sal, introduce la sopa en el frigorífico y deja que se enfríe bien.\n\nPara preparar la guarnición, corta la cebolleta, el pimiento y el jamón en daditos, y los tomates, en cuartos.\n\nReparte la sopa en 4 platos hondos, salpica los platos con la guarnición y decóralos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -351,6 +458,179 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Crema de calabaza y zanahoria",
+            "pagina": "",
+            "elaboracion": "Pela la calabaza, las zanahorias, la cebolla y la patata, y córtalas en trozos medianos.\n\nPocha la cebolla en una cazuela con el aceite durante 5 minutos. Añade el resto de hortalizas, rehoga 2 minutos más y cubre con el caldo de verduras.\n\nSazona y cuece a fuego medio unos 25 minutos, hasta que todo esté tierno.\n\nTritura con la nata hasta que la crema quede fina. Sírvela caliente con unas pipas de calabaza tostadas y un hilo de aceite.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Calabaza",
+                    "cantidad": "700",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Zanahoria",
+                    "cantidad": "3",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Caldo de verduras",
+                    "cantidad": "1000",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Nata líquida",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Pipas de calabaza",
+                    "cantidad": "30",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "3",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Pimienta",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Vichyssoise",
+            "pagina": "",
+            "elaboracion": "Limpia los puerros y quédate con la parte blanca. Córtala en rodajas finas. Pela las patatas y trocéalas.\n\nDerrite la mantequilla en una cazuela y pocha el puerro a fuego suave 10 minutos, sin que llegue a dorarse.\n\nAñade las patatas, cubre con el caldo, sazona y cuece 20 minutos. Tritura con la nata y pasa la crema por un colador fino.\n\nEnfríala en el frigorífico y sírvela fría con cebollino picado por encima. También está buena caliente.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Puerro",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Mantequilla",
+                    "cantidad": "40",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Caldo de verduras",
+                    "cantidad": "800",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Nata líquida",
+                    "cantidad": "200",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Cebollino",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimienta",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Crema de champiñones",
+            "pagina": "",
+            "elaboracion": "Limpia los champiñones y lamínalos. Reserva unos pocos para decorar. Pela la cebolla, el ajo y la patata y pícalos.\n\nPocha la cebolla y el ajo en una cazuela con aceite. Añade los champiñones y saltéalos a fuego vivo hasta que pierdan el agua.\n\nIncorpora la patata y el caldo, sazona y cuece 20 minutos. Tritura con la leche hasta obtener una crema fina.\n\nSaltea los champiñones reservados con un poco de aceite y tomillo y colócalos encima de cada plato.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Champiñones",
+                    "cantidad": "500",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Caldo de verduras",
+                    "cantidad": "750",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Leche",
+                    "cantidad": "150",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Tomillo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "3",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Pimienta",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Verduras": [
@@ -359,7 +639,7 @@
             "pagina": "214.0",
             "elaboracion": "Lava las patatas, ponlas en una cazuela, cúbrelas con agua y cuécelas durante 30-35 minutos (contados desde el momento en que el agua empiece a hervir). Retíralas y deja que se templen.\n\nPara la salsa, calienta una cazuela con 3 cucharadas de aceite. Pela 2 dientes de ajo y la cebolla, córtalos en dados y añádelos a la cazuela. Retira la parte inferior, superior y 2-3 capas del puerro, lávalo, córtalo en cuartos de luna e incorpóralo a la cazuela. Pela 2 zanahorias, córtalas de la misma manera y agrégalas. Sazona y cocina las hortalizas a fuego suave-medio durante 15 minutos. Agrega la cucharada de harina y rehógala bien. Vierte encima el vino y dale un hervor. Añade 300 ml de agua y cocina todo durante 10 minutos. Tritura con una batidora eléctrica hasta conseguir una salsa homogénea. Resérvala y caliéntala un poco en el momento de servir.\n\nLava el calabacín, córtalo en daditos y ponlo a rehogar en una sartén con 3 cucharadas de aceite. Pela la otra zanahoria, rállala y agrégala. Pela el otro diente de ajo, córtalo en daditos e incorpóralo. Sazona y cocina las hortalizas a fuego suave-medio durante 10 minutos. Escúrrelas bien y resérvalas.\n\nPela las patatas, ponlas en un bol y aplástalas con un machacador de patatas. Sazónalas, agrega las hortalizas (calabacín, zanahoria y ajo) escurridas y mezcla bien. Añade el pan rallado poco a poco, sin dejar de mezclar, hasta conseguir una masa homogénea.\n\nCoge pequeñas porciones de masa, redondéalas y forma las albóndigas. Pásalas por harina y fríelas en una sartén con abundante aceite. Escúrrelas sobre una fuente cubierta con papel absorbente.\n\nSirve la salsa en la base de los platos y coloca encima 3-4 albóndigas. Decora los platos con polvo de perejil y unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -587,7 +867,7 @@
             "pagina": "255.0",
             "elaboracion": "Extiende 1 cucharada de aceite sobre un recipiente o molde rectangular apto para el horno. Coloca un trozo de papel de hornear a lo largo del recipiente, dejando una pestaña por cada lado. Úntalo con otra cucharada de aceite, espolvoréalo con las 2 cucharadas de harina y espárcela bien.\n\nPela las cebollas, córtalas en juliana fina y rehógalas durante 6-8 minutos en una sartén con 4-5 cucharadas de aceite.\n\nLava los calabacines (déjalos con piel), córtalos en medias lunas e incorpóralos a la sartén. Sazona y cocina todo conjuntamente durante unos 15 minutos. Escurre bien y reserva.\n\nCasca los huevos y ponlos en un bol grande. Agrega la leche, la nata, el orégano y una pizca de sal y bate todo bien. Incorpora al bol la farsa de cebolla y calabacín y mezcla suavemente.\n\nVierte la mezcla en el recipiente apto para el horno, espolvoréala con el queso y hornea a 180 ºC durante 30 minutos. Retira el pastel del horno y deja que se temple.\n\nDesmolda el pastel, córtalo en porciones y sirve. Acompaña cada ración con un poco de salsa de tomate caliente. Decora los platos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -652,6 +932,154 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Pisto con huevo frito",
+            "pagina": "",
+            "elaboracion": "Pica la cebolla y los pimientos en dados. Corta el calabacín y la berenjena en dados algo más grandes.\n\nPocha la cebolla y los pimientos en una sartén amplia con aceite a fuego suave durante 15 minutos.\n\nAñade la berenjena y el calabacín, sazona y cocina 10 minutos más. Incorpora el tomate triturado y una pizca de azúcar y deja que se haga a fuego lento otros 20 minutos.\n\nFríe los huevos en aceite bien caliente y sirve cada uno sobre una ración de pisto.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento rojo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Calabacín",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Berenjena",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate triturado",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Azúcar",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "6",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Escalivada",
+            "pagina": "",
+            "elaboracion": "Precalienta el horno a 200 ºC. Lava las berenjenas, los pimientos y las cebollas y colócalos enteros en una bandeja con un chorrito de aceite.\n\nÁsalos durante 50-60 minutos, dándoles la vuelta a mitad de tiempo, hasta que estén tiernos y con la piel tostada.\n\nTápalos con un paño 10 minutos para que suden y se pelen con facilidad. Pélalos y córtalos en tiras.\n\nColócalos en una fuente, aliña con aceite, sal y el ajo muy picado, y deja reposar un rato antes de servir.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Berenjena",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento rojo",
+                    "cantidad": "3",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "6",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Judías verdes rehogadas con jamón",
+            "pagina": "",
+            "elaboracion": "Quita las puntas y los hilos de las judías y córtalas en trozos. Cuécelas en agua con sal 10-12 minutos y escúrrelas.\n\nPela las patatas, córtalas en dados y cuécelas junto a las judías los últimos 8 minutos, o por separado si son grandes.\n\nDora en una sartén con aceite los ajos laminados y el jamón en taquitos. Añade el pimentón y retira del fuego.\n\nEcha las judías y las patatas en la sartén, saltea 2 minutos para que se mezclen los sabores y sirve.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Judías verdes",
+                    "cantidad": "600",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Jamón serrano",
+                    "cantidad": "100",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "4",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Legumbres": [
@@ -661,7 +1089,7 @@
             "elaboracion": "La víspera, pon las alubias blancas en un bol grande, cúbrelas con agua, introdúcelas en el frigorífico y déjalas a remojo. Escúrrelas, ponlas en una olla rápida y cúbrelas con agua.\n\nLimpia el puerro (retírale la parte inferior, la superior y la primera capa y enjuágalo), córtalo en 3-4 trozos y ponlo en una red de cocer legumbres. Pela la cebolla y agrégala a la red. Cierra la red e introdúcela en la olla junto con el laurel. Sazona, cierra la olla y cuece las alubias durante 3 minutos. Escurre las alubias y resérvalas. En el momento de servir, saca las hortalizas de la red, córtalas un poco y ponlas en una fuente. Sazónalas y riégalas con un chorrito de aceite.\n\nCalienta una sartén grande con 3 cucharadas de aceite. Pincha las butifarras con una puntilla (cuchillo pequeño), colócalas en la sartén y cocínalas a fuego medio durante 3-4 minutos por cada lado. Retíralas y resérvalas en un plato. A la hora de servir, córtalas en rodajas gruesas.\n\nAgrega las alubias escurridas a la sartén donde has cocinado las butifarras y saltéalas durante 2 minutos.\n\nSirve en cada plato una buena porción de alubias y unas rodajas de butifarra. Acompaña con el puerro y la cebolla y adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -712,7 +1140,7 @@
             "elaboracion": "Calienta 3-4 cucharadas de aceite en una olla rápida. Pela los dientes de ajo, córtalos en dados y añádelos a la olla. Pela la cebolla, córtala en daditos y agrégala. Retira el tallo y las semillas del pimiento, córtalo de la misma manera e incorpóralo. Sazona y cocina las hortalizas a fuego suave durante 10 minutos. Agrega la salsa de tomate y cocina durante 4-5 minutos más.\n\nCalienta 1 cucharada de aceite en una sartén. Corta los chorizos en rodajas y la panceta en trozos de 1 cm, añádelos a la sartén y dóralos bien. Incorpóralos (sin grasa) a la olla.\n\nPela la calabaza y córtala en trozos de bocado. Pela las patatas y trocéalas (cascándolas). Agrégalas (calabaza y patatas) a la olla. Añade también los chícharos, el codillo, el laurel, el pimentón y el comino. Cubre todo con agua, cierra la olla y cocina los ingredientes a fuego suave-medio durante 15 minutos.\n\nAbre la olla, retira el codillo y córtalo en 6 trozos.\n\nReparte el guiso en 6 platos y pon un trozo de codillo en cada uno. Adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -803,7 +1231,7 @@
             "elaboracion": "Pon la panceta en una olla rápida, cúbrela con agua, sazónala, cierra la olla y cuécela durante 30 minutos. Retírala y deja que se enfríe.\n\nCalienta 2-3 cucharadas de aceite en una cazuela. Pela la cebolleta y la zanahoria y limpia bien el puerro (retírale la parte inferior, la superior y 1-2 capas de hojas y enjuágalo). Corta la cebolleta en dados, y la zanahoria y el puerro, en cuartos de luna finos. Agrega las hortalizas a la cazuela, sazónalas y cocínalas a fuego suave-medio durante 8-10 minutos.\n\nCorta el chorizo en 4 trozos e incorpóralo a la cazuela. Agrega las lentejas, cúbrelas con abundante agua (3-4 veces más que de lentejas), sazónalas y cuécelas a fuego suave durante 40-45 minutos. Añade el pimentón y mezcla bien.\n\nCalienta una sartén sin aceite. Corta la panceta en 4 trozos, ponlos en la sartén y dóralos por los dos lados.\n\nSirve las lentejas con chorizo en 4 platos y coloca un trozo de panceta en cada uno. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -925,7 +1353,7 @@
             "elaboracion": "Pon las alubias a remojo la víspera.\n\nEscurre las alubias y ponlas en una olla rápida, corta el chorizo en 8 trozos y añádelos. Pela la cebolleta y 2 dientes de ajo, córtalos en daditos e incorpóralos. Sazona, agrega 1 cucharada de aceite y el pimentón y añade agua hasta cubrir. Cierra la olla y cocina las alubias durante 15 minutos.\n\nPela los otros 2 dientes de ajo y dóralos en una cazuela con 2 cucharadas de aceite. Añade el arroz, sazónalo, cúbrelo con agua (el triple que de arroz) y cuécelo durante 30 minutos.\n\nReparte las alubias con chorizo y el arroz en 4 platos. Adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -976,7 +1404,7 @@
             "elaboracion": "Pon los garbanzos a remojar la víspera. Calienta abundante agua en la olla rápida. Introduce los garbanzos (escurridos), la panceta y los granos de pimienta negra. Sazona, cierra la olla y cuece todo durante 20 minutos.\n\nRetira la panceta, córtala en dados y resérvala. Retira los garbanzos, escúrrelos y resérvalos.\n\nPela los dientes de ajo y la cebolleta, córtalos en daditos y rehógalos en una sartén grande con 4 cucharadas de aceite durante 10 minutos. Incorpora los garbanzos, sazónalos y saltéalos.\n\nCalienta otra sartén, agrega 1 cucharada de aceite y los dados de panceta ibérica y cocínalos hasta que se doren un poco.\n\nReparte los garbanzos y los dados de panceta en 4 platos. Adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1026,8 +1454,8 @@
             "pagina": "309.0",
             "elaboracion": "Pon a calentar abundante agua en una olla rápida e introduce en ella las lentejas.\n\nPela la cebolla, córtala en 4 y ponla en una red para cocer legumbres. Limpia el puerro (retírale la parte inferior, la superior y 1-2 capas de hojas y enjuágalo), córtalo en 4 e introdúcelo en la red. Lava el tomate, córtalo en 4 y añádelo. Pela el diente de ajo y agrégalo. Agrega también la hoja de laurel. Cierra la red e introdúcela en la olla.\n\nSazona, cierra la olla y cocina las lentejas a fuego medio durante 15-20 minutos.\n\nRetira la red, ábrela, retira el laurel, pasa las hortalizas a un vaso batidor y tritúralas con una batidora eléctrica hasta conseguir un puré homogéneo. Incorpóralo a la olla y remuévela hasta que los ingredientes queden bien integrados.\n\nPela las zanahorias y córtalas en rodajas finas. Calienta una sartén con 2-3 cucharadas de aceite, añade las zanahorias y saltéalas durante 4-5 minutos. Agrega la cúrcuma y una pizca de sal y saltea brevemente (1 minuto), hasta que la cúrcuma impregne las zanahorias.\n\nReparte las lentejas en 4 platos y coloca una porción de zanahorias en cada plato. Decóralos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1092,8 +1520,8 @@
             "pagina": "318.0",
             "elaboracion": "Calienta agua en una olla rápida. Cuando empiece a hervir, introduce los garbanzos, sazónalos, cierra la olla y cuécelos durante 15 minutos. Escúrrelos y resérvalos.\n\nPela la cebolla y el diente de ajo, pícalos finamente y rehógalos durante 5-6 minutos en una sartén con 2 cucharadas de aceite.\n\nPasa los garbanzos y las hortalizas (escurridas) por el pasapurés sobre un bol grande. Agrega el perejil picado, el cilantro, el comino, la pimienta y una pizca de sal y mezcla bien. Incorpora la harina de garbanzo y mezcla bien, hasta conseguir una masa homogénea.\n\nDivide la masa en pequeñas porciones y redondéalas. Fríelas en un cazo con abundante aceite hasta que se doren. Retíralas y escúrrelas sobre un plato cubierto con papel absorbente.\n\nPara preparar la salsa de yogur, ralla el ajo (o pícalo finamente), ponlo en un bol, agrega el yogur, el zumo de limón, la ralladura, el perejil, la pimienta y la sal y mezcla bien.\n\nSirve el falafel y acompáñalo con la salsa de yogur. Adorna los platos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1243,6 +1671,179 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Lentejas estofadas con verduras",
+            "pagina": "",
+            "elaboracion": "Pica la cebolla, el pimiento, la zanahoria y el ajo. Pocha todo en una olla con aceite durante 10 minutos.\n\nAñade el tomate rallado y el pimentón, remueve un minuto e incorpora las lentejas, la patata en trozos y la hoja de laurel.\n\nCubre con el caldo, sazona y cuece a fuego suave unos 40 minutos, hasta que las lentejas estén tiernas. Añade más caldo si hace falta.\n\nDeja reposar 5 minutos fuera del fuego y sirve.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Lentejas",
+                    "cantidad": "300",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Zanahoria",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Caldo de verduras",
+                    "cantidad": "1500",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Laurel",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "3",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Garbanzos con espinacas",
+            "pagina": "",
+            "elaboracion": "Fríe en una sartén con aceite los dientes de ajo y la rebanada de pan hasta que estén dorados. Pásalos al mortero.\n\nAñade el comino, el pimentón y un chorrito de vinagre al mortero y machaca hasta tener una pasta.\n\nEn la misma sartén saltea las espinacas hasta que se reduzcan. Incorpora los garbanzos cocidos, la pasta del mortero y un vaso de agua.\n\nCuece 10 minutos a fuego suave para que espese, corrige de sal y sirve.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Garbanzos cocidos",
+                    "cantidad": "800",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Espinacas",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "3",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Rebanada de pan",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Comino",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Vinagre",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "5",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Fabada asturiana",
+            "pagina": "",
+            "elaboracion": "Pon las fabes en remojo en agua fría la noche anterior.\n\nEscúrrelas y ponlas en una olla con el chorizo, la morcilla, la panceta y el lacón. Cubre con agua fría y lleva a ebullición.\n\nRetira la espuma, baja el fuego al mínimo y añade el azafrán. Cuece 2 horas y media, añadiendo un poco de agua fría de vez en cuando para «asustar» las fabes. No las remuevas: mueve la olla.\n\nSazona al final, deja reposar 15 minutos y sirve las fabes con el compango troceado.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Fabes",
+                    "cantidad": "500",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Chorizo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Morcilla",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Panceta",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Lacón",
+                    "cantidad": "200",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Azafrán",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Huevos": [
@@ -1332,7 +1933,7 @@
             "pagina": "329.0",
             "elaboracion": "Corta el pan en dados, ponlos en una bandeja de horno y hornéalos a 220 ºC, hasta que se doren. Retíralos y resérvalos.\n\nPela los dientes de ajo, pícalos y ponlos a dorar en una sartén con 3-4 cucharadas de aceite. Corta las cebolletas en juliana y añádelas. Retira el tallo y las semillas de los pimientos, córtalos en dados grandes y agrégalos. Sazona y cocina las hortalizas durante 10-15 minutos.\n\nReparte en 4 recipientes aptos para el horno las hortalizas y, encima, los dados de pan tostados y el queso. Casca los huevos, pon 2 en cada recipiente y sazónalos. Introdúcelos en el horno a 180 ºC durante unos 8 minutos.\n\nSirve y decora con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -1389,7 +1990,7 @@
             "elaboracion": "Pela el diente de ajo y la cebolla, córtalos en dados y ponlos a rehogar en una cazuela con 3-4 cucharadas de aceite. Retira el tallo y las semillas del pimiento, córtalo de la misma manera y agrégalo. Sazona y cocina las hortalizas durante 10 minutos. Agrega 250 ml de agua y deja que reduzca durante 10 minutos. Tritura los ingredientes con una batidora eléctrica hasta conseguir una salsa homogénea y resérvala.\n\nCasca 1 huevo, ponlo en un bol, sazónalo, añade un poco de perejil picado y bátelo. Calienta una sartén pequeña con unas gotas de aceite, vierte en ella el huevo y cuaja una tortilla (a modo de crepe). Repite el proceso con el resto de los huevos.\n\nFríe las lonchas de panceta (sin que se doren) en una sartén con una gotita de aceite. Retíralas a un plato y resérvalas.\n\nCorta 8 bastones de queso y ralla el resto.\n\nExtiende las tortillas, pon 1 bastón de queso en uno de los lados de cada una y enróllalas alrededor. Envuelve cada tortilla con 1 loncha de panceta y coloca los rollitos sobre una bandeja o fuente apta para el horno. Espolvoréalos con el queso rallado y gratínalos en el horno hasta que se doren un poco.\n\nSirve la salsa en el fondo de 4 platos y coloca encima 2 rollitos en cada uno. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1504,6 +2105,139 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Tortilla de patatas",
+            "pagina": "",
+            "elaboracion": "Pela las patatas y córtalas en láminas finas. Pela la cebolla y córtala en juliana.\n\nPocha las patatas y la cebolla en abundante aceite a fuego medio unos 20 minutos, hasta que estén tiernas sin dorarse. Escúrrelas bien.\n\nBate los huevos con sal, añade las patatas y deja reposar la mezcla 5 minutos.\n\nCalienta una sartén con un poco de aceite, vierte la mezcla y cuaja a fuego medio 3 minutos. Dale la vuelta con un plato y cuaja 2 minutos por el otro lado.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Patata",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "6",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "300",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Huevos rotos con jamón",
+            "pagina": "",
+            "elaboracion": "Pela las patatas y córtalas en bastones gruesos. Sécalas con papel de cocina.\n\nFríelas en abundante aceite a fuego medio hasta que estén tiernas y sube el fuego al final para dorarlas. Escúrrelas y sálalas.\n\nFríe los huevos en el mismo aceite, con la yema jugosa.\n\nColoca las patatas en una fuente, pon encima los huevos y el jamón en lonchas, y rompe las yemas con un tenedor justo antes de servir.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Patata",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Jamón serrano",
+                    "cantidad": "100",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "500",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Huevos al plato con tomate y pimientos",
+            "pagina": "",
+            "elaboracion": "Pica la cebolla y los pimientos y póchalos en una sartén con aceite durante 15 minutos.\n\nAñade el tomate triturado, el comino y el pimentón, sazona y cocina 10 minutos hasta que espese.\n\nHaz cuatro huecos en la salsa y casca un huevo en cada uno. Tapa y cuece a fuego suave 5-6 minutos, hasta que la clara cuaje y la yema siga líquida.\n\nEspolvorea con perejil picado y sirve en la misma sartén.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento rojo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate triturado",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Comino",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "3",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Perejil",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Arroces": [
@@ -1512,8 +2246,8 @@
             "pagina": "346.0",
             "elaboracion": "Lava los tomates, pela uno y córtalo en dados. Corta los otros 2 por la mitad.\n\nCalienta una tartera (cazuela amplia y plana) apta para el horno con 3 cucharadas de aceite. Añade los dados de tomate, la cabeza de ajos entera y los tomates cortados a la mitad y cocínalos durante 3-4 minutos. Pela las patatas, córtalas en rodajas de 1 cm, agrégalas y sazónalas.\n\nIncorpora el arroz y rehógalo brevemente. Añade los garbanzos, el caldo caliente, las hebras de azafrán y el pimentón. Sazona y cocina el arroz a fuego fuerte durante 6-8 minutos. Introduce la tartera en el horno y hornea el arroz a 200 ºC durante 12-14 minutos.\n\nRetira la tartera del horno y sirve. Adorna los platos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1579,7 +2313,7 @@
             "elaboracion": "Calienta agua en la olla y sazónala. Limpia el puerro (retírale la parte inferior, la superior y 1-2 capas y enjuágalo), trocéalo e introdúcelo en la olla. Agrega la costilla, cierra la olla y cuécela durante 10-15 minutos. Retírala, escúrrela y salpimiéntala.\n\nCalienta 3-4 cucharadas de aceite en una tartera (cazuela amplia y baja), añade los trozos de costilla y rehógala hasta que esté bien dorada. Retírala a un plato y resérvala.\n\nPela la cebolleta, el pimiento rojo y los ajos, córtalos en daditos y agrégalos a la tartera. Sazona y cocina las hortalizas a fuego suave-medio durante 10-15 minutos. Incorpora el arroz y rehógalo brevemente. Añade el pimentón, la costilla y agua caliente (el doble y un poco más que de arroz) y cocina todo durante 20 minutos.\n\nSirve el arroz y adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1645,7 +2379,7 @@
             "elaboracion": "Pon agua a hervir en una olla rápida, añade el arroz y sazónalo. Cierra la olla, cuécelo durante 5 minutos, escúrrelo y resérvalo.\n\nPela las zanahorias y cuécelas durante 15 minutos en una cazuela con agua y una pizca de sal. Resérvalas.\n\nPela la cebolla y los dientes de ajo, córtalos en dados y rehógalos durante 8-10 minutos a fuego suave en una sartén con 3 cucharadas de aceite. Corta la panceta en dados, añádela y cocínala hasta que se dore.\n\nPon los huevos en un bol y bátelos. Agrega la leche y bate de nuevo. Incorpora las hortalizas con la panceta y el arroz y mezcla bien. Corta las zanahorias en rodajas y añádelas. Mezcla con cuidado, reparte la mezcla en 4 recipientes individuales aptos para el horno y hornéalos a 200 ºC durante 12 minutos.\n\nSirve los pasteles y adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1772,7 +2506,7 @@
             "elaboracion": "Calienta una tartera (cazuela amplia y baja) con 4 cucharadas de aceite. Corta el jamón, la panceta y el lomo en dados, añádelos y rehógalos hasta que se doren. Retíralos a un plato y resérvalos.\n\nPela la cebolla, la zanahoria y los dientes de ajo, córtalos en daditos e incorpóralos a la tartera. Retira el tallo y las semillas del pimiento, córtalo de la misma manera y añádelo. Sazona y cocina las hortalizas durante 12-15 minutos.\n\nAgrega el arroz a la tartera, rehógalo un poco, vierte encima el caldo caliente y cocínalo durante 12 minutos. Agrega las carnes, mezcla y cocina todo (si quieres, puedes terminarlo en el horno) durante 6-8 minutos más.\n\nSirve el arroz y adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1843,7 +2577,7 @@
             "elaboracion": "Pela los dientes de ajo, córtalos por la mitad y dóralos en una tartera (cazuela amplia y baja) con 2-3 cucharadas de aceite. Agrega el arroz, rehógalo brevemente, vierte encima agua (misma cantidad que de arroz), sazónalo y cuécelo durante el tiempo que indique el paquete. Déjalo reposar durante 2 minutos más. Escúrrelo, refréscalo, pásalo a un bol grande y resérvalo.\n\nCalienta una cazuela con agua. Corta el calabacín y las zanahorias (peladas) en dados, introdúcelos en la cazuela, sazónalos y cuécelos durante 5-6 minutos. Retíralos, escúrrelos y deja que se enfríen.\n\nEn la misma cazuela donde has cocido las hortalizas, cuece las gambas durante 1 minuto. Retíralas, déjalas templar, pélalas y resérvalas. Pasa las cabezas de las gambas a un mortero, májalas, agrega 100 ml de aceite y mezcla bien. Pasa la mezcla por un chino sobre un bol, añade un chorrito de vinagre, una pizca de sal y el curry y mezcla bien.\n\nAgrega al bol del arroz el calabacín, la zanahoria, la mitad de las gambas (picadas), la cebolleta (cortada en daditos), los granos de maíz y las aceitunas (picadas) y mezcla todo.\n\nReparte la ensalada en 4 boles. Adórnalos con el resto de las gambas y unas hojas de perejil y alíñalos con la vinagreta de curry.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -1975,7 +2709,7 @@
             "elaboracion": "Calienta agua en un cazo, introduce en él los huevos y cuécelos durante 10 minutos (contados desde el momento en que el agua empiece a hervir). Retíralos, refréscalos, pélalos, pícalos y resérvalos.\n\nCalienta agua en una cazuela y sazónala. Cuando empiece a hervir, añade el arroz y cuécelo durante 18 minutos. Retíralo, escúrrelo y resérvalo.\n\nCorta los pimientos en tiras. Calienta una sartén con 2 cucharadas de aceite y cocina en ella los pimientos a fuego suave durante 10 minutos. Retíralos y resérvalos.\n\nCorta el chorizo y el jamón en daditos y fríelos un poco en otra sartén con 2-3 cucharadas de aceite. Retira parte del aceite, incorpora el arroz, mezcla bien y rehógalo muy brevemente (para que se caliente el arroz).\n\nSirve el arroz en 4 platos, adórnalo con las tiras de pimiento y espolvoréalo con el huevo cocido picado. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -2026,7 +2760,7 @@
             "elaboracion": "Limpia la lechuga, sécala, trocéala y ponla en un bol. Corta la cebolleta en juliana fina y agrégala. En el momento de servir, aliña la ensalada con aceite, vinagre y sal.\n\nPela los dientes de ajo, córtalos por la mitad y rehógalos brevemente en una cazuela con 2 cucharadas de aceite. Agrega el arroz, rehógalo y vierte encima la misma cantidad de agua que de arroz (o la cantidad que indique el paquete). Sazona, tapa la cazuela y cocínalo a fuego medio durante 8-10 minutos (o el tiempo que indique el paquete). Retíralo y pásalo a un bol grande.\n\nBate 2 huevos, sazónalos y añade un poco de perejil picado. Calienta una sartén con un poco de aceite, vierte en ella los huevos batidos y cuájalos hasta conseguir una tortilla fina y redonda. Prepara otra tortilla de la misma manera con los otros 2 huevos. Corta las tortillas en dados y añádelos al bol con el arroz.\n\nCorta la panceta en daditos y saltéalos (hasta que se doren) en una sartén con 2 cucharadas de aceite. Incorpórala al bol y mezcla bien.\n\nSirve el arroz y acompáñalo con la ensalada de lechuga y cebolleta. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -2087,7 +2821,7 @@
             "elaboracion": "Corta la cebolleta y el pimiento (pelado) en dados y rehógalos durante 8-10 minutos a fuego medio en una tartera (cazuela amplia y baja) con 3-4 cucharadas de aceite.\n\nTrocea la panceta, agrégala a la sartén y fríela hasta que se dore un poco. Corta el pollo en trozos de bocado, salpimiéntalo, añádelo y fríelo hasta que se dore.\n\nIncorpora a la tartera el arroz y las hebras de azafrán. Rehoga brevemente y vierte encima 500 ml de agua (caliente). Sazona y remuévelo a menudo. A medida que el arroz vaya absorbiendo el agua, añade otros 500 ml de agua. Repite el proceso hasta que el arroz esté a punto (unos 18 minutos). Añade el queso y remueve hasta que se funda.\n\nSirve el risotto y adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -2158,7 +2892,7 @@
             "elaboracion": "Pela la cebolla y los dientes de ajo, córtalos en daditos y rehógalos durante 6-8 minutos en una tartera (cazuela amplia y baja) con 3-4 cucharadas de aceite.\n\nCorta los ajos frescos en rodajas de 1 cm, agrégalos a la tartera y cocínalos durante 2 minutos. Lava los champiñones, córtalos en cuartos e incorpóralos. Sazónalos y cocínalos durante 4-5 minutos. Vierte encima el brandy y dale un hervor fuerte hasta que se evapore el alcohol.\n\nAñade el arroz, rehógalo un poco y agrega la mitad del caldo. Cocínalo removiéndolo a menudo hasta que absorba el caldo. Vierte otra parte del caldo y repite el proceso hasta que esté a punto (en total, unos 18 minutos).\n\nCorta el solomillo de cerdo en trozos de bocado, salpimiéntalos y fríelos en una sartén con 2-3 cucharadas de aceite.\n\nReparte el risotto en 4 platos y coloca encima unos dados de solomillo de cerdo. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -2229,7 +2963,7 @@
             "elaboracion": "Corta la cebolleta en daditos y ponla a rehogar en una tartera (cazuela amplia y baja) con 3 cucharadas de aceite. Retira el tallo del pimiento, córtalo en tiras finas de unos 3 cm y agrégalo. Rehoga las hortalizas durante 6-8 minutos.\n\nSalpimienta el pollo, añádelo a la tartera y dóralo un poco. Corta el chorizo en rodajas, agrégalo y fríelo brevemente. Lava el tomate, córtalo por la mitad, rállalo e incorpóralo. Añade las hebras de azafrán y el arroz, rehógalo brevemente, vierte encima el caldo y sazona. Cocina el arroz durante 18 minutos. Retíralo del fuego y deja que repose durante 2-3 minutos.\n\nSirve el arroz y adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -2290,6 +3024,224 @@
                 {
                     "nombre": "Sal",
                     "cantidad": "1.0",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Paella valenciana",
+            "pagina": "",
+            "elaboracion": "Trocea el pollo y el conejo, sálalos y dóralos bien en la paellera con el aceite.\n\nAparta la carne a los bordes, añade las judías verdes y el garrofón y rehoga 5 minutos. Incorpora el tomate rallado y el pimentón y sofríe un par de minutos.\n\nVierte el agua, añade el azafrán y el romero y cuece 25 minutos. Prueba el caldo y corrige de sal.\n\nReparte el arroz por toda la paellera y cuece 10 minutos a fuego fuerte y 8 minutos a fuego suave, sin remover. Deja reposar 5 minutos tapada con un paño.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Arroz",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Pollo",
+                    "cantidad": "600",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Conejo",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Judías verdes",
+                    "cantidad": "200",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Garrofón",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Tomate",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Azafrán",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Romero",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Agua",
+                    "cantidad": "1500",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Arroz negro con sepia",
+            "pagina": "",
+            "elaboracion": "Limpia la sepia y córtala en dados. Pica la cebolla, el pimiento y el ajo.\n\nDora la sepia en una paellera con aceite. Añade las verduras picadas y pocha 10 minutos. Incorpora el tomate rallado y sofríe hasta que pierda el agua.\n\nAñade el arroz, remueve un minuto y vierte el caldo de pescado caliente mezclado con la tinta. Sazona.\n\nCuece 18 minutos sin remover, los primeros minutos a fuego fuerte y después a fuego suave. Deja reposar 5 minutos y sirve con alioli.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Arroz",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Sepia",
+                    "cantidad": "500",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tinta de calamar",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Caldo de pescado",
+                    "cantidad": "1200",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Alioli",
+                    "cantidad": "4",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "5",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Arroz con verduras de temporada",
+            "pagina": "",
+            "elaboracion": "Corta en dados el calabacín, la berenjena, los pimientos y la cebolla. Trocea las alcachofas limpias y los champiñones.\n\nRehoga la cebolla y los pimientos en una cazuela con aceite. Añade el resto de verduras y saltea 8 minutos.\n\nIncorpora el tomate rallado y el pimentón, remueve y añade el arroz. Rehoga un minuto y vierte el caldo caliente con el azafrán.\n\nCuece 18 minutos a fuego medio, sin remover. Deja reposar 5 minutos antes de servir.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Arroz",
+                    "cantidad": "350",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Calabacín",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Berenjena",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento rojo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Alcachofa",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Champiñones",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Tomate",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Azafrán",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Caldo de verduras",
+                    "cantidad": "1100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "5",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
                     "unidad": "uds"
                 }
             ]
@@ -2412,7 +3364,7 @@
             "pagina": "374.0",
             "elaboracion": "Pon a calentar abundante agua en una cazuela. Lava los tomates, hazles un corte superficial en cruz por la parte inferior, introdúcelos en la cazuela y escáldalos durante 2 minutos. Retíralos, pélalos y córtalos en daditos.\n\nPela los dientes de ajo y corta cada uno en 3 láminas. Elimina la parte inferior de los espárragos y córtalos en rodajas de 1 cm. Calienta una sartén grande con 3 cucharadas de aceite, agrega los ajos y los espárragos y cocínalos durante 3-5 minutos a fuego suave. Incorpora los tomates, sazónalos, cocínalos durante 15 minutos a fuego medio y espolvoréalos con el orégano.\n\nCalienta abundante agua en una cazuela. Cuando empiece a hervir, sazona el agua, introduce en ella las cintas y cuécelas durante el tiempo que indique el paquete. Retíralas e introdúcelas directamente en la sartén con las hortalizas. Mezcla bien y repártelas en 4 platos.\n\nEspolvorea los platos con el queso y adórnalos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -2529,7 +3481,7 @@
             "pagina": "378.0",
             "elaboracion": "Calienta 6 cucharadas de aceite en una cazuela grande. Corta las cebolletas en daditos y agrégalas. Pela las zanahorias, córtalas en cuartos de luna finos y añádelas. Retira el tallo y las semillas del pimiento, pélalo, córtalo en daditos e incorpóralo. Sazona y rehoga las hortalizas durante 6-8 minutos. Lava el calabacín, córtalo en medias lunas finas y agrégalo. Retira la parte inferior de los champiñones, enjuágalos, sécalos, córtalos primero por la mitad y luego en láminas e introdúcelos en la cazuela. Sazona y cocina todo junto durante 10-12 minutos más. Pica los tomates deshidratados y añádelos. Agrega también el tomillo y cocina todo junto durante 6-8 minutos más.\n\nPon a calentar en una cazuela grande abundante agua con una pizca de sal. Cuando empiece a hervir, introduce en ella las láminas de lasaña de una en una y cuécelas durante el tiempo que indique el paquete. Cuando estén cocidas, escúrrelas y extiéndelas sobre un trapo limpio para que se sequen bien.\n\nPara hacer la bechamel, pon a calentar el aceite en una cazuela, añade la harina y rehógala un poco. Vierte la leche poco a poco, sin dejar de remover, y cocina la salsa durante 6-8 minutos (no hace falta que quede muy espesa). Sazónala, rállale encima un poco de nuez moscada, añádele el perejil picado, mezcla y resérvala.\n\nPara montar la lasaña, coloca en la base de una fuente apta para el horno 3 láminas de lasaña, la mitad de las hortalizas, 3 láminas de lasaña, el resto de las hortalizas y 3 láminas de lasaña. Cúbrelas con la bechamel y vierte encima la salsa de tomate formando unas líneas. Ralla el queso y espolvorea con él toda la superficie de la lasaña.\n\nIntroduce la lasaña en el horno y gratínala hasta que se caliente y se dore el queso.\n\nCorta la lasaña en porciones y decora los platos con unas hojas de perejil.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -3157,6 +4109,174 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Espaguetis con tomate y albahaca",
+            "pagina": "",
+            "elaboracion": "Cuece los espaguetis en abundante agua con sal el tiempo que indique el paquete.\n\nMientras tanto, dora el ajo laminado en una sartén con aceite. Añade los tomates cherry partidos por la mitad y cocínalos 5 minutos hasta que se ablanden.\n\nAplasta un poco los tomates, sazona y añade los espaguetis escurridos con un chorrito del agua de cocción. Saltea un minuto.\n\nSirve con hojas de albahaca fresca y queso parmesano rallado por encima.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Espaguetis",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Tomates cherry",
+                    "cantidad": "500",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Albahaca",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Queso parmesano",
+                    "cantidad": "60",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "4",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Macarrones con chorizo gratinados",
+            "pagina": "",
+            "elaboracion": "Cuece los macarrones en agua con sal y escúrrelos un minuto antes del tiempo indicado.\n\nPica la cebolla y pochala en una sartén con aceite. Añade el chorizo en rodajas y la carne picada y cocina hasta que se dore.\n\nIncorpora el tomate frito y el orégano, mezcla con los macarrones y pásalos a una fuente de horno.\n\nCubre con el queso rallado y gratina en el horno a 220 ºC unos 10 minutos, hasta que el queso esté dorado.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Macarrones",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Chorizo",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Carne picada",
+                    "cantidad": "200",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate frito",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Queso rallado",
+                    "cantidad": "100",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Orégano",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "2",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Fideuá",
+            "pagina": "",
+            "elaboracion": "Dora los fideos en una paellera con un poco de aceite, removiendo para que se tuesten por igual. Resérvalos.\n\nEn la misma paellera dora los calamares en trozos y las gambas peladas. Retira las gambas y añade el ajo y el tomate rallado; sofríe 5 minutos con el pimentón.\n\nIncorpora los fideos, vierte el caldo de pescado caliente con el azafrán y sazona. Cuece unos 10 minutos a fuego medio hasta que se absorba el caldo.\n\nColoca las gambas encima, deja reposar 3 minutos y sirve con alioli.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Fideos",
+                    "cantidad": "400",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Calamar",
+                    "cantidad": "300",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Gamba",
+                    "cantidad": "300",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Azafrán",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Caldo de pescado",
+                    "cantidad": "1000",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Alioli",
+                    "cantidad": "4",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "5",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Carnes": [
@@ -3358,7 +4478,7 @@
             "elaboracion": "Bate en un bol los huevos con una pizca de sal. Calienta una sartén con 1 cucharadita de aceite, vierte en ella los huevos y cuájalos por los dos lados hasta conseguir una tortilla fina. Retírala a un plato y resérvala.\n\nExtiende la aleta (abierta) sobre la tabla, salpimiéntala y coloca encima la tortilla y los pimientos (abiertos por la mitad). Sazona los pimientos, enrolla la aleta y átala con cuerda de cocina. Sazónala por fuera y dórala en una sartén con un chorrito de aceite durante 3-4 minutos. Pasa la aleta a una fuente apta para el horno.\n\nPela los ajos, la cebolla y las zanahorias y córtalos en dados. Saltea las hortalizas durante 2 minutos en la misma sartén donde has dorado la carne. Agrega el vino y dale un hervor. Incorpora las hortalizas a la fuente con la aleta y hornea a 190-200 ºC durante 35-40 minutos.\n\nRetira la carne, deja que se temple, filetéala y resérvala. Pasa las hortalizas a un vaso batidor y tritúralas con una batidora eléctrica. Reserva la salsa.\n\nLimpia las coles de Bruselas (retirándoles las hojas exteriores) y córtalas por la mitad. Calienta una sartén con 3-4 cucharadas de aceite, añade las coles de Bruselas, sazónalas y cocínalas a fuego suave-medio durante 6-8 minutos.\n\nSirve en cada plato 2 filetes de aleta, 4 coles de Bruselas (8 mitades) y un poco de salsa. Decora los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -3530,7 +4650,7 @@
             "elaboracion": "Para hacer el pastel, pela las patatas, córtalas en rodajas bien finas (para que te queden todas iguales, puedes cortarlas con una mandolina), y corta las lonchas de panceta por la mitad.\n\nUnta la base de un molde (apto para el horno) con mantequilla, coloca encima una capa de patatas, sazónalas con una pizca de sal, úntalas con otro poco de mantequilla, espolvoréalas con un poco de queso rallado, pon encima otra capa de patatas, sazónalas con otra pizca de sal, úntalas con mantequilla, agrega otro poco de queso y finalmente extiende encima las lonchas de panceta. Termina de montar el pastel alternando capas de patata, mantequilla y queso hasta acabar con todos los ingredientes. Hornea el pastel a 180 ºC durante 40 minutos. Retíralo del horno y escúrrele el exceso de grasa.\n\nRetira la membrana que cubre las carrilleras y salpimiéntalas. Calienta 3-4 cucharadas de aceite en una olla rápida, introduce en ella las carrilleras y dóralas bien por los dos lados. Retíralas y resérvalas en un plato.\n\nPela los dientes de ajo, la cebolla y la zanahoria. Corta todo en dados y añádelos a la olla. Rehoga las hortalizas durante 10-12 minutos. Introduce de nuevo las carrilleras en la olla y agrega los vinos (tinto y oporto), el tomillo, el laurel y 200 ml de agua. Pon a punto de sal, tapa la olla y cocina las carrilleras durante 40 minutos.\n\nRetira las carrilleras, tritura la salsa (si queda muy fina, dale un hervor y lígala agregando un poco de harina de maíz diluida en agua fría) y añade un poco de perejil picado.\n\nFiletea las carrilleras, sirve 3-4 filetes en cada plato y salséalas. Corta el pastel de patata en 4 porciones y coloca una en cada plato. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -3707,7 +4827,7 @@
             "elaboracion": "Calienta 4 cucharadas de aceite en una cazuela grande. Sazona el pollo y la costilla, añádelos y rehógalos un poco hasta que se doren. Ralla la cebolla y agrégala. Remueve los ingredientes y sigue rehogando a fuego suave durante 5 minutos.\n\nLava el tomate, córtalo por la mitad, rállalo e incorpóralo. Pela el pimiento rojo y córtalo en tiras. Pela las zanahorias y córtalas en rodajas. Lava las judías, retírales las puntas y córtalas por la mitad. Incorpora las hortalizas al guiso.\n\nPela las patatas, trocéalas (cascándolas) y agrégalas a la cazuela.\n\nAñade el pimentón, el azafrán y el laurel, sazona y cubre todo con agua (1.500-2.000 ml).\n\nCasca los huevos, ponlos en un bol y bátelos. Agrega el arroz y una pizca de sal y mezcla bien. Calienta un chorrito de aceite en una sartén, agrega los huevos batidos con arroz y cuaja la tortilla por los dos lados.\n\nColoca la tortilla encima del guiso, tapa la cazuela y cocina conjuntamente durante unos 35 minutos.\n\nSirve y decora los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -3808,7 +4928,7 @@
             "elaboracion": "Pela 2 dientes de ajo, aplástalos con la hoja del cuchillo, pícalos un poco y ponlos en un mortero. Pica el romero y el tomillo y agrégalos. Sazona y maja todo. Agrega 5-6 cucharadas de aceite y mezcla bien.\n\nSazona los jarretes y colócalos en una fuente. Viérteles encima el majado, úntalos bien y déjalos reposar por lo menos durante 30 minutos (mejor si los dejas macerando desde la víspera).\n\nCalienta 3 cucharadas de aceite en una olla rápida. Pela las cebollas, córtalas en dados e introdúcelas en la olla. Pela las zanahorias, córtalas en cuartos de luna e incorpóralas. Lava los champiñones, córtalos en cuartos y añádelos. Sazona y cocina las hortalizas durante unos 15 minutos.\n\nRetira los jarretes del majado (resérvalo) y dóralos bien en una sartén grande con 2 cucharadas de aceite.\n\nIntroduce los jarretes en la olla y añade el majado, el tomate concentrado, el vino y el caldo. Pon a punto de sal, cierra la olla y cocínalos durante 30-35 minutos. Retira los jarretes de la olla y tritura las hortalizas con una batidora eléctrica. Pasa la salsa a una tartera (cazuela amplia y baja) e introduce en ella los jarretes.\n\nCalienta una cazuela con 1 cucharada de aceite. Aplasta los otros 2 dientes de ajo (con piel) con la hoja del cuchillo y agrégalos. Incorpora el arroz y el agua (la misma cantidad que de arroz), sazona, tapa la cazuela y cocínalo a fuego medio durante 10 minutos.\n\nSirve en cada plato un jarrete, salséalo y acompáñalo con una porción de arroz. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -3990,7 +5110,7 @@
             "elaboracion": "Salpimienta los muslos de pavo y dóralos durante 3-4 minutos en una olla rápida con 2-3 cucharadas de aceite. Añade también la guindilla cayena.\n\nPela los dientes de ajo, córtalos por la mitad y agrégalos. Vierte encima el vino y dale un hervor.\n\nPon los pimientos en un vaso batidor, añade 100 ml de agua y tritúralos. Incorpora el puré a la olla. Vierte otros 100 ml de agua en el vaso, remueve (para que el puré que queda en el vaso se mezcle con el agua) y agrégala al guiso. Añade también los granos de pimienta, la rama de tomillo y la de romero, pon a punto de sal y cierra la olla. Cocina el pavo durante 13 minutos.\n\nPela las patatas, córtalas en dados y fríelas en una sartén con abundante aceite. Retíralas y escúrrelas sobre un plato cubierto con papel absorbente. Sazónalas y espolvoréalas con un poco de perejil picado.\n\nEn el momento de servir, retira los muslos de pavo y sírvelos en 4 platos. Para ligar la salsa, agrega un poco de harina de maíz diluida en agua fría y dale un hervor hasta que espese.\n\nSalsea los platos y reparte encima las patatas. Decóralos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -4066,7 +5186,7 @@
             "elaboracion": "Calienta 2 cucharadas de aceite en una sartén. Pela la cebolla, córtala en daditos, añádela a la sartén, sazónala y cocínala durante 6-8 (hasta que empiece a transparentar). Agrega el arroz y rehoga durante un par de minutos. Retíralo a un plato y deja que se enfríe.\n\nPon las carnes en un bol, salpimiéntalas, agrega el pimentón y el tomillo y mezcla bien. Incorpora el arroz con la cebolla y vuelve a mezclar hasta que los ingredientes queden bien integrados. Coge pequeñas porciones de carne (de 45-50 g), dales forma de croqueta y resérvalas.\n\nCorta las hojas de col por la mitad y retírales la parte más gruesa del centro. Extiende media hoja sobre una superficie lisa (encimera o tabla), coloca una porción de carne encima (a uno de los lados de la hoja de col) y envuélvela con la hoja de col formando un rollito (es importante doblar los laterales hacia dentro de manera que la carne no se salga). Repite el proceso hasta terminar con los ingredientes (carne y hojas de col).\n\nPasa los sarmale a una cazuela ancha, agrega el tomate triturado y cúbrelos con agua (1.500 ml aprox.). Sazónalos, tápalos y cocínalos durante 90 minutos a fuego suave.\n\nPon agua a calentar en un cazo. Cuando empiece a hervir, añade la polenta, sazónala, cocínala durante 4-5 minutos, pásala a una fuente y deja que se enfríe.\n\nReparte los sarmale y la polenta en 6 platos y adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -4137,7 +5257,7 @@
             "elaboracion": "Calienta 4 cucharadas de aceite en una olla rápida. Pela la cebolla, córtala en dados y agrégala a la olla. Lava el pimiento, retírale el tallo y las semillas, córtalo en dados y añádelo. Limpia el puerro, retirándole la parte inferior, la superior y la primera capa, enjuágalo, córtalo en dados e incorpóralo. Pela la zanahoria, córtala en dados y agrégala. Pela los dientes de ajo e introdúcelos enteros. Sazona y rehoga las hortalizas durante 8-10 minutos.\n\nCalienta una sartén con 3-4 cucharadas de aceite. Sazona los trozos de carne y añade la mitad a la sartén. Dóralos a fuego fuerte, retíralos a un plato y resérvalos. Repite el proceso con el resto de la carne.\n\nIntroduce la carne en la olla. Ralla encima el tomate y vierte encima la sidra y aproximadamente 500 ml de agua (la necesaria para cubrir la carne). Sazona y agrega el romero, el tomillo y los granos de pimienta. Cierra la olla y cocina todo durante 15 minutos. Retira las hierbas aromáticas, pasa la carne a una tartera (cazuela amplia y baja) y tritura la salsa con una batidora eléctrica. Cuela la salsa y viértela sobre la carne.\n\nPela las patatas, córtalas en dados y fríelas en una sartén con abundante aceite. Retíralas, escúrrelas, sazónalas, espolvoréalas con un poco de perejil picado y añádelas a la tartera.\n\nRetira de la sartén parte del aceite de la fritura de las patatas. Limpia los boletos, córtalos en láminas y añádelos a la sartén. Sazónalos y saltéalos durante 3-4 minutos. Añádelos a la tartera.\n\nReparte el guiso en 6 platos y adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -4388,6 +5508,179 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Pollo al ajillo",
+            "pagina": "",
+            "elaboracion": "Trocea el pollo en piezas pequeñas, sazónalo y dóralo bien por todos los lados en una cazuela con aceite.\n\nAñade los dientes de ajo enteros, con un golpe para que se abran, y la hoja de laurel. Cocina 5 minutos a fuego suave para que el ajo se haga sin quemarse.\n\nVierte el vino blanco, deja que se evapore el alcohol y tapa. Cocina 20 minutos más, removiendo de vez en cuando.\n\nEspolvorea con perejil picado y sirve con patatas fritas o una ensalada.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Pollo",
+                    "cantidad": "1200",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "10",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Vino blanco",
+                    "cantidad": "150",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Laurel",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "5",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Perejil",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimienta",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Solomillo de cerdo a la pimienta",
+            "pagina": "",
+            "elaboracion": "Corta el solomillo en medallones de dos dedos de grosor y sazónalos con sal.\n\nMárcalos en una sartén con aceite muy caliente, 2 minutos por cada lado. Retíralos y resérvalos.\n\nEn la misma sartén dora la chalota picada, añade la pimienta en grano machacada y flambea con el brandy. Agrega la nata y cuece 5 minutos hasta que la salsa espese.\n\nVuelve a poner los medallones en la salsa, cocina 2 minutos más y sirve.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Solomillo de cerdo",
+                    "cantidad": "600",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Chalota",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimienta en grano",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Brandy",
+                    "cantidad": "50",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Nata líquida",
+                    "cantidad": "200",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "2",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Estofado de ternera con patatas",
+            "pagina": "",
+            "elaboracion": "Corta la ternera en tacos, sazónalos y dóralos en una olla con aceite. Retíralos.\n\nEn la misma olla pocha la cebolla, el ajo, el pimiento y la zanahoria picados durante 10 minutos. Añade el tomate rallado y sofríe 5 minutos más.\n\nVuelve a poner la carne, vierte el vino tinto y deja que reduzca. Cubre con el caldo, añade el laurel y el tomillo y cuece tapado a fuego suave 1 hora y media.\n\nAñade las patatas en trozos y cocina 25 minutos más, hasta que estén tiernas. Corrige de sal y sirve.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Ternera",
+                    "cantidad": "800",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Zanahoria",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Vino tinto",
+                    "cantidad": "200",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Caldo de carne",
+                    "cantidad": "750",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Laurel",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomillo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "4",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Pescados": [
@@ -4397,7 +5690,7 @@
             "elaboracion": "Pela los ajos, córtalos en láminas y rehógalos en una sartén con 4-5 cucharadas de aceite. Pela las cebollas, córtalas en dados grandes y agrégalos. Pela los pimientos, retírales el tallo y las semillas, córtalos en dados grandes y añádelos a la sartén. Sazona y cocina las hortalizas durante unos 10 minutos.\n\nLava los tomates, córtalos por la mitad, rállalos e incorpóralos a la sartén. Cocina todo durante 15-20 minutos.\n\nCorta cada lomo de bacalao en dos e introdúcelos en la sartén (primero dejando la parte de la piel hacia arriba). Cocínalos a fuego suave durante 5 minutos por cada lado.\n\nFríe las guindillas en una sartén con aceite bien caliente. Retíralas a un plato y sazónalas.\n\nSirve en cada plato un trozo de bacalao con su salsa y acompáñalos con las guindillas fritas. Decora los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -4519,7 +5812,7 @@
             "elaboracion": "Pon a calentar suavemente el aceite en una sartén pequeña. Corta el tallo de la cebolleta en rodajas y añádelo. Pela el diente de ajo y agrégalo. Añade el tomillo, el eneldo y los granos de pimienta. Cocina los ingredientes a fuego muy suave durante 10-12 minutos. Retira la sartén del fuego y deja templar. Cuela el aceite sobre un recipiente grande rectangular.\n\nLimpia el salmón, córtalo en 16 dados grandes y pínchalos, de 4 en 4, en 4 palillos de brocheta. Introduce las brochetas en el recipiente y úntalas bien en el aceite. Déjalas macerando por lo menos durante 1 hora (mejor si se dejan desde la víspera).\n\nPara preparar la salsa de yogur, pela la chalota, córtala en daditos y ponla en un bol. Añade la mayonesa, el yogur, unas gotas de zumo de limón, una pizca de sal y la mitad de las hojas de cebollino finamente picadas.\n\nCalienta una plancha, coloca en ella las brochetas de salmón y cocínalas durante 1-2 minutos por cada lado (según os guste el punto). Retíralas y salpimiéntalas.\n\nSirve una brocheta por ración y acompáñalas con la salsa de yogur. Pica el resto de las hojas de cebollino y espolvorea con ellas la salsa. Decora los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -4950,7 +6243,7 @@
             "elaboracion": "Para la crema de calabaza, pon a calentar 250 ml de agua y la leche en una cazuela. Pela la patata, trocéala e incorpórala. Pela la calabaza, córtala en dados y añádela. Sazona y cuece los ingredientes durante 10-12 minutos. Tritura todo con una batidora eléctrica y reserva la crema.\n\nCalienta un poco de agua en una tartera (cazuela amplia y baja). Sazona y añade unas ramas de perejil. Corta los lomos de rape en 8 medallones, salpimiéntalos y colócalos en una vaporera cubierta con un trozo de papel de hornear. Tapa la vaporera y ponla en la tartera. Cocina el rape durante unos 6-8 minutos.\n\nPela las alcachofas, retirándoles 2-3 capas, y recórtales la parte superior. Córtalas en 6-8 gajos. Calienta 2 cucharadas de aceite en una sartén, agrega las alcachofas, sazónalas y cocínalas durante 4-5 minutos.\n\nPara preparar la vinagreta, pica los pistachos finamente y ponlos en un bol. Añade el vinagre, el aceite y el perejil picado y mezcla bien.\n\nSirve un poco de crema de calabaza en la base de los platos, pon encima de cada uno 2 medallones de rape, aderézalos con un poco de vinagreta y añade unos gajos de alcachofa. Espolvorea los platos con el pimentón y adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5031,7 +6324,7 @@
             "elaboracion": "Corta la borraja en trozos de 3 centímetros, lávala y cuécela durante 10 minutos en una cazuela con agua hirviendo con una pizca de sal. Escúrrela y resérvala.\n\nPara preparar la salsa, pon la mantequilla a fundir en un cazo y agrega el aceite. Pela los dientes de ajo, córtalos en dados y añádelos. Corta la cebolleta de la misma manera y agrégala. Incorpora la hoja de laurel, el vino, la mostaza y la nata y deja que la salsa reduzca durante 10 minutos. Cuélala y ponla a calentar en un cazo. Exprime los limones, pasa el zumo a un bol, agrega la harina de maíz diluida en agua fría, mezcla bien y vierte la mezcla en el cazo. Dale un hervor hasta que espese.\n\nSalpimienta los lomos de salmón y cocínalos a la plancha (primero dejando la piel hacia arriba) durante 4 minutos (2 por cada lado).\n\nCalienta una sartén con 2 cucharadas de aceite, agrega la borraja y saltéala brevemente.\n\nSirve un poco de salsa de limón en la base de 4 platos, coloca encima el salmón y, al lado, las borrajas. Adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5122,7 +6415,7 @@
             "elaboracion": "Para preparar la salsa cajún, pon en un vaso americano (vaso batidor o picadora de cuchillas) la cebolla, la cayena, el pimentón, la sal, el azúcar, el tomillo, el orégano y la ralladura de limón. Tritura todo hasta obtener un polvo grueso. Pela los dientes de ajo, pícalos e incorpóralos al vaso americano. Agrega también el vinagre, el aceite y la mostaza. Vuelve a triturar hasta conseguir una pasta y pásala a un bol pequeño.\n\nCubre la base de una bandeja de horno con papel de hornear. Unta los lomos de salmón con la salsa cajún, colócalos en la bandeja y hornéalos a 220 ºC durante 8 minutos.\n\nAliña los canónigos con aceite y sal y repártelos en 4 platos. Coloca 1 lomo de salmón en cada uno y adórnalos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5289,7 +6582,7 @@
             "elaboracion": "Calienta una sartén con abundante aceite (150 ml). Pela los dientes de ajo, córtalos en láminas y agrégalos a la sartén. Pela las cebollas, córtalas en dados e incorpóralas. Pela las patatas, córtalas en cuartos de luna finos y añádelas. Sazona y cocina todo a fuego suave durante 15-20 minutos.\n\nEscurre las hortalizas (reserva el aceite en un bol) y ponlas en un vaso americano. Agrega la leche y tritura hasta conseguir un puré homogéneo. Resérvalo.\n\nCalienta 2-3 cucharadas de aceite (puedes utilizar el aceite sobrante de freír las patatas) en una sartén, añade los pimientos y fríelos durante 5-6 minutos a fuego suave-medio. Sazónalos y resérvalos.\n\nCorta el atún en 8-12 filetes, salpimiéntalos y fríelos brevemente (1 minuto por cada lado) en una sartén con 3-4 cucharadas de aceite (puedes utilizar el aceite sobrante de freír las patatas). Retira el atún a una fuente.\n\nAgrega a la sartén donde has cocinado el atún el vinagre y 1 cucharadita de perejil picado y mezcla bien.\n\nSirve en cada plato 3 pimientos, una porción de puré de patatas y 2-3 filetes de atún. Salsea y adorna los platos con unas hojas de perejil.",
             "filtros": {
                 "vegetariano": false,
-                "gluten_free": false
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5480,6 +6773,179 @@
                     "unidad": "uds"
                 }
             ]
+        },
+        {
+            "nombre": "Merluza en salsa verde",
+            "pagina": "",
+            "elaboracion": "Sazona las rodajas de merluza. Dora el ajo picado en una cazuela de barro con el aceite, a fuego suave.\n\nAñade la harina y remueve un minuto. Vierte el vino blanco y el caldo de pescado poco a poco, moviendo la cazuela para que la salsa ligue.\n\nColoca la merluza y las almejas, y cocina 5-6 minutos moviendo la cazuela en vaivén. Da la vuelta a la merluza a mitad de tiempo.\n\nCuando las almejas se abran, espolvorea con abundante perejil picado y sirve.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Merluza",
+                    "cantidad": "800",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Almejas",
+                    "cantidad": "250",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "3",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Harina",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Vino blanco",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Caldo de pescado",
+                    "cantidad": "250",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Perejil",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "5",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Lubina al horno con patatas panaderas",
+            "pagina": "",
+            "elaboracion": "Precalienta el horno a 180 ºC. Pela las patatas y córtalas en rodajas finas. Corta la cebolla y el pimiento en juliana.\n\nColoca las patatas, la cebolla y el pimiento en una bandeja, sazona, riega con aceite y hornea 25 minutos.\n\nPon las lubinas limpias encima de las patatas, con rodajas de limón en el interior. Sazona, riega con el vino blanco y hornea 15-20 minutos más.\n\nDora el ajo laminado en una sartén con aceite, añade un chorrito de vinagre fuera del fuego y vierte este refrito sobre el pescado al servir.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Lubina",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Patata",
+                    "cantidad": "4",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Pimiento verde",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Limón",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Vino blanco",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "3",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Vinagre",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Mejillones a la marinera",
+            "pagina": "",
+            "elaboracion": "Limpia bien los mejillones y quítales las barbas. Ábrelos al vapor en una cazuela tapada con el laurel y un poco de agua. Reserva el caldo colado.\n\nPica la cebolla y el ajo y póchalos en una sartén con aceite. Añade el pimentón y el tomate triturado y cocina 10 minutos.\n\nVierte el vino blanco y un poco del caldo de los mejillones, y deja que reduzca 5 minutos.\n\nIncorpora los mejillones, mezcla para que se impregnen de la salsa y sirve con perejil picado.",
+            "filtros": {
+                "vegetariano": false,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Mejillones",
+                    "cantidad": "1500",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Cebolla",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Diente de ajo",
+                    "cantidad": "2",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Tomate triturado",
+                    "cantidad": "200",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Vino blanco",
+                    "cantidad": "100",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Pimentón dulce",
+                    "cantidad": "1",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Laurel",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Aceite de oliva",
+                    "cantidad": "3",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Perejil",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Postres": [
@@ -5488,8 +6954,8 @@
             "pagina": "618.0",
             "elaboracion": "Para hacer el caramelo, pon el azúcar a calentar en una sartén. Espera a que se funda y se tueste un poco. Viértelo en una flanera (con tapa) y extiéndelo (con cuidado de no quemarte) por el fondo y la parte inferior de las paredes de la flanera. Deja que se enfríe un poco.\n\nCasca los huevos, ponlos en un bol, agrega la leche condensada y bate bien con una varilla manual.\n\nPon el cacao y la leche en un vaso batidor y tritúralos con una batidora eléctrica. Añade la leche con cacao al bol de los huevos con leche condensada y mezcla bien. Pasa la mezcla a la flanera y ponle la tapa.\n\nVierte un poco de agua (2 dedos) en una olla rápida, introduce en ella la flanera y cocina el flan durante 4 minutos.\n\nCuando baje la válvula, abre la olla, retira el flan y espera a que se temple. Desmóldalo y sirve. Decóralo con la nata montada, las frambuesas y las hojas de menta.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5539,7 +7005,7 @@
             "pagina": "622.0",
             "elaboracion": "Extiende una tira de papel de hornear a lo largo de un molde rectangular (tipo bizcocho) de manera que sobresalga una pestaña por cada lado.\n\nExtiende las galletas en una fuente grande, vierte encima la leche, ralla sobre ellas un poco de la piel de la naranja y deja que se empapen bien.\n\nPon la nata a calentar en un cazo. Agrega el chocolate troceado y mezcla suavemente hasta que se funda. Apaga el fuego, incorpora el queso y remueve hasta que quede integrado en la mezcla.\n\nCubre la base del molde con parte de la crema de chocolate, nata y queso. Extiende encima 5 galletas, cúbrelas con otro poco de crema de chocolate y tápala con otra capa de galletas. Repite el proceso hasta acabar con todos los ingredientes (finaliza con 6 galletas). Tapa la tarta con film transparente, introdúcela en el frigorífico y déjala enfriando por lo menos durante 2 horas.\n\nBordea la tarta con una puntilla y desmóldala. Decórala con las frambuesas y las nueces de macadamia ralladas. Adorna con unas hojas de menta y sirve.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -5590,7 +7056,7 @@
             "pagina": "628.0",
             "elaboracion": "Extiende el hojaldre sobre la encimera, espolvoréalo con un poco de azúcar y pásale el rodillo suavemente por encima. Dale la vuelta, espolvoréalo con otro poco de azúcar y vuelve a pasarle el rodillo. Enrolla el hojaldre por uno de los extremos (largos) hasta llegar al centro. Haz lo mismo con el otro extremo, hasta que los dos rollos se junten en el centro.\n\nCorta el hojaldre en rodajas de unos 2 cm, extiéndelas sobre una bandeja de horno cubierta con papel de hornear y hornéalas a 190 ºC durante 20 minutos. Retira las palmeritas y deja que se enfríen sobre una rejilla.\n\nFunde por separado los chocolates, bien en el microondas o al baño maría. Introduce un lado de las palmeritas en el chocolate negro, extiéndelas sobre una fuente grande y espera a que el chocolate se solidifique. Introduce el otro lado de las palmeritas en el chocolate blanco y espera a que se solidifique (para que el chocolate se enfríe antes, puedes introducir las palmeritas en el frigorífico).\n\nSirve y adorna los platos con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -5626,8 +7092,8 @@
             "pagina": "632.0",
             "elaboracion": "Lava las fresas, retírales el tallo, trocéalas, ponlas en el vaso batidor y tritúralas con una batidora eléctrica hasta conseguir un puré homogéneo. Resérvalo.\n\nPon el queso en un bol grande y bátelo con una batidora de varillas eléctrica. Añade el azúcar (en tres veces) y bátelo. Incorpora la nata (en 3 veces) y bátela. Incorpora el puré de fresas (reserva un poco para decorar) poco a poco y bate la mezcla hasta que los ingredientes queden bien integrados. Tapa el bol con film transparente, introdúcelo en el frigorífico y deja que se enfríe.\n\nSirve la mousse en 4 copas y decóralas con el puré de fresas reservado y unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5662,8 +7128,8 @@
             "pagina": "633.0",
             "elaboracion": "Pon a calentar en una cazuela 200 ml de agua, el vino, la rama de canela y el azúcar a fuego suave.\n\nPela las peras, introdúcelas en la cazuela, tapa y cuécelas a fuego suave durante 25-30 minutos dándoles la vuelta de vez en cuando (cada 5 minutos aprox.). Retira las peras y resérvalas en un plato.\n\nPon el vino a reducir (sin tapa) y cocínalo a fuego suave hasta que reduzca a la mitad. Para que espese un poco más, deja que se enfríe.\n\nSirve medio yogur en el fondo de cada plato, coloca encima las peras y salséalas con la reducción de oporto. Adorna las peras con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5703,7 +7169,7 @@
             "pagina": "634.0",
             "elaboracion": "Para hacer la pasta quebrada, mezcla la harina, la sal, la levadura y el azúcar en un bol grande. Incorpora la mantequilla y mezcla un poco. Agrega el huevo y mezcla otro poco. Pasa la masa a la encimera y amásala hasta que los ingredientes queden bien integrados. Divide la masa en dos porciones, envuélvelas con film transparente, introdúcelas en el frigorífico y déjalas enfriar durante 2 horas (como mínimo) para que endurezca. Retíralas del frigorífico y amásalas suavemente hasta que se ablanden un poco.\n\nEspolvorea la encimera con un poco de harina, coloca encima una de las porciones de masa, estírala bien con un rodillo y cubre con ella un molde de fondo desmontable de 23 cm de diámetro.\n\nPara el relleno, mezcla en un bol la harina de maíz con el azúcar y la canela. Incorpora los arándanos y vuelve a mezclar. Añade el zumo de limón y mezcla de nuevo. Pon el relleno sobre la base de la tarta y dobla los bordes sobrantes hacia el centro.\n\nEspolvorea la encimera con otro poco de harina, coloca sobre ella la otra porción de pasta quebrada y estírala bien. Corta tiras largas de 2 cm de grosor y colócalas sobre la tarta formando un enrejado (tiras entrecruzadas). Bate la yema de huevo y, con ayuda de un pincel de cocina, pinta el enrejado.\n\nColoca la tarta sobre la rejilla del horno (pon debajo una placa por si soltara algo de líquido) y hornéala a 200 ºC durante 40 minutos. Retírala del horno, espera a que se enfríe y desmóldala.\n\nPon el azúcar glas en un colador y espolvorea con él la tarta. Adórnala con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -5789,7 +7255,7 @@
             "pagina": "636.0",
             "elaboracion": "Para preparar la masa, pon la harina, el azúcar, la levadura y la sal en un bol y mezcla suavemente. Trocea la mantequilla e incorpórala. Añade 1 huevo y amasa los ingredientes hasta que se unan. Pasa la masa a la encimera y sigue amasando hasta que los ingredientes queden bien integrados. Forma un cilindro con la pasta quebrada y envuélvela con film transparente. Deja que repose en el frigorífico por lo menos durante 2 horas (mejor si es de un día para otro).\n\nLava las cerezas, deshuésalas y ponlas en un bol grande. Agrégales el azúcar, la esencia de vainilla y la ralladura de la lima y mezcla bien. Tapa el bol con film transparente e introdúcelo en el frigorífico. Deja que las cerezas reposen por lo menos durante 2 horas (mejor si es de un día para otro).\n\nSaca la pasta quebrada del frigorífico. Corta la cuarta parte de la masa y resérvala. Coloca el resto de la masa sobre la encimera y amásala un poco (lo justo para que se ablande un poco). Espolvorea la encimera con un poco de harina, pon encima la masa, espolvoréala con otro poco de harina y estírala con el rodillo. Cubre con ella un molde redondo de fondo desmontable, dejando que sobresalgan unos 2-3 cm de masa por todo el contorno. Rellena la tarta con las cerezas, espolvoréalas con la harina de maíz refinada y dobla los bordes de la masa sobre las cerezas. Bate el otro huevo en un bol y unta con él los bordes de masa.\n\nEstira el trozo de pasta quebrada reservado de la misma manera que has hecho con la base y córtalo en tiras de 1 ½ cm. Coloca las tiras de masa sobre las cerezas formando un enrejado y úntalas (con cuidado) con el huevo batido.\n\nHornea la tarta a 200 ºC durante 35-40 minutos. Retírala, deja que se enfríe y desmóldala.\n\nDecórala con un poco de nata montada, unas cerezas y unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -5855,7 +7321,7 @@
             "pagina": "638.0",
             "elaboracion": "Calienta 160 ml de agua con el cacao en un cazo. Cuando empiece a hervir y el cacao se disuelva, retira el cazo del fuego y añade la leche y el extracto de vainilla.\n\nPon la mantequilla y el azúcar en un bol y bátelos con una batidora de varillas eléctrica. Incorpora 1 huevo y bate hasta que quede bien integrado. Agrega el otro huevo y vuelve a batir hasta que se integre. Vierte en el bol la mezcla del cazo (agua, cacao, leche y vainilla) y remueve bien hasta conseguir una masa homogénea.\n\nMezcla la harina, el bicarbonato, la levadura y una pizca de sal en otro bol, tamízala sobre el bol anterior y remueve los ingredientes con una varilla manual hasta conseguir una masa homogénea.\n\nUnta un molde redondo con un poco de mantequilla y fórralo por la parte interior con papel de hornear. Vierte dentro la masa y hornéala a 180 ºC durante 60 minutos. Retira el bizcocho del horno y espera a que se temple un poco. Desmóldalo y déjalo enfriar sobre una rejilla. Córtalo en 3 planchas.\n\nPara preparar la ganache, pon a calentar la nata y el extracto de vainilla en un cazo. Incorpora el cacao y el azúcar glas. Calienta los ingredientes sin dejar de remover (con una varilla de mano) hasta que queden bien integrados (no hace falta que hiervan). Retira el cazo del fuego, incorpora la mantequilla y sigue removiendo hasta que quede bien integrada. Pasa la mezcla a un recipiente y deja que se temple un poco.\n\nExtiende una plancha de bizcocho sobre un plato grande colocado sobre un bol boca abajo. Cúbrela con un poco de ganache, pon encima otra plancha de bizcocho y cúbrela también con ganache. Finalmente, coloca la última plancha y cúbrela con el resto de la ganache de manera que caiga por toda la superficie y el contorno de la tarta de 3 capas. Sirve la tarta, coloca las frambuesas en la parte superior y adórnala con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -5941,8 +7407,8 @@
             "pagina": "643.0",
             "elaboracion": "Pon 3 gotas de cuajo en 4 copas o recipientes.\n\nVierte la leche de oveja en una cazuela y ponla a calentar a fuego medio, hasta que alcance una temperatura de unos 50 ºC (controla la temperatura con un termómetro de cocina). Reparte la leche en los 4 recipientes y espera a que cuaje. Para la salsa de fresas, limpia las fresas, pica 6 y ponlas en un cazo. Agrega el azúcar y caliéntalas hasta que se deshagan. Pica el resto de las fresas a tu gusto (dados o trozos irregulares) y resérvalas.\n\nPara servir, pon un poco de salsa de fresa sobre las cuajadas y reparte encima las fresas picadas. Decóralas con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -5977,7 +7443,7 @@
             "pagina": "652.0",
             "elaboracion": "Para la pasta quebrada, mezcla la harina, la sal y la mantequilla en un bol y amásalos un poco. Agrega el agua y sigue amasando hasta que los ingredientes queden bien integrados.\n\nEspolvorea la encimera con un poco de harina, coloca encima la masa y estírala con un rodillo. Cubre un molde de fondo desmontable con la masa y corta los sobrantes (pasando el rodillo por encima). Tapa la tartaleta con un trozo de papel de hornear, rellénala con legumbres (destinadas a este fin) y hornéala a 200 ºC durante 20 minutos. Saca la tartaleta del horno y retira el papel y las legumbres. Reserva la tartaleta.\n\nPara la crema pastelera, calienta en una cazuela la leche (reserva un poco) con la vaina de vainilla (abierta) y la cáscara de limón durante 5 minutos, para que la leche quede bien aromatizada.\n\nMezcla en un bol grande el azúcar, la harina de maíz refinada y la leche (fría) reservada. Añade las yemas y el huevo y bate hasta que quede una papilla homogénea. Cuela encima la leche aromatizada, mezcla y pasa todo a la cazuela. Cocina a fuego suave, sin dejar de remover, hasta que espese (unos 5 minutos).\n\nExtiende la crema pastelera sobre la tartaleta. Pela las manzanas, córtalas en láminas finas y cubre con ellas toda la superficie. Hornea la tarta a 200 ºC durante 45 minutos. Retírala, deja que se enfríe y desmóldala.\n\nUnta la superficie de la tarta con la mermelada de albaricoque y decórala con las frambuesas, las grosellas y unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6053,7 +7519,7 @@
             "pagina": "664.0",
             "elaboracion": "Mezcla la leche y la leche condensada en una cazuela y ponlas a calentar a fuego suave. Agrega la rama de canela, la corteza de naranja y la de limón y cuece todo a fuego suave durante unos 6-8 minutos, hasta que la leche quede bien aromatizada.\n\nCorta las rebanadas de pan de molde por la mitad y colócalas en un recipiente hondo. Cúbrelas con la leche aromatizada y espera a que queden bien remojadas.\n\nPara que no se rompan, retíralas del recipiente con una espátula y colócalas sobre un plato. Cúbrelas con el azúcar y caramelízalas utilizando un soplete.\n\nSirve en cada plato 1 torrija, 1 bola de helado y unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6104,7 +7570,7 @@
             "pagina": "673.0",
             "elaboracion": "Para forrar los moldes, corta 4 trozos grandes de papel de hornear, apriétalos y arrúgalos bien (como si fueras a hacer unas bolas con ellos). Ábrelos de nuevo y extiéndelos sobre 4 recipientes redondos aptos para el horno. Para que el papel se adapte mejor al molde, puedes presionarlo introduciendo un vaso dentro. Coloca los moldes sobre una bandeja de horno.\n\nCasca los huevos y ponlos en una jarra. Agrega el queso, el azúcar, la harina y la nata y tritura los ingredientes con una batidora eléctrica hasta conseguir una crema homogénea. Reparte la crema en los 4 moldes y hornéalos a 200 ºC durante 20 minutos. Retira la bandeja del horno y deja que se enfríen.\n\nDesmolda los pastelitos, sírvelos y salséalos con la mermelada de albaricoque. Decora los platos con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6145,8 +7611,8 @@
             "pagina": "676.0",
             "elaboracion": "Calienta 1 cucharada de aceite en una sartén. Bate 3 huevos en un bol, agrega la mitad del azúcar, la mitad del chocolate y la mitad del cacao y mezcla bien. Vierte la mezcla en la sartén y cuájala poco a poco, removiendo los ingredientes suavemente. Retira la tortilla a un plato y resérvala. Repite el proceso con el resto de los ingredientes para hacer otra tortilla.\n\nPara preparar el chantillí, pon la nata fría en un bol, agrega el azúcar glas y la esencia de vainilla y bate los ingredientes con una batidora de varillas eléctrica hasta que monten. Introduce el chantillí en una manga pastelera con boquilla (lisa o estrellada).\n\nLava las fresas, retírales el tallo y córtalas en láminas. Pela el plátano y córtalo en rodajas.\n\nPara servir, corta las tortillas por la mitad y sirve media en cada plato (si lo prefieres, puedes cortarla en tiras). Acompáñalas con el chantillí, las láminas de fresa y las rodajas de plátano. Adorna los platos con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
-                "gluten_free": false
+                "vegetariano": true,
+                "gluten_free": true
             },
             "ingredientes": [
                 {
@@ -6206,7 +7672,7 @@
             "pagina": "678.0",
             "elaboracion": "Saca el helado del congelador y déjalo a temperatura ambiente durante 15 minutos.\n\nCon un sacabolas, forma una bola de helado y colócala sobre una galleta, tapa el helado con otra galleta y presiónalas un poco, hasta conseguir un sándwich. Con una puntilla (cuchillo pequeño), recorta el helado que sobresalga. Repite el proceso con el resto de las galletas y el resto del helado.\n\nColoca los sándwiches sobre una fuente, tápalos con film transparente e introdúcelos en el congelador hasta el momento de consumirlos.\n\nFunde el chocolate al baño maría y pásalo a un bol pequeño. Coloca también en un bol el crocanti de almendra.\n\nRetira los sándwiches del congelador. Introduce un sándwich hasta la mitad en el chocolate fundido y a continuación en el crocanti de almendra. Repite el proceso con el resto de los sándwiches. Sirve 2 sándwiches en cada plato y adórnalos con unas hojas de menta.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6231,6 +7697,129 @@
                     "unidad": "g"
                 }
             ]
+        },
+        {
+            "nombre": "Arroz con leche",
+            "pagina": "",
+            "elaboracion": "Pon la leche en una cazuela con la corteza de limón y la rama de canela, y llévala a ebullición.\n\nAñade el arroz y cuece a fuego muy suave unos 40 minutos, removiendo a menudo para que no se pegue.\n\nCuando el arroz esté cremoso, retira la canela y la corteza, añade el azúcar y cuece 5 minutos más.\n\nReparte en cuencos, deja enfriar y espolvorea con canela molida antes de servir.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Arroz",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Leche",
+                    "cantidad": "1000",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Azúcar",
+                    "cantidad": "120",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Corteza de limón",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Canela",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Natillas caseras",
+            "pagina": "",
+            "elaboracion": "Calienta la leche con la rama de canela y la corteza de limón. Cuando hierva, apártala del fuego y deja que repose 10 minutos.\n\nBate las yemas con el azúcar y la harina de maíz hasta que no queden grumos.\n\nCuela la leche sobre las yemas, mezcla y vuelve a ponerlo todo en la cazuela. Cuece a fuego suave sin parar de remover hasta que espese, sin que llegue a hervir.\n\nReparte en cuencos, deja enfriar y espolvorea con canela molida.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Leche",
+                    "cantidad": "1000",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Yema de huevo",
+                    "cantidad": "6",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Azúcar",
+                    "cantidad": "150",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Harina de maíz",
+                    "cantidad": "2",
+                    "unidad": "cuch"
+                },
+                {
+                    "nombre": "Canela",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Corteza de limón",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
+        },
+        {
+            "nombre": "Bizcocho de yogur",
+            "pagina": "",
+            "elaboracion": "Precalienta el horno a 180 ºC y engrasa un molde con un poco de aceite.\n\nBate los huevos con el azúcar hasta que blanqueen. Añade el yogur, el aceite y la ralladura de limón y mezcla bien.\n\nIncorpora la harina tamizada con la levadura, con movimientos suaves, hasta que no queden grumos.\n\nVierte la masa en el molde y hornea unos 40 minutos, hasta que al pinchar con un palillo salga limpio. Deja enfriar antes de desmoldar.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Yogur natural",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "3",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Azúcar",
+                    "cantidad": "250",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Harina",
+                    "cantidad": "250",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Aceite de girasol",
+                    "cantidad": "125",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Levadura",
+                    "cantidad": "16",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Ralladura de limón",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                }
+            ]
         }
     ],
     "Panes": [
@@ -6239,7 +7828,7 @@
             "pagina": "20.0",
             "elaboracion": "La víspera, prepara la masa: pon la harina, la leche, la yema de huevo, la miel, la sal y la levadura desmenuzada en un bol y mezcla los ingredientes hasta que la harina esté bien integrada. Tapa el bol con film transparente y deja que repose durante 30 minutos a temperatura ambiente (autólisis).\n\nEspolvorea la encimera con un poco de harina, pon encima la masa, extiéndela un poco y agrega la mantequilla. Amasa (envolviendo la mantequilla con la masa) hasta que la mantequilla quede bien integrada.\n\nPon un poco de aceite en la base de un bol grande, pon encima la masa, tápala con film transparente y deja que repose en el frigorífico durante 24 horas.\n\nEspolvorea la encimera con un poco de harina, saca la masa del frigorífico y extiéndela sobre la encimera (primero, con las manos, y después, con un rodillo) hasta conseguir un rectángulo. Colócalo sobre una bandeja de horno cubierta con papel de hornear.\n\nDistribuye encima las aceitunas (cortadas en aros) y los tomates (cortados por la mitad). Tapa la masa con un paño limpio y deja que repose hasta que doble su volumen (1 hora aprox.).\n\nMezcla en un bol pequeño el aceite con 2 cucharadas de agua, 1 rama de romero (picada) y una pizca de sal.\n\nPresiona la masa con los dedos, úntala bien con el aceite de romero y salpícala con la flor de sal.\n\nCalienta el horno a 230 ºC. Baja la temperatura a 190 ºC, introduce la focaccia y hornéala a 190 ºC durante 12-15 minutos. Retírala del horno y deja que se enfríe un poco. Sirve y adorna los platos con unas hojas de perejil y unos trocitos de rama de romero.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6320,7 +7909,7 @@
             "pagina": "26.0",
             "elaboracion": "Pon en un bol la harina, el agua, la sal, la levadura desmenuzada, la masa madre y el cacao en polvo y mezcla los ingredientes (primero con una lengua, y después a mano) hasta que la harina se integre. Tapa el bol con film transparente y deja que repose a temperatura ambiente durante 30 minutos (autólisis).\n\nEspolvorea la encimera con un poco de harina, coloca encima la masa, espolvoréala con otro poco de harina y agrega la mantequilla y las gotas de chocolate. Amasa durante 5 minutos, hasta que los ingredientes queden bien integrados.\n\nPon un poco de harina en un bol. Coloca dentro la masa, tápala con film transparente y déjala reposar en el frigorífico durante 24 horas.\n\nRetira el film y espolvorea la masa con un poco de harina. Espolvorea la encimera con otro poco de harina, pon encima la masa, córtala en 4 porciones y forma con ellas 2 bollos redondos y 2 bollos alargados. Coloca los bollos sobre una bandeja de horno cubierta con papel de hornear, hazles un corte en la parte central, tápalos con un paño limpio y déjalos reposar a temperatura ambiente hasta que doblen su volumen (2 horas aprox.). Pulveriza los bollos con un poco de agua.\n\nCalienta el horno a 200 ºC. Introduce en él los bollos, baja la temperatura a 185 ºC y hornéalos durante 20 minutos. Retíralos y déjalos enfriar sobre una rejilla. Sirve.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6624,7 +8213,7 @@
             "pagina": "56.0",
             "elaboracion": "Pon la harina en un bol grande. Agrega la masa madre, la levadura prensada desmenuzada y el agua y mezcla los ingredientes un poco. Incorpora la sal y sigue mezclando hasta que la harina quede bien integrada. Tapa el bol con film transparente y deja que la masa repose a temperatura ambiente durante 20-30 minutos (autólisis).\n\nEspolvorea la encimera y la masa con un poco de harina, sácala del bol y amásala durante 3-5 minutos. Ponla de nuevo en el bol, tápala con film transparente, introdúcela en el frigorífico y deja que repose durante 24 horas.\n\nEspolvorea la encimera con un poco de harina. Retira la masa del frigorífico, espolvoréala con otro poco de harina y ponla sobre la encimera. Divide la masa en 5 porciones y aplástalas un poco (para desgasificarlas). Bolea cada trozo y forma con ellos 5 bollos alargados.\n\nColoca los bollos (dejando el pliegue hacia abajo) sobre una bandeja de horno cubierta con papel de hornear. Tápalos con un paño limpio de algodón y déjalos fermentar durante 2 horas. Greña los bollos (hazles unos cortes por la parte superior con una puntilla).\n\nCalienta el horno a 220 ºC, introduce la bandeja en el horno y vierte un vaso de agua en la base del horno. Baja la temperatura a 190 ºC y hornea los bollos durante 10 minutos. Abre el horno para que se vaya el vapor. Cierra el horno de nuevo y hornéalos durante 15 minutos más. Retira los bollos del horno, colócalos sobre una rejilla y deja que se enfríen.\n\nSirve.",
             "filtros": {
-                "vegetariano": false,
+                "vegetariano": true,
                 "gluten_free": false
             },
             "ingredientes": [
@@ -6652,6 +8241,78 @@
                     "nombre": "Sal",
                     "cantidad": "11.0",
                     "unidad": "g"
+                }
+            ]
+        },
+        {
+            "nombre": "Pan casero",
+            "pagina": "",
+            "elaboracion": "Disuelve la levadura en el agua templada. Mezcla la harina con la sal en un bol grande y añade el agua poco a poco.\n\nAmasa durante 10 minutos hasta que la masa esté lisa y elástica. Tápala y deja que doble su volumen en un lugar templado, 1 hora aproximadamente.\n\nDesgasifica la masa, dale forma de hogaza y déjala levar otros 45 minutos sobre una bandeja enharinada.\n\nHornea a 230 ºC con un recipiente con agua en la base del horno durante 30-35 minutos. Deja enfriar sobre una rejilla.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": false
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Harina de fuerza",
+                    "cantidad": "500",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Agua",
+                    "cantidad": "320",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Levadura fresca",
+                    "cantidad": "10",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "10",
+                    "unidad": "g"
+                }
+            ]
+        },
+        {
+            "nombre": "Panecillos de queso",
+            "pagina": "",
+            "elaboracion": "Precalienta el horno a 200 ºC. Calienta la leche con el aceite y la sal hasta que hierva.\n\nVierte el líquido sobre el almidón de tapioca y mezcla con una cuchara hasta formar una masa pegajosa. Deja que se temple.\n\nAñade el huevo y el queso rallado y amasa con las manos hasta que la masa sea homogénea.\n\nForma bolitas del tamaño de una nuez, colócalas en una bandeja con papel de horno y hornea 20-25 minutos, hasta que estén doradas.",
+            "filtros": {
+                "vegetariano": true,
+                "gluten_free": true
+            },
+            "ingredientes": [
+                {
+                    "nombre": "Almidón de tapioca",
+                    "cantidad": "250",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Leche",
+                    "cantidad": "125",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Aceite de girasol",
+                    "cantidad": "60",
+                    "unidad": "mL"
+                },
+                {
+                    "nombre": "Huevo",
+                    "cantidad": "1",
+                    "unidad": "uds"
+                },
+                {
+                    "nombre": "Queso rallado",
+                    "cantidad": "120",
+                    "unidad": "g"
+                },
+                {
+                    "nombre": "Sal",
+                    "cantidad": "1",
+                    "unidad": "uds"
                 }
             ]
         }
