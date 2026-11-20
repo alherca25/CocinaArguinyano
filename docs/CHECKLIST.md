@@ -30,7 +30,9 @@ Leyenda: `[x]` hecho y probado · `[ ]` pendiente
 - [x] Escritorio: escritura atómica; no pisa la receta equivocada tras editar.
 
 ## Datos
-- [ ] **Ninguna receta está marcada como vegetariana o sin gluten** (tampoco lo estaba en el Excel original). Hay que marcarlas con el Gestor; hasta entonces esos filtros devuelven 0 recetas.
+- [x] Filtros vegetariano / sin gluten marcados en las 95 recetas originales según sus ingredientes (criterio en el README de `BaseDatosRecetas`).
+- [x] 31 recetas nuevas (sin página: no son del libro). Total: 126 recetas, 43 vegetarianas, 59 sin gluten.
+- [x] Copia offline `shared/data/CocinaArguinyano.json` sincronizada con la BD.
 
 ## Pendiente
 - [x] Probar ambos APK en un móvil real: instalados y funcionando.
