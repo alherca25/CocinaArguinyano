@@ -1,0 +1,4 @@
+# Para probar las apps móviles (Kivy) en el ordenador.
+# El APK se compila con Buildozer (ver README_android.md), no con este archivo.
+kivy==2.3.*
+certifi

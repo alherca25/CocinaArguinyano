@@ -1,7 +1,0 @@
-tkinter
-pandas
-requests
-io
-warnings
-numpy
-reportlab
