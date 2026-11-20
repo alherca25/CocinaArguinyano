@@ -59,6 +59,10 @@ Las recetas se guardan en un repositorio aparte que solo contiene datos: [**Base
 - **Recetario:** la ficha de cada receta y un buscador por todo el recetario.
 - **Sin conexión:** usa la última copia descargada o, si no hay ninguna, la copia que va dentro de la app.
 - **Compartir:** en el móvil, el menú y la lista se envían con el menú *Compartir* de Android (WhatsApp, correo…). En escritorio se exportan a PDF.
+- **Idiomas:** español e inglés, tanto la interfaz como las recetas. Usa el idioma del móvil y se puede cambiar en la app.
+- **Siempre al día:**
+  - las recetas nuevas aparecen al abrir la app;
+  - las versiones nuevas de la app se descargan e instalan desde la propia app, con **Buscar actualizaciones**.
 
 ### Gestor de Recetas
 - Añadir, editar, mover de categoría y borrar recetas.
@@ -71,7 +75,7 @@ Las recetas se guardan en un repositorio aparte que solo contiene datos: [**Base
 ### Android
 Descarga el APK del **Recetario** desde [Releases](../../releases). Ábrelo en el móvil, permitiendo «instalar apps desconocidas».
 
-Requiere Android 7.0 o superior en un móvil de 64 bits (arm64-v8a).
+Requiere Android 7.0 o superior en un móvil de 64 bits (arm64-v8a). Después, la app avisa sola cuando hay una versión nueva.
 
 ### Desde el código
 
@@ -128,11 +132,11 @@ Se compila con Buildozer en WSL. La guía completa, con los problemas conocidos 
 .\venvArguinyano\Scripts\python.exe tools\stage_android.py                 # Windows
 ```
 ```bash
-bash "/mnt/c/Disco D/GitHub/CocinaArguinyano/tools/wsl_build.sh" client    # WSL
-bash "/mnt/c/Disco D/GitHub/CocinaArguinyano/tools/wsl_build.sh" manager   # WSL
+bash "/mnt/c/Disco D/GitHub/CocinaArguinyano/tools/wsl_build.sh" client release   # WSL (Ubuntu-22.04)
+bash "/mnt/c/Disco D/GitHub/CocinaArguinyano/tools/wsl_build.sh" manager          # WSL (Ubuntu-22.04)
 ```
 
-Los APK quedan en `apk/`.
+Los APK quedan en `apk/`. El Recetario que se publica se firma con una clave propia, que se crea una sola vez con `tools/create_keystore.sh`; si no, Android rechaza las actualizaciones.
 
 ### Ejecutable de Windows (.exe)
 ```powershell
@@ -142,13 +146,18 @@ pyinstaller manager/desktop/gestor.spec   --distpath apk --workpath build/pyinst
 ```
 
 ### Publicar una versión
-Para publicar una versión del Recetario, crea y sube una etiqueta:
+1. Sube `__version__` en `client/mobile/recetario_app.py`.
+2. Compila en modo `release`.
+3. Crea la *Release* con el APK:
 
-```bash
-git tag v1.1.0 && git push --tags
+```powershell
+gh release create v1.3.1 apk\recetario-1.3.1-arm64-v8a-release.apk --title "Cocina Rápida 1.3.1" --notes "Novedades..."
 ```
 
-El workflow [`client.yml`](.github/workflows/client.yml) compila el APK y crea la *Release*. Necesita GitHub Actions activo en la cuenta; si no lo está, sube el APK a mano en *Releases*.
+Las apps instaladas la detectan y se ofrecen a actualizarse. Más detalles en [docs/ANDROID.md](docs/ANDROID.md#publicar-una-versión-del-recetario).
+
+### Traducciones
+La interfaz se traduce en `shared/i18n.py`. Las recetas se traducen en `BaseDatosRecetas/CocinaArguinyano.<idioma>.json`, que se mantiene con `tools/translate_db.py` (ver [docs/ANDROID.md](docs/ANDROID.md#traducciones)).
 
 ## Estructura del proyecto
 
@@ -156,6 +165,7 @@ El workflow [`client.yml`](.github/workflows/client.yml) compila el APK y crea l
 ├── client/                       Recetario (público)
 │   ├── mobile/recetario_app.py     app Kivy → APK
 │   ├── desktop/recetario_desktop.py app customtkinter → .exe
+│   ├── android/p4a_hook.py         añade el FileProvider para instalar actualizaciones
 │   └── buildozer.spec
 ├── manager/                      Gestor de Recetas (privado)
 │   ├── mobile/gestor_app.py        app Kivy con pantalla de bloqueo → APK
@@ -163,11 +173,14 @@ El workflow [`client.yml`](.github/workflows/client.yml) compila el APK y crea l
 │   └── buildozer.spec
 ├── shared/                       código y recursos comunes
 │   ├── functions.py                datos, caché, filtros, menú, lista de la compra, API de GitHub
+│   ├── i18n.py                     textos de la interfaz (español / inglés)
+│   ├── recipe_translation.py       traducción de las recetas
+│   ├── updater.py                  actualización de la app desde GitHub Releases
 │   ├── mobile_ui.py                componentes visuales Kivy
 │   ├── desktop_theme.py            tema customtkinter
 │   ├── assets/                     logos e iconos
 │   └── data/                       copia de la BD para arrancar sin conexión
-├── tools/                        preparar y compilar APK, iconos, capturas
+├── tools/                        preparar/compilar/firmar APK, traducir recetas, iconos, capturas
 ├── tests/                        tests de la lógica
 ├── docs/                         ANDROID.md · CHECKLIST.md · screenshots/
 └── .github/workflows/            CI: client.yml · manager.yml · build-apk.yml

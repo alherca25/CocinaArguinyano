@@ -1,4 +1,5 @@
 """Tests de la lógica (sin red). Ejecutar desde la raíz:  python -m unittest discover tests"""
+import json
 import os
 import sys
 import tempfile
@@ -85,7 +86,7 @@ class FunctionsTests(unittest.TestCase):
     def test_cache_fallback(self):
         with tempfile.TemporaryDirectory() as d:
             cache = os.path.join(d, "c.json")
-            with mock.patch.object(functions, "load_recipes", side_effect=[DB]):
+            with mock.patch.object(functions, "download_recipes", side_effect=[DB]):
                 db, origin = functions.load_recipes_with_cache(cache)
             self.assertEqual(origin, "online")
             with mock.patch.object(functions, "http_request", side_effect=OSError("offline")):
@@ -94,6 +95,22 @@ class FunctionsTests(unittest.TestCase):
             with mock.patch.object(functions, "http_request", side_effect=OSError("offline")):
                 with self.assertRaises(RuntimeError):
                     functions.load_recipes_with_cache(os.path.join(d, "missing.json"))
+
+    def test_download_uses_api_then_uncached_raw(self):
+        body = json.dumps(DB).encode("utf-8")
+        with mock.patch.object(functions, "http_request", return_value=(200, body)) as req:
+            self.assertEqual(functions.download_recipes(), DB)
+        self.assertEqual(req.call_args[0][0], functions.DB_API_URL)
+
+        calls = []
+        def fake(url, **_):
+            calls.append(url)
+            if url == functions.DB_API_URL:
+                raise OSError("rate limit")
+            return 200, body
+        with mock.patch.object(functions, "http_request", side_effect=fake):
+            self.assertEqual(functions.download_recipes(), DB)
+        self.assertTrue(calls[1].startswith(functions.DB_RAW_URL + "?t="))
 
 
 class AccessTests(unittest.TestCase):

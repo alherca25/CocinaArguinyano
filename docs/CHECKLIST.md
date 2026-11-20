@@ -19,8 +19,14 @@ Leyenda: `[x]` hecho y probado · `[ ]` pendiente
 ## Recetario (client)
 - [x] Planificar → Mi menú (Platos / Compra) → Receta → Recetario con buscador; cambiar un plato; lista de la compra marcable y persistente.
 - [x] Funciona sin conexión (caché + copia de la BD incluida en el APK).
+- [x] Se actualiza sola (v1.2.0): descarga la BD por la API de GitHub (sin los 5 min de caché de `raw.githubusercontent.com`), vuelve a comprobarla al volver a la app tras más de 1 min en segundo plano, y tiene un botón «Actualizar recetario».
 - [x] Compartir con el menú nativo de Android (Intent).
 - [x] Escritorio: un mismo menú para Recetas y Compra; PDF en `Documentos\Cocina Rápida`.
+
+- [x] **Idiomas (v1.3.0):** interfaz y recetas en español e inglés. Por defecto el idioma del móvil, y se puede cambiar en la app. Las recetas en inglés están en `BaseDatosRecetas/CocinaArguinyano.en.json` (`tools/translate_db.py`).
+- [x] **Autoactualización (v1.3.0):** busca la última GitHub Release (una vez al día y con «Buscar actualizaciones»), descarga el APK comprobando el SHA‑256 y abre el instalador de Android.
+- [ ] Crear la clave de firma (`tools/create_keystore.sh client`), compilar 1.3.0 en `release`, desinstalar la versión debug e instalar la nueva.
+- [ ] Publicar la Release `v1.3.0` y probar la actualización real con una `v1.3.1`.
 
 ## Gestor (manager)
 - [x] **Pantalla de bloqueo:** sólo entra un token cuyo usuario tenga permiso de escritura sobre `BaseDatosRecetas`, comprobado en cada arranque; «Salir» borra el token.
@@ -37,4 +43,5 @@ Leyenda: `[x]` hecho y probado · `[ ]` pendiente
 ## Pendiente
 - [x] Probar ambos APK en un móvil real: instalados y funcionando.
 - [ ] Generar los `.exe` con PyInstaller y publicarlos (Release) si se quieren distribuir.
-- [ ] Publicar el APK del Recetario como Release cuando Actions funcione (o subirlo a mano en GitHub → Releases).
+- [ ] Publicar el APK del Recetario como Release (con `gh release create`, ver `docs/ANDROID.md`).
+- [ ] Más idiomas (catalán, euskera, gallego): una tabla en `shared/i18n.py` y la traducción de las recetas con `tools/translate_db.py`.

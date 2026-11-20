@@ -10,8 +10,11 @@ import json
 import os
 import random
 import ssl
+import time
 import urllib.error
 import urllib.request
+
+from i18n import _
 
 # ---------------------------------------------------------------------------
 # Constantes del proyecto
@@ -66,14 +69,48 @@ def load_recipes(source_path, is_local=False):
     return json.loads(body.decode("utf-8"))
 
 
-def load_recipes_with_cache(cache_path=None, fallback_paths=()):
-    """Descarga la BD de GitHub; si falla usa la caché y después copias locales.
+def _api_url(path):
+    return f"https://api.github.com/repos/{DB_REPO}/contents/{path}?ref={DB_BRANCH}"
 
-    Devuelve (recetas, origen) donde origen es "online", "cache" o "local".
+
+def _raw_url(path):
+    return f"https://raw.githubusercontent.com/{DB_REPO}/{DB_BRANCH}/{path}"
+
+
+DB_API_URL = _api_url(DB_PATH)
+
+
+def download_json(path=DB_PATH):
+    """Descarga la versión más reciente de un JSON de BaseDatosRecetas.
+
+    raw.githubusercontent.com guarda el archivo en caché 5 minutos, así que primero
+    se usa la API de GitHub (siempre al día). Si la API falla (p. ej. límite de 60
+    peticiones/hora por IP sin token), se usa la URL raw con un parámetro que evita
+    la caché.
+    """
+    try:
+        _, body = http_request(_api_url(path), headers={
+            "Accept": "application/vnd.github.raw+json", "User-Agent": "CocinaRapida"})
+        return json.loads(body.decode("utf-8"))
+    except Exception as exc:
+        print(f"API de GitHub no disponible ({exc}); se usa la URL raw")
+    _, body = http_request(f"{_raw_url(path)}?t={int(time.time())}",
+                           headers={"Cache-Control": "no-cache"})
+    return json.loads(body.decode("utf-8"))
+
+
+def download_recipes():
+    return download_json(DB_PATH)
+
+
+def load_recipes_with_cache(cache_path=None, fallback_paths=(), repo_path=DB_PATH):
+    """Descarga un JSON de GitHub; si falla usa la caché y después copias locales.
+
+    Devuelve (datos, origen) donde origen es "online", "cache" o "local".
     Lanza RuntimeError si no hay ninguna fuente disponible.
     """
     try:
-        db = load_recipes(DB_RAW_URL)
+        db = download_recipes() if repo_path == DB_PATH else download_json(repo_path)
         if cache_path:
             try:
                 os.makedirs(os.path.dirname(cache_path), exist_ok=True)
@@ -284,8 +321,9 @@ def format_page(value):
 def format_ingredient(ing):
     """{"nombre": "Tomate", "cantidad": "2", "unidad": "uds"} -> "2 uds Tomate"."""
     nombre = str(ing.get("nombre", "")).strip()
+    unidad = str(ing.get("unidad", "")).strip()
     prefix = " ".join(p for p in (format_quantity(ing.get("cantidad", "")),
-                                  str(ing.get("unidad", "")).strip()) if p and p != "nan")
+                                  _(unidad) if unidad else "") if p and p != "nan")
     return f"{prefix} {nombre}".strip() if prefix else nombre
 
 
@@ -305,7 +343,8 @@ def aggregate_ingredients(dishes):
             qty = parse_quantity(ing.get("cantidad", ""))
             key = (nombre.lower(), unidad.lower(), qty is None)
             entry = grouped.setdefault(key, {"nombre": nombre, "unidad": unidad,
-                                             "total": 0.0, "texts": []})
+                                             "total": 0.0, "texts": [],
+                                             "_id": ing.get("_id", "")})
             if qty is None:
                 text = str(ing.get("cantidad", "")).strip()
                 if text and text.lower() != "nan" and text not in entry["texts"]:
@@ -316,7 +355,10 @@ def aggregate_ingredients(dishes):
     result = []
     for (_, _, is_text), e in grouped.items():
         cantidad = ", ".join(e["texts"]) if is_text else format_quantity(e["total"])
-        result.append({"nombre": e["nombre"], "cantidad": cantidad, "unidad": e["unidad"]})
+        item = {"nombre": e["nombre"], "cantidad": cantidad, "unidad": e["unidad"]}
+        if e["_id"]:  # nombre original (español) si la receta estaba traducida
+            item["_id"] = e["_id"]
+        result.append(item)
     result.sort(key=lambda x: (x["nombre"].lower(), x["unidad"]))
     return result
 
@@ -326,24 +368,29 @@ def menu_to_text(dishes, title="Menú"):
     lines = [title.upper(), ""]
     for d in dishes:
         lines.append(f"* {d.get('nombre', '')}")
-        meta = d.get("Tipo", "")
+        meta = _(d.get("Tipo", "")) if d.get("Tipo") else ""
         page = format_page(d.get("pagina", ""))
         if page:
-            meta += f" · pág. {page}"
+            meta += " · " + _("pág. {page}").format(page=page)
         if meta:
             lines.append(f"  {meta}")
-        lines.append("  Ingredientes:")
+        lines.append("  " + _("Ingredientes") + ":")
         lines += [f"   - {format_ingredient(i)}" for i in d.get("ingredientes", [])]
         elab = str(d.get("elaboracion", "")).strip()
         if elab:
-            lines += ["  Elaboración:", "  " + elab.replace("\n", "\n  ")]
+            lines += ["  " + _("Elaboración") + ":", "  " + elab.replace("\n", "\n  ")]
         lines.append("")
     return "\n".join(lines).strip() + "\n"
 
 
 def item_key(item):
-    """Clave estable de un ingrediente de la lista de la compra."""
-    return f"{item.get('nombre', '').strip().lower()}|{item.get('unidad', '').strip()}"
+    """Clave estable de un ingrediente de la lista de la compra.
+
+    Usa el nombre original en español ("_id") si existe, para que lo marcado no se
+    pierda al cambiar de idioma.
+    """
+    name = item.get("_id") or item.get("nombre", "")
+    return f"{name.strip().lower()}|{item.get('unidad', '').strip()}"
 
 
 def shopping_to_text(items, title="Lista de la compra", checked=()):
@@ -352,6 +399,6 @@ def shopping_to_text(items, title="Lista de la compra", checked=()):
     for it in items:
         if item_key(it) in checked:
             continue
-        qty = " ".join(p for p in (it.get("cantidad", ""), it.get("unidad", "")) if p)
+        qty = " ".join(p for p in (it.get("cantidad", ""), _(it.get("unidad", "")) if it.get("unidad") else "") if p)
         lines.append(f"[ ] {it['nombre']}" + (f" — {qty}" if qty else ""))
     return "\n".join(lines).strip() + "\n"

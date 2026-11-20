@@ -7,7 +7,7 @@ package.name = recipemanager
 package.domain = org.alherca25
 source.dir = .
 source.include_exts = py,png,json
-version = 1.1.0
+version = 1.2.0
 
 # Python fijado a 3.11: ver buildozer_interface.spec.
 requirements = python3==3.11.9,hostpython3==3.11.9,kivy==2.3.1,certifi
